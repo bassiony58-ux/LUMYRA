@@ -13,18 +13,27 @@ import 'status_badge.dart';
 
 class ScanUploadDialog extends StatefulWidget {
   final bool isDoctor;
+  final void Function(String fileName, Uint8List fileBytes, String biRads, String finding)? onScanProcessed;
 
   const ScanUploadDialog({
     super.key,
     this.isDoctor = false,
+    this.onScanProcessed,
   });
 
-  static Future<void> show(BuildContext context, {bool isDoctor = false}) {
+  static Future<void> show(
+    BuildContext context, {
+    bool isDoctor = false,
+    void Function(String fileName, Uint8List fileBytes, String biRads, String finding)? onScanProcessed,
+  }) {
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (ctx) => ScanUploadDialog(isDoctor: isDoctor),
+      builder: (ctx) => ScanUploadDialog(
+        isDoctor: isDoctor,
+        onScanProcessed: onScanProcessed,
+      ),
     );
   }
 
@@ -164,6 +173,13 @@ class _ScanUploadDialogState extends State<ScanUploadDialog> {
           _analysisResult = result;
           _isProcessing = false;
         });
+
+        widget.onScanProcessed?.call(
+          fileName,
+          Uint8List.fromList(fileBytes),
+          result.doctorDetails.biRadsClass,
+          result.doctorDetails.clinicalDiagnosis,
+        );
       }
     } catch (e) {
       if (mounted) {
