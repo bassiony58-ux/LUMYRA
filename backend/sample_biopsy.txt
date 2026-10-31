@@ -1,0 +1,10 @@
+PATIENT NAME: SARAH AHMED
+EXAMINATION: BREAST CORE NEEDLE BIOPSY (CNB)
+FINDINGS:
+Specimen consists of multiple cylindrical core biopsies showing infiltrating ductal carcinoma with marked pleomorphism.
+Contour is irregular and spiculated, consistent with BI-RADS 5 lesion.
+Estrogen Receptor: Positive (90%).
+Progesterone Receptor: Positive (75%).
+HER2/neu: Negative (Score 1+).
+Ki-67 Proliferation Index: 28%.
+RECOMMENDATION: Immediate surgical oncology consultation and staging.

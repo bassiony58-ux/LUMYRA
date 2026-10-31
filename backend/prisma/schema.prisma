@@ -1,0 +1,449 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  PATIENT
+  DOCTOR
+  ADMIN
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+  PENDING_APPROVAL
+}
+
+enum DoctorApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum AppointmentStatus {
+  SCHEDULED
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+}
+
+enum MedicationFrequency {
+  ONCE_DAILY
+  TWICE_DAILY
+  THREE_TIMES_DAILY
+  AS_NEEDED
+  CUSTOM
+}
+
+enum ScanCategory {
+  MAMMOGRAM
+  ULTRASOUND
+  MRI
+  BIOPSY_REPORT
+  LAB_REPORT
+  OTHER
+}
+
+enum ScanReviewStatus {
+  PENDING
+  SECONDARY_REVIEW_COMPLETED
+  CLINICIAN_REVIEWED
+}
+
+enum QualitativeRiskCategory {
+  AVERAGE
+  MODERATELY_INCREASED
+  HIGH
+}
+
+enum AuditAction {
+  LOGIN
+  LOGOUT
+  VIEW_PATIENT_RECORD
+  VIEW_JOURNAL
+  VIEW_SCAN
+  DOWNLOAD_SCAN
+  APPROVE_DOCTOR
+  REJECT_DOCTOR
+  CREATE_APPOINTMENT
+  UPDATE_MEDICATION
+  SUBMIT_RISK_ASSESSMENT
+  AI_CHAT_QUERY
+  SECONDARY_SCAN_REVIEW
+}
+
+enum AuditStatus {
+  SUCCESS
+  FAILURE
+  DENIED
+}
+
+model User {
+  id                String       @id @default(uuid())
+  firebaseUid       String       @unique
+  email             String       @unique
+  phoneNumber       String?
+  displayName       String
+  role              UserRole     @default(PATIENT)
+  status            UserStatus   @default(ACTIVE)
+  preferredLanguage String       @default("ar")
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+  deletedAt         DateTime?
+
+  patientProfile    PatientProfile?
+  doctorProfile     DoctorProfile?
+  authoredArticles  EducationalArticle[]
+  uploadedScans     MedicalScan[]
+  chatConversations AiConversation[]
+  auditActions      AuditEvent[]
+
+  @@index([firebaseUid])
+  @@index([email])
+  @@index([role, status])
+}
+
+model PatientProfile {
+  id                     String    @id @default(uuid())
+  userId                 String    @unique
+  user                   User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  dateOfBirth            DateTime?
+  bloodType              String?
+  emergencyContactName   String?
+  emergencyContactPhone  String?
+  cancerStageHistory     String?
+  consentForCareTracking Boolean   @default(true)
+  consentTimestamp       DateTime  @default(now())
+  createdAt              DateTime  @default(now())
+  updatedAt              DateTime  @updatedAt
+
+  doctorAssignments      DoctorPatientAssignment[]
+  appointments           Appointment[]
+  medications            MedicationSchedule[]
+  journalEntries         JournalEntry[]
+  medicalScans           MedicalScan[]
+  riskAssessments        RiskAssessmentRequest[]
+
+  @@index([userId])
+}
+
+model DoctorProfile {
+  id                   String               @id @default(uuid())
+  userId               String               @unique
+  user                 User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  licenseNumber        String               @unique
+  syndicateCardNumber  String?
+  specialization       String
+  hospitalAffiliation  String
+  clinicAddress        String
+  clinicPhoneNumber    String
+  bio                  String?
+  approvalStatus       DoctorApprovalStatus @default(PENDING)
+  approvedAt           DateTime?
+  approvedByAdminId    String?
+  rejectionReason      String?
+  licenseDocumentKey   String?
+  createdAt            DateTime             @default(now())
+  updatedAt            DateTime             @updatedAt
+
+  patientAssignments   DoctorPatientAssignment[]
+  appointments         Appointment[]
+  prescriptions        MedicationSchedule[]
+  secondaryReviews     SecondaryScanReview[]
+  reviewedArticles     EducationalArticle[]
+
+  @@index([userId])
+  @@index([approvalStatus])
+  @@index([licenseNumber])
+}
+
+model DoctorPatientAssignment {
+  id         String         @id @default(uuid())
+  doctorId   String
+  doctor     DoctorProfile  @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+  patientId  String
+  patient    PatientProfile @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  isActive   Boolean        @default(true)
+  assignedAt DateTime       @default(now())
+  revokedAt  DateTime?
+  notes      String?
+
+  @@unique([doctorId, patientId])
+  @@index([doctorId, isActive])
+  @@index([patientId, isActive])
+}
+
+model MedicalCenter {
+  id          String   @id @default(uuid())
+  slug        String   @unique
+  nameAr      String
+  nameEn      String
+  type        String   // "HOSPITAL" | "CLINIC" | "SCREENING_CENTER"
+  governorate String
+  city        String
+  address     String
+  phoneNumber String
+  latitude    Float
+  longitude   Float
+  specialties String[]
+  provenance  String   // e.g. "hopecompanion-curated-dataset"
+  isVerified  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([governorate])
+  @@index([slug])
+}
+
+model Appointment {
+  id                       String            @id @default(uuid())
+  patientId                String
+  patient                  PatientProfile    @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  doctorId                 String
+  doctor                   DoctorProfile     @relation(fields: [doctorId], references: [id], onDelete: Restrict)
+  scheduledAt              DateTime
+  estimatedDurationMinutes Int               @default(30)
+  status                   AppointmentStatus @default(SCHEDULED)
+  reason                   String
+  clinicalNotes            String?
+  createdAt                DateTime          @default(now())
+  updatedAt                DateTime          @updatedAt
+
+  statusHistory            AppointmentStatusLog[]
+
+  @@index([patientId, scheduledAt])
+  @@index([doctorId, scheduledAt])
+  @@index([status])
+}
+
+model AppointmentStatusLog {
+  id            String            @id @default(uuid())
+  appointmentId String
+  appointment   Appointment       @relation(fields: [appointmentId], references: [id], onDelete: Cascade)
+  fromStatus    AppointmentStatus
+  toStatus      AppointmentStatus
+  changedById   String
+  changeReason  String?
+  changedAt     DateTime          @default(now())
+
+  @@index([appointmentId])
+}
+
+model MedicationSchedule {
+  id              String                   @id @default(uuid())
+  patientId       String
+  patient         PatientProfile           @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  prescribedById  String?
+  prescribedBy    DoctorProfile?           @relation(fields: [prescribedById], references: [id], onDelete: SetNull)
+  name            String
+  dosage          String
+  instructions    String
+  frequency       MedicationFrequency      @default(ONCE_DAILY)
+  timeOfDay       String[]
+  startDate       DateTime
+  endDate         DateTime?
+  isActive        Boolean                  @default(true)
+  reminderEnabled Boolean                  @default(true)
+  createdAt       DateTime                 @default(now())
+  updatedAt       DateTime                 @updatedAt
+
+  adherenceLogs   MedicationAdherenceLog[]
+
+  @@index([patientId, isActive])
+}
+
+model MedicationAdherenceLog {
+  id                   String             @id @default(uuid())
+  medicationScheduleId String
+  medicationSchedule   MedicationSchedule @relation(fields: [medicationScheduleId], references: [id], onDelete: Cascade)
+  scheduledTime        DateTime
+  takenAt              DateTime           @default(now())
+  wasTaken             Boolean            @default(true)
+  notes                String?
+
+  @@index([medicationScheduleId, scheduledTime])
+}
+
+model EducationalCategory {
+  id          String               @id @default(uuid())
+  slug        String               @unique
+  nameAr      String
+  nameEn      String
+  description String
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @updatedAt
+
+  articles    EducationalArticle[]
+
+  @@index([slug])
+}
+
+model EducationalArticle {
+  id                 String              @id @default(uuid())
+  slug               String              @unique
+  categoryId         String
+  category           EducationalCategory @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  authorId           String?
+  author             User?               @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  reviewerDoctorId   String?
+  reviewerDoctor     DoctorProfile?      @relation(fields: [reviewerDoctorId], references: [id], onDelete: SetNull)
+  titleAr            String
+  titleEn            String
+  summaryAr          String
+  summaryEn          String
+  contentMarkdownAr  String
+  contentMarkdownEn  String
+  mediaUrl           String?
+  readTimeMinutes    Int                 @default(5)
+  isPublished        Boolean             @default(false)
+  publishedAt        DateTime?
+  medicalReviewNotes String?
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+
+  @@index([categoryId, isPublished])
+  @@index([slug])
+}
+
+model JournalEntry {
+  id                         String         @id @default(uuid())
+  patientId                  String
+  patient                    PatientProfile @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  entryDate                  DateTime       @default(now())
+  content                    String
+  mood                       String         // "happy" | "neutral" | "sad"
+  sentimentScore             Float          @default(0.0)
+  symptoms                   String[]
+  isSharedWithAssignedDoctor Boolean        @default(false)
+  createdAt                  DateTime       @default(now())
+  updatedAt                  DateTime       @updatedAt
+
+  @@index([patientId, entryDate])
+}
+
+model MedicalScan {
+  id                 String                @id @default(uuid())
+  patientId          String
+  patient            PatientProfile        @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  uploadedByUserId   String
+  uploadedByUser     User                  @relation(fields: [uploadedByUserId], references: [id], onDelete: Restrict)
+  category           ScanCategory
+  scanDate           DateTime
+  storageKey         String                @unique // Never public URL, private object key
+  originalFilename   String
+  mimeType           String
+  fileSizeBytes      Int
+  modalityDetails    Json?
+  reviewStatus       ScanReviewStatus      @default(PENDING)
+  doctorNotes        String?
+  createdAt          DateTime              @default(now())
+  updatedAt          DateTime              @updatedAt
+
+  secondaryReviews   SecondaryScanReview[]
+
+  @@index([patientId, scanDate])
+  @@index([storageKey])
+}
+
+model SecondaryScanReview {
+  id                     String        @id @default(uuid())
+  scanId                 String
+  scan                   MedicalScan   @relation(fields: [scanId], references: [id], onDelete: Cascade)
+  requestedByDoctorId    String
+  requestedByDoctor      DoctorProfile @relation(fields: [requestedByDoctorId], references: [id], onDelete: Restrict)
+  providerName           String        // e.g. "mock-vision-v1"
+  modelVersion           String        // e.g. "1.0.0-sample"
+  isDemonstrationData    Boolean       @default(true)
+  observationsPayload    Json          // Structured visual observations (density, symmetry, notes)
+  clinicalDisclaimer     String        // Explicit non-diagnostic disclaimer
+  reviewedAt             DateTime      @default(now())
+  physicianSignOffNotes  String?
+
+  @@index([scanId])
+  @@index([requestedByDoctorId])
+}
+
+model RiskAssessmentRequest {
+  id                   String                  @id @default(uuid())
+  patientId            String
+  patient              PatientProfile          @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  questionnaireVersion String                  @default("1.0.0-guided")
+  answersPayload       Json                    // Structured inputs
+  status               String                  @default("COMPLETED")
+  createdAt            DateTime                @default(now())
+
+  results              RiskAssessmentResult[]
+
+  @@index([patientId, createdAt])
+}
+
+model RiskAssessmentResult {
+  id                      String                  @id @default(uuid())
+  requestId               String
+  request                 RiskAssessmentRequest   @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  calculatorModelName     String                  // e.g. "mock-guided-stratification-v1"
+  calculatorModelVersion  String                  // e.g. "1.0.0"
+  isDemonstrationData     Boolean                 @default(true)
+  qualitativeRiskCategory QualitativeRiskCategory @default(AVERAGE)
+  resultsPayload          Json                    // Versioned breakdown
+  guidanceRecommendations String[]
+  clinicalReviewNotice    String
+  calculatedAt            DateTime                @default(now())
+
+  @@index([requestId])
+}
+
+model AiConversation {
+  id        String      @id @default(uuid())
+  userId    String
+  user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  isActive  Boolean     @default(true)
+  isPrivate Boolean     @default(true)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  messages  AiMessage[]
+
+  @@index([userId, isActive])
+}
+
+model AiMessage {
+  id                         String         @id @default(uuid())
+  conversationId             String
+  conversation               AiConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  senderRole                 String         // "user" | "assistant" | "system"
+  content                    String
+  providerName               String?
+  modelVersion               String?
+  isMockResponse             Boolean        @default(false)
+  safetyEscalationTriggered  Boolean        @default(false)
+  sentAt                     DateTime       @default(now())
+
+  @@index([conversationId, sentAt])
+}
+
+model AuditEvent {
+  id             String      @id @default(uuid())
+  actorUserId    String?
+  actorUser      User?       @relation(fields: [actorUserId], references: [id], onDelete: SetNull)
+  actorRole      UserRole
+  action         AuditAction
+  targetEntity   String
+  targetEntityId String
+  status         AuditStatus @default(SUCCESS)
+  ipAddress      String
+  userAgent      String
+  metadata       Json?
+  createdAt      DateTime    @default(now())
+
+  @@index([actorUserId, createdAt])
+  @@index([action, createdAt])
+  @@index([targetEntity, targetEntityId])
+}

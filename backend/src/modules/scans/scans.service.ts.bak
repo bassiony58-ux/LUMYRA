@@ -1,0 +1,360 @@
+import { execFile } from 'child_process';
+import * as path from 'path';
+import * as fs from 'fs';
+import * as os from 'os';
+import { randomUUID } from 'crypto';
+import {
+  Injectable,
+  NotFoundException,
+  ForbiddenException,
+  BadRequestException,
+  Logger,
+} from '@nestjs/common';
+import { PrismaService } from '../../common/prisma/prisma.service';
+import { StorageService } from '../../common/storage/storage.service';
+import { AuditService } from '../audit/audit.service';
+import { AccessControlService } from '../../common/services/access-control.service';
+import { AuthenticatedUser, UserRole, DoctorApprovalStatus } from '../../common/interfaces/authenticated-user.interface';
+import { RequestUploadGrantDto, RegisterScanDto, CreateDoctorReviewDto, ScanReviewStatus } from './dto/scan.dto';
+import { AuditAction } from '@prisma/client';
+
+@Injectable()
+export class ScansService {
+  private readonly logger = new Logger(ScansService.name);
+
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly storage: StorageService,
+    private readonly audit: AuditService,
+    private readonly accessControl: AccessControlService,
+  ) {}
+
+  async requestUploadGrant(user: AuthenticatedUser, dto: RequestUploadGrantDto) {
+    if (user.role !== UserRole.PATIENT || !user.patientProfileId) {
+      throw new ForbiddenException('Only patients can request scan upload grants.');
+    }
+
+    const grant = await this.storage.getUploadSignedUrl(
+      user.patientProfileId,
+      dto.filename,
+      dto.mimeType,
+    );
+
+    return {
+      uploadUrl: grant.uploadUrl,
+      storageKey: grant.storageKey,
+      expiresAt: grant.expiresAt,
+      instructions:
+        'Upload your encrypted medical image binary directly via HTTP PUT to uploadUrl before expiresAt. Never transmit image files through open channels.',
+    };
+  }
+
+  async registerScan(user: AuthenticatedUser, dto: RegisterScanDto) {
+    if (user.role !== UserRole.PATIENT || !user.patientProfileId) {
+      throw new ForbiddenException('Only patients can register their medical scans.');
+    }
+
+    const expectedPrefix = `patients/${user.patientProfileId}/`;
+    if (!dto.storageKey.startsWith(expectedPrefix)) {
+      throw new BadRequestException('Invalid storageKey prefix. Security violation.');
+    }
+
+    const scan = await this.prisma.medicalScan.create({
+      data: {
+        patientId: user.patientProfileId,
+        uploadedByUserId: user.id,
+        category: dto.category,
+        originalFilename: dto.originalFilename,
+        storageKey: dto.storageKey,
+        mimeType: dto.mimeType,
+        fileSizeBytes: dto.fileSizeBytes,
+        scanDate: new Date(dto.scanDate),
+        doctorNotes: dto.doctorNotes || null,
+        reviewStatus: ScanReviewStatus.PENDING,
+      },
+    });
+
+    await this.audit.logEvent({
+      action: AuditAction.VIEW_SCAN,
+      actorUserId: user.id,
+      actorRole: user.role,
+      targetEntity: 'MedicalScan',
+      targetEntityId: scan.id,
+      metadata: { action: 'REGISTER_SCAN', category: dto.category },
+    });
+
+    return scan;
+  }
+
+  async getSecureAccessUrl(id: string, user: AuthenticatedUser) {
+    const scan = await this.prisma.medicalScan.findUnique({
+      where: { id },
+    });
+
+    if (!scan) {
+      throw new NotFoundException(`Medical scan ${id} not found.`);
+    }
+
+    await this.accessControl.assertPatientAccess(user, scan.patientId);
+
+    const signed = await this.storage.getReadSignedUrl(scan.storageKey, 900);
+
+    await this.audit.logEvent({
+      action: AuditAction.DOWNLOAD_SCAN,
+      actorUserId: user.id,
+      actorRole: user.role,
+      targetEntity: 'MedicalScan',
+      targetEntityId: scan.id,
+      metadata: { expiresAt: signed.expiresAt },
+    });
+
+    return {
+      scanId: scan.id,
+      category: scan.category,
+      signedUrl: signed.url,
+      expiresAt: signed.expiresAt,
+      validDurationSeconds: 900,
+      securityNotice:
+        'This URL is strictly private, time-limited, and will expire in 15 minutes. It must not be cached, forwarded, or shared publicly.',
+    };
+  }
+
+  async submitDoctorReview(id: string, user: AuthenticatedUser, dto: CreateDoctorReviewDto) {
+    if (user.role !== UserRole.DOCTOR) {
+      throw new ForbiddenException('Only doctors can submit clinical scan reviews.');
+    }
+
+    if (user.doctorStatus !== DoctorApprovalStatus.APPROVED || !user.doctorProfileId) {
+      throw new ForbiddenException('Doctor license not approved.');
+    }
+
+    const scan = await this.prisma.medicalScan.findUnique({ where: { id } });
+    if (!scan) {
+      throw new NotFoundException(`Medical scan ${id} not found.`);
+    }
+
+    await this.accessControl.assertPatientAccess(user, scan.patientId);
+
+    const review = await this.prisma.secondaryScanReview.create({
+      data: {
+        scanId: id,
+        requestedByDoctorId: user.doctorProfileId,
+        providerName: 'clinical-doctor-review',
+        modelVersion: 'manual-signoff-v1',
+        isDemonstrationData: false,
+        observationsPayload: { notes: dto.clinicalObservations || 'Doctor manual signoff completed' },
+        clinicalDisclaimer: 'Clinical sign-off recorded by licensed physician.',
+        physicianSignOffNotes: dto.physicianSignOffNotes,
+      },
+    });
+
+    await this.prisma.medicalScan.update({
+      where: { id },
+      data: { reviewStatus: ScanReviewStatus.CLINICIAN_REVIEWED },
+    });
+
+    await this.audit.logEvent({
+      action: AuditAction.SECONDARY_SCAN_REVIEW,
+      actorUserId: user.id,
+      actorRole: user.role,
+      targetEntity: 'SecondaryScanReview',
+      targetEntityId: review.id,
+      metadata: { scanId: id },
+    });
+
+    return review;
+  }
+
+  async analyzeScan(user: AuthenticatedUser, dto: { fileName?: string; modelId?: string; role?: string }, file?: any) {
+    const isDoctor = (dto.role === 'DOCTOR') || (user.role === UserRole.DOCTOR);
+    const modelRunnerScript = path.join(process.cwd(), 'ml', 'model_runner.py');
+    const registryPath = path.join(process.cwd(), 'ml', 'models_registry.json');
+    const projectRoot = path.join(process.cwd(), '..');
+
+    let tempFilePath: string | null = null;
+    let imageToProcess: string | null = null;
+
+    if (file && file.buffer) {
+      const ext = path.extname(file.originalname || 'scan.png') || '.png';
+      tempFilePath = path.join(os.tmpdir(), `lumyra_scan_${randomUUID()}${ext}`);
+      fs.writeFileSync(tempFilePath, file.buffer);
+      imageToProcess = tempFilePath;
+    } else if (dto.fileName) {
+      const possibleFilePath = path.isAbsolute(dto.fileName) ? dto.fileName : path.join(projectRoot, dto.fileName);
+      if (fs.existsSync(possibleFilePath)) {
+        imageToProcess = possibleFilePath;
+      }
+    }
+
+    if (!imageToProcess) {
+      throw new BadRequestException('لم يتم استلام ملف صورة الفحص الطبي، يرجى رفع صورة صالحة');
+    }
+
+    let runnerOutput: any;
+    try {
+      runnerOutput = await new Promise((resolve, reject) => {
+        const args = [
+          modelRunnerScript,
+          '--image', imageToProcess!,
+          '--registry', registryPath,
+          '--root', projectRoot,
+        ];
+        if (dto.modelId) {
+          args.push('--model-id', dto.modelId);
+        }
+
+        execFile('python', args, { encoding: 'utf-8', timeout: 20000 }, (err, stdout, stderr) => {
+          if (err) {
+            this.logger.error(`Python runner execution error: ${stderr || err.message}`);
+            return reject(new BadRequestException(`تعذر استكمال تحليل صورة الفحص: ${stderr || err.message}`));
+          }
+          try {
+            const lines = stdout.trim().split('\n');
+            let parsed = null;
+            for (let i = lines.length - 1; i >= 0; i--) {
+              try {
+                parsed = JSON.parse(lines[i]);
+                break;
+              } catch (_) {}
+            }
+            if (!parsed) {
+              return reject(new BadRequestException('استجابة غير صالحة من نموذج الذكاء الاصطناعي'));
+            }
+            if (parsed.success === false) {
+              return reject(new BadRequestException(`خطأ في معالجة النموذج: ${parsed.errorMessage}`));
+            }
+            resolve(parsed);
+          } catch (parseErr) {
+            reject(new BadRequestException('فشل في قراءة مخرجات النموذج الطبي'));
+          }
+        });
+      });
+    } finally {
+      if (tempFilePath && fs.existsSync(tempFilePath)) {
+        try {
+          fs.unlinkSync(tempFilePath);
+        } catch (_) {}
+      }
+    }
+
+    const finding = runnerOutput.predictedClass;
+    const confidence = runnerOutput.confidence;
+    const probabilities = runnerOutput.probabilities;
+    const modelDetails = {
+      modelId: runnerOutput.modelId,
+      modelName: runnerOutput.modelName,
+      modality: runnerOutput.modality,
+      architecture: runnerOutput.modelArchitecture,
+      inputResolution: runnerOutput.inputResolution,
+      executionDurationMs: runnerOutput.executionDurationMs,
+      classes: runnerOutput.classes,
+    };
+
+    const facilities = [
+      {
+        name: 'مؤسسة بهية للاكتشاف المبكر وعلاج سرطان الثدي',
+        category: 'مركز رائد مجاني معتمد',
+        location: 'فرع الشيخ زايد / فرع الهرم، الجيزة',
+        phone: '0235831900',
+        hotline: '16602',
+      },
+      {
+        name: 'المعهد القومي للأورام - جامعة القاهرة',
+        category: 'مركز أكاديمي واستشاري حكومي',
+        location: 'شارع القصر العيني، فم الخليج، القاهرة',
+        phone: '0223654400',
+        hotline: '16198',
+      },
+      {
+        name: 'عيادة د. نور الخالدي (استشاري جراحة أورام الثدي)',
+        category: 'استشاري معتمد في شبكة لوميرا',
+        location: 'عيادات الصفا التخصصية، المهندسين',
+        phone: '01099887766',
+        hotline: '16870',
+      },
+    ];
+
+    if (isDoctor) {
+      let clinicalDiagnosis = `تصنيف النموذج: ${finding.toUpperCase()}`;
+      let pathologyNotes = `توزيع الاحتمالات: ${JSON.stringify(probabilities)}`;
+      let clinicalActions = ['مراجعة الصورة شعاعياً'];
+
+      if (finding === 'malignant') {
+        clinicalDiagnosis = 'اشتباه ورم خبيث (Malignant Lesion) • إشارة إكلينيكية موجبة من النموذج';
+        pathologyNotes = `احتمالية الخباثة: ${((probabilities?.malignant ?? 0) * 100).toFixed(1)}%. يوصى بمطابقة سريرية وشعاعية فورية وطلب خزعة نسيجية (Core Needle Biopsy) عند تأكيد الاشتباه.`;
+        clinicalActions = [
+          'طلب فحص شعاعي تكميلي / رنين مغناطيسي',
+          'تقييم الحاجة لخزعة موجهة بالأشعة (CNB)',
+          'عرض الحالة في اجتماع أورام متعدد التخصصات (MDT)',
+        ];
+      } else if (finding === 'benign') {
+        clinicalDiagnosis = 'تغيرات حميدة مستقرة (Benign Finding / Fibroadenoma)';
+        pathologyNotes = `احتمالية التغير الحميد: ${((probabilities?.benign ?? 0) * 100).toFixed(1)}%. معالم التقرير تتوافق مع التغيرات الليفية أو الكيسية الحميدة المستقرة.`;
+        clinicalActions = ['متابعة روتينية بعد ٦ أشهر'];
+      } else if (finding === 'normal') {
+        clinicalDiagnosis = 'أنسجة طبيعية وسليمة (Normal Tissue)';
+        pathologyNotes = `احتمالية النسيج الطبيعي: ${((probabilities?.normal ?? 0) * 100).toFixed(1)}%. لا توجد مؤشرات كتلية شاذة.`;
+        clinicalActions = ['الفحص الدوري السنوي المعتاد'];
+      }
+
+      return {
+        role: 'DOCTOR',
+        finding,
+        confidencePercent: confidence,
+        probabilities,
+        modelDetails,
+        clinicalDiagnosis,
+        biRadsClass: 'يتطلب تقييم شعاعي سريري مستقل',
+        pathologyNotes,
+        clinicalActions,
+      };
+    } else {
+      if (finding === 'malignant') {
+        return {
+          role: 'PATIENT',
+          status: 'ACTION_REQUIRED',
+          finding,
+          confidencePercent: confidence,
+          probabilities,
+          modelDetails,
+          headline: 'توجيه طبي عاجل • يوصى باستشارة سريرية فورية 🌸',
+          badgeText: 'استشارة سريرية مطلوبة',
+          requiresUrgentDoctorVisit: true,
+          message:
+            'توضح قراءة الفحص وجود تغيرات نسيجية غير نمطية تستلزم فحصاً سريرياً دقيقاً واستكمال بعض الفحوصات لدى استشاري أورام متخصص للاطمئنان التام على صحتكِ. لا داعي لأي قلق؛ فالفحص المبكر دائماً هو خطوة الأمان الأولى. ننصحكِ بالتواصل مع أحد المراكز المعتمدة أدناه.',
+          recommendedFacilities: facilities,
+        };
+      } else if (finding === 'benign') {
+        return {
+          role: 'PATIENT',
+          status: 'REASSURING',
+          finding,
+          confidencePercent: confidence,
+          probabilities,
+          modelDetails,
+          headline: 'نتيجة مطمئنة • تغيرات حميدة مستقرة 🌸',
+          badgeText: 'تغيرات حميدة مطمئنة',
+          requiresUrgentDoctorVisit: false,
+          message:
+            'أظهر الفحص تغيرات نسيجية حميدة ومستقرة تماماً (مثل أورام الألياف الحميدة أو أكياس السوائل الشائعة). حالتكِ مطمئنة جداً ولا يوجد ما يدعو للقلق، ويُنصح بمتابعة روتينية بعد ٦ أشهر.',
+          recommendedFacilities: facilities,
+        };
+      } else {
+        return {
+          role: 'PATIENT',
+          status: 'CLEAR',
+          finding,
+          confidencePercent: confidence,
+          probabilities,
+          modelDetails,
+          headline: 'فحص سليم وطبيعي تماماً 🌸',
+          badgeText: 'أنسجة طبيعية وسليمة',
+          requiresUrgentDoctorVisit: false,
+          message:
+            'فحصكِ سليم ومطمئن تماماً والأنسجة تبدو بحالة ممتازة وطبيعية. نوصيكِ بالاستمرار في نمط حياتكِ الصحي والمواظبة على الفحص الدوري السنوي.',
+          recommendedFacilities: facilities,
+        };
+      }
+    }
+  }
+}

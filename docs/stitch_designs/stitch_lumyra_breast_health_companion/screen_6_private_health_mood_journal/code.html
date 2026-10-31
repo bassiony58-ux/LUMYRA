@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface-container": "#fdeae4", "secondary-fixed-dim": "#ecbabf", "error-container": "#ffdad6", "primary": "#7f2738", "secondary-container": "#fecad0", "tertiary": "#7f2737", "on-background": "#231916", "on-primary": "#ffffff", "on-surface": "#231916", "background": "#fff8f6", "on-error-container": "#93000a", "surface-container-lowest": "#ffffff", "secondary-fixed": "#ffd9dd", "inverse-primary": "#ffb2ba", "on-tertiary-fixed": "#400010", "inverse-on-surface": "#ffede7", "primary-fixed": "#ffd9dc", "tertiary-container": "#9e3e4e", "primary-container": "#9e3e4e", "on-tertiary-fixed-variant": "#7f2737", "primary-fixed-dim": "#ffb2ba", "on-secondary-container": "#7a5358", "surface-container-low": "#fff1ec", "surface-tint": "#9e3e4e", "error": "#ba1a1a", "on-tertiary-container": "#ffccd0", "surface-variant": "#f1dfd9", "surface-container-high": "#f7e4de", "tertiary-fixed": "#ffd9dc", "outline": "#887273", "on-tertiary": "#ffffff", "secondary": "#7b5459", "on-error": "#ffffff", "on-primary-container": "#ffccd0", "inverse-surface": "#392e2a", "tertiary-fixed-dim": "#ffb2ba", "outline-variant": "#dbc0c2", "on-secondary": "#ffffff", "on-secondary-fixed": "#2f1318", "surface-bright": "#fff8f6", "surface-container-highest": "#f1dfd9", "on-secondary-fixed-variant": "#613d42", "surface-dim": "#e8d6d0", "on-primary-fixed-variant": "#7f2738", "on-surface-variant": "#554244", "on-primary-fixed": "#400011", "surface": "#fff8f6" }, "borderRadius": { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" }, "spacing": { "space-xs": "0.25rem", "space-sm": "0.5rem", "space-md": "1rem", "gutter-lg": "2rem", "space-lg": "1.5rem", "margin-md": "2rem", "margin": "1rem", "space-xl": "2rem", "gutter": "1rem", "margin-lg": "3rem", "gutter-md": "1.5rem" }, "fontFamily": { "label-sm": ["Cairo", "Plus Jakarta Sans", "sans-serif"], "title-md": ["Cairo", "Plus Jakarta Sans", "sans-serif"], "label-md": ["Cairo", "Plus Jakarta Sans", "sans-serif"], "headline-sm": ["Cairo", "Plus Jakarta Sans", "sans-serif"], "label-lg": ["Cairo", "Plus Jakarta Sans", "sans-serif"], "body-md": ["Cairo", "Plus Jakarta Sans", "sans-serif"], "display-lg": ["Cairo", "Plus Jakarta Sans", "sans-serif"], "body-sm": ["Cairo", "Plus Jakarta Sans", "sans-serif"], "headline-lg": ["Cairo", "Plus Jakarta Sans", "sans-serif"], "display-lg-mobile": ["Cairo", "Plus Jakarta Sans", "sans-serif"], "body-lg": ["Cairo", "Plus Jakarta Sans", "sans-serif"], "headline-md": ["Cairo", "Plus Jakarta Sans", "sans-serif"] }, "fontSize": { "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "500" }], "title-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "600" }], "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }], "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "600" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "display-lg": ["40px", { "lineHeight": "48px", "fontWeight": "700" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "headline-lg": ["28px", { "lineHeight": "36px", "fontWeight": "600" }], "display-lg-mobile": ["32px", { "lineHeight": "40px", "fontWeight": "700" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }] } } } };</script><style>@layer base{html,body{width:100vw;margin:0;padding:0;font-family:'Cairo',sans-serif;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head><body class="bg-surface font-body-md text-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/85 backdrop-blur-xl shadow-[0_4px_20px_rgba(85,66,67,0.04)]"><div class="h-20 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-xs"><img alt="Lumyra Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEI2fV0ZSXVb07soO5iCwpKBMjOuha2abgORDxAbeOQGaQlUWZyby0o_-XRd9qYRZ4KLS7WjHI2n5dzTVVNMrID-xjgELHzJdornPc9rV5Vb5fr1AFcqINV-xFHEwqAp5mteNkmRdZWvmjCj4k8an-P6b6uBV-ar9XDPsQ7F8xINfI8T_rhnTFYqTiGtaMhnPN8BBIwN_h3KhxTg3ESrFxWnPltgb2xWAq4zky5-k_0kU8qSSPDzcoDQ"/><div class="flex flex-col"><span class="font-title-md text-title-md text-primary leading-none">لوميرا</span><span class="font-label-sm text-label-sm text-on-surface-variant font-normal leading-none hidden">Home</span></div></div><div class="inline-flex items-center p-1 rounded-full bg-surface-container-low shadow-[inset_0_1px_3px_rgba(85,66,67,0.06)]"><button class="px-space-sm py-1 rounded-full font-label-sm text-label-sm bg-primary text-on-primary transition-all shadow-sm">العربية</button><button class="px-space-sm py-1 rounded-full font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-all">EN</button></div><div class="flex items-center gap-space-xs"><button aria-label="التنبيهات" class="relative w-11 h-11 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container-low transition-colors"><span class="material-symbols-outlined text-[24px]">notifications</span><span class="absolute top-2 left-2 w-2.5 h-2.5 rounded-full bg-secondary-fixed ring-2 ring-surface"></span></button><div class="w-11 h-11 flex items-center justify-center"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-primary-fixed" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAriQhA50q7DkhKLAdtJ-EA78Bv6AmIagJgvR1w9PwuiMV0P-1DvmAo3Q6OfMKjPd9FHrXDhMjqpvxOKPovdIl0BeOStEm1cW2YP172Z27TjXp-hniiwNZxj5grMZ-f-_cgHmXdy6FPSzYPT0nn91TTqzHGo79jkZEcJK7NamCXOPUj7V4PTJgwzBYxFknxWMO6jgkL6Idm8b1MaoVJIyH4zYI4Xc0zkaiwS7ZrE8WsCYP6LbqsFpplsw"/></div></div></div></header><main class="flex flex-col relative w-full pt-20 pb-28 px-margin bg-surface flex-grow"><div class="flex flex-col w-full gap-space-lg">
+<!-- Header & Warm Affirmation -->
+<div class="flex flex-col gap-space-xs">
+<div class="inline-flex items-center gap-space-xs self-start px-3 py-1 rounded-full bg-secondary-container/40 text-on-secondary-container font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">spa</span>
+<span>رعاية واعية ومستمرة</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tight">
+      يوميات المشاعر والأعراض الخاصة
+    </h1>
+<p class="font-body-md text-body-md text-on-surface-variant">
+      مساحتكِ الآمنة للتدوين اليومي ومتابعة التغيرات الجسدية والنفسية بكل راحة وطمأنينة.
+    </p>
+</div>
+<!-- Privacy Shield Banner (Notice Box) -->
+<div class="flex items-start gap-space-md p-space-md rounded-lg bg-surface-container-low shadow-sm">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-primary flex-shrink-0">
+<span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">encrypted</span>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-1.5 text-primary font-label-lg text-label-lg">
+<span>مساحة مشفرة وخاصة بكِ تماماً</span>
+<span class="material-symbols-outlined text-[16px]">verified_user</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+        لا يمكن لأي شخص أو طبيب الاطلاع على هذه التدوينات إلا إذا قمتِ بتفعيل مفتاح المشاركة المخصص لكل تدوين على حدة.
+      </p>
+</div>
+</div>
+<!-- New Journal Entry Interactive Form -->
+<div class="flex flex-col gap-space-lg p-space-lg rounded-lg bg-surface-container-lowest shadow-[0_4px_20px_rgba(85,66,67,0.06)]">
+<!-- Entry Date Header -->
+<div class="flex items-center justify-between pb-space-sm bg-surface-container-low/50 -mx-space-lg -mt-space-lg p-space-md rounded-t-lg">
+<div class="flex items-center gap-space-xs text-primary font-label-lg text-label-lg">
+<span class="material-symbols-outlined text-[18px]">calendar_month</span>
+<span>اليوم، الأربعاء 24 أكتوبر 2026</span>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container text-on-secondary-container font-label-sm text-label-sm">
+        تدوين جديد
+      </span>
+</div>
+<!-- Section 1: Mood Index -->
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<label class="font-title-md text-title-md text-on-surface font-semibold">
+          كيف تشعرين اليوم؟
+        </label>
+<span class="font-label-sm text-label-sm text-on-surface-variant">مؤشر المزاج والراحة</span>
+</div>
+<!-- 5 Emoji Pill Selection Grid -->
+<div class="grid grid-cols-5 gap-1.5" id="mood-selector">
+<!-- Mood 1 (Selected) -->
+<button class="mood-btn flex flex-col items-center justify-center p-2 rounded-2xl bg-secondary-container/60 text-primary transition-all shadow-sm" data-selected="true" type="button">
+<span class="text-2xl mb-1">😊</span>
+<span class="font-label-sm text-label-sm font-semibold text-center leading-tight">مرتاحة</span>
+</button>
+<!-- Mood 2 -->
+<button class="mood-btn flex flex-col items-center justify-center p-2 rounded-2xl bg-surface-container-low text-on-surface-variant hover:bg-surface-container transition-all" data-selected="false" type="button">
+<span class="text-2xl mb-1">😌</span>
+<span class="font-label-sm text-label-sm text-center leading-tight">مطمئنة</span>
+</button>
+<!-- Mood 3 -->
+<button class="mood-btn flex flex-col items-center justify-center p-2 rounded-2xl bg-surface-container-low text-on-surface-variant hover:bg-surface-container transition-all" data-selected="false" type="button">
+<span class="text-2xl mb-1">😟</span>
+<span class="font-label-sm text-label-sm text-center leading-tight">قلقة</span>
+</button>
+<!-- Mood 4 -->
+<button class="mood-btn flex flex-col items-center justify-center p-2 rounded-2xl bg-surface-container-low text-on-surface-variant hover:bg-surface-container transition-all" data-selected="false" type="button">
+<span class="text-2xl mb-1">🥱</span>
+<span class="font-label-sm text-label-sm text-center leading-tight">إرهاق</span>
+</button>
+<!-- Mood 5 -->
+<button class="mood-btn flex flex-col items-center justify-center p-2 rounded-2xl bg-surface-container-low text-on-surface-variant hover:bg-surface-container transition-all" data-selected="false" type="button">
+<span class="text-2xl mb-1">😣</span>
+<span class="font-label-sm text-label-sm text-center leading-tight">ألم</span>
+</button>
+</div>
+</div>
+<!-- Section 2: Symptoms Multi-select -->
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<label class="font-title-md text-title-md text-on-surface font-semibold">
+          هل تلاحظين أي أعراض موضعية؟
+        </label>
+<span class="font-label-sm text-label-sm text-on-surface-variant">اختيار متعدد</span>
+</div>
+<div class="flex flex-wrap gap-2" id="symptom-tags">
+<!-- Chip 1 (Active) -->
+<button class="symptom-chip flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-primary text-on-primary font-label-md text-label-md shadow-sm transition-all" data-active="true" type="button">
+<span class="material-symbols-outlined text-[16px]">check</span>
+<span>طبيعي تماماً</span>
+</button>
+<!-- Chip 2 -->
+<button class="symptom-chip flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-surface-container-low text-on-surface-variant font-label-md text-label-md hover:bg-surface-container transition-all" data-active="false" type="button">
+<span>حساسية أو ألم طفيف</span>
+</button>
+<!-- Chip 3 -->
+<button class="symptom-chip flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-surface-container-low text-on-surface-variant font-label-md text-label-md hover:bg-surface-container transition-all" data-active="false" type="button">
+<span>ثقل أو احتقان</span>
+</button>
+<!-- Chip 4 -->
+<button class="symptom-chip flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-surface-container-low text-on-surface-variant font-label-md text-label-md hover:bg-surface-container transition-all" data-active="false" type="button">
+<span>تغير في ملمس الجلد</span>
+</button>
+<!-- Chip 5 -->
+<button class="symptom-chip flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-surface-container-low text-on-surface-variant font-label-md text-label-md hover:bg-surface-container transition-all" data-active="false" type="button">
+<span>أعراض جانبية للدواء</span>
+</button>
+</div>
+</div>
+<!-- Section 3: Thoughts & Journaling Textarea -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<label class="font-title-md text-title-md text-on-surface font-semibold" for="journal-notes">
+          خواطركِ وتدويناتكِ الحرة
+        </label>
+<span class="material-symbols-outlined text-[18px] text-tertiary">edit_note</span>
+</div>
+<div class="relative">
+<textarea class="w-full p-space-md rounded-2xl bg-surface-container-lowest text-on-surface font-body-md text-body-md placeholder-on-surface-variant/50 focus:outline-none focus:ring-2 focus:ring-primary/20 bg-surface-container-low/40 resize-none leading-relaxed transition-all" id="journal-notes" placeholder="اكتبي هنا كل ما تشعرين به بحرية تامة... مشاعركِ، تساؤلاتكِ، أو ملاحظات تودين تذكرها..." rows="4">أشعر بطمأنينة اليوم بعد انتظامي على جرعة التاموكسيفين وممارسة رياضة المشي الخفيفة في الصباح. لا يوجد أي ألم غير معتاد.</textarea>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant text-left">تم الحفظ تلقائياً في المسودة</span>
+</div>
+<!-- Section 4: Privacy & Doctor-Sharing Toggle -->
+<div class="flex items-center justify-between p-space-md rounded-2xl bg-surface-container-low">
+<div class="flex items-start gap-space-sm max-w-[80%]">
+<div class="w-9 h-9 rounded-full bg-secondary-container flex items-center justify-center text-primary flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[20px]">stethoscope</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">
+            مشاركة هذا التدوين مع طبيبتي المعتمدة
+          </span>
+<span class="font-label-sm text-label-sm text-primary font-medium">د. نور الخالدي</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+            سيظهر فقط في لوحة المتابعة السريرية عند زيارتكِ القادمة.
+          </p>
+</div>
+</div>
+<!-- Toggle Switch (Active by default) -->
+<button aria-pressed="true" class="w-13 h-7 flex items-center bg-primary rounded-full p-1 cursor-pointer transition-colors flex-shrink-0 shadow-inner" id="doctor-share-toggle" type="button">
+<div class="bg-surface-container-lowest w-5 h-5 rounded-full shadow-md transform -translate-x-6 transition-transform flex items-center justify-center" id="toggle-handle">
+<span class="material-symbols-outlined text-[14px] text-primary" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+</button>
+</div>
+<!-- Submit Button -->
+<button class="w-full h-[52px] rounded-full bg-primary text-on-primary font-label-lg text-label-lg flex items-center justify-center gap-space-xs shadow-md hover:bg-tertiary transition-all active:scale-[0.99]" id="save-entry-btn" type="button">
+<span class="material-symbols-outlined text-[20px]">bookmark_added</span>
+<span>حفظ التدوين في سجلي الخاص</span>
+</button>
+</div>
+<!-- Previous Journal Entries Timeline -->
+<div class="flex flex-col gap-space-md mt-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[22px]">history_edu</span>
+<h2 class="font-title-md text-title-md text-on-surface font-semibold">
+          سجل التدوينات السابقة
+        </h2>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">12 تدوينة محفوظة</span>
+</div>
+<!-- Timeline Filters -->
+<div class="flex items-center gap-2 overflow-x-auto pb-1" id="timeline-filters">
+<button class="px-4 py-1.5 rounded-full bg-primary text-on-primary font-label-md text-label-md shadow-sm whitespace-nowrap" type="button">
+        الكل (12)
+      </button>
+<button class="px-4 py-1.5 rounded-full bg-surface-container-low text-on-surface-variant font-label-md text-label-md hover:bg-surface-container whitespace-nowrap" type="button">
+        المشتركة مع الطبيبة (4)
+      </button>
+<button class="px-4 py-1.5 rounded-full bg-surface-container-low text-on-surface-variant font-label-md text-label-md hover:bg-surface-container whitespace-nowrap" type="button">
+        الخاصة فقط (8)
+      </button>
+</div>
+<!-- Entry Card 1: Shared with Doctor -->
+<div class="flex flex-col gap-space-sm p-space-md rounded-2xl bg-surface-container-lowest shadow-[0_4px_20px_rgba(85,66,67,0.04)]">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant">21 أكتوبر 2026</span>
+<span class="w-1 h-1 rounded-full bg-on-surface-variant/40"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">08:30 م</span>
+</div>
+<!-- Doctor Shared Badge -->
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary-container/60 text-primary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span>مشترك مع الطبيبة</span>
+</span>
+</div>
+<!-- Mood & Symptom Badges -->
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-surface-container-low text-on-surface font-label-sm text-label-sm">
+<span>😌</span>
+<span>مطمئنة</span>
+</span>
+<span class="inline-flex items-center px-2.5 py-1 rounded-xl bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm">
+          طبيعي تماماً
+        </span>
+</div>
+<!-- Snippet -->
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed line-clamp-2">
+        متابعة أسبوعية ممتازة بعد استشارة العيادة الأخيرة. أشعر بطاقة إيجابية وراحة بعد المشي المنتظم وتناول السوائل بكثرة.
+      </p>
+<div class="flex items-center justify-between pt-space-xs text-primary font-label-sm text-label-sm">
+<button class="flex items-center gap-1 hover:underline" type="button">
+<span>عرض التفاصيل الكاملة</span>
+<span class="material-symbols-outlined text-[16px]">arrow_back</span>
+</button>
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">bookmark</span>
+</div>
+</div>
+<!-- Entry Card 2: Private Only -->
+<div class="flex flex-col gap-space-sm p-space-md rounded-2xl bg-surface-container-lowest shadow-[0_4px_20px_rgba(85,66,67,0.04)]">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant">15 أكتوبر 2026</span>
+<span class="w-1 h-1 rounded-full bg-on-surface-variant/40"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">10:15 ص</span>
+</div>
+<!-- Private Lock Badge -->
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+<span>سري وخاص بي فقط</span>
+</span>
+</div>
+<!-- Mood & Symptom Badges -->
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-surface-container-low text-on-surface font-label-sm text-label-sm">
+<span>😟</span>
+<span>قلقة بعض الشيء</span>
+</span>
+<span class="inline-flex items-center px-2.5 py-1 rounded-xl bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm">
+          أعراض جانبية للدواء
+        </span>
+</div>
+<!-- Snippet -->
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed line-clamp-2">
+        شعرت ببعض التعب بعد الجرعة، لكن تحسنت بعد شرب الماء والراحة لساعتين. سجلت الملاحظة لأتذكر طرحها في حال تكررت.
+      </p>
+<div class="flex items-center justify-between pt-space-xs text-primary font-label-sm text-label-sm">
+<button class="flex items-center gap-1 hover:underline" type="button">
+<span>عرض التفاصيل الكاملة</span>
+<span class="material-symbols-outlined text-[16px]">arrow_back</span>
+</button>
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">bookmark</span>
+</div>
+</div>
+</div>
+<!-- Reassuring Encouragement Tile -->
+<div class="flex items-center gap-space-md p-space-md rounded-2xl bg-secondary-container/40">
+<div class="w-12 h-12 rounded-full bg-surface-container-lowest flex items-center justify-center text-primary flex-shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[26px]">favorite</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg text-primary font-semibold">أنتِ تقومين بعمل رائع!</span>
+<p class="font-body-sm text-body-sm text-on-secondary-container leading-relaxed">
+        تسجيلكِ المستمر لمشاعركِ يعزز وعيكِ الصحي ويدعم رحلة عافيتكِ اليومية خطوة بخطوة.
+      </p>
+</div>
+</div>
+</div>
+<!-- Client-side Interactions for the Journal Screen -->
+<script>
+  // Ensure the bottom tab bar highlights the "اليوميات" (journal) tab
+  (function initJournalTab() {
+    const journalTab = document.querySelector('nav a[data-path="journal"]');
+    if (journalTab) {
+      document.querySelectorAll('nav a').forEach(el => {
+        el.classList.remove('bg-secondary-container', 'text-on-secondary-container', 'font-semibold', 'shadow-sm');
+        el.classList.add('text-on-surface-variant');
+      });
+      journalTab.classList.remove('text-on-surface-variant');
+      journalTab.classList.add('bg-secondary-container', 'text-on-secondary-container', 'font-semibold', 'shadow-sm');
+    }
+  })();
+
+  // Mood Selector Interactions
+  document.querySelectorAll('#mood-selector .mood-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#mood-selector .mood-btn').forEach(b => {
+        b.dataset.selected = "false";
+        b.className = "mood-btn flex flex-col items-center justify-center p-2 rounded-2xl bg-surface-container-low text-on-surface-variant hover:bg-surface-container transition-all";
+      });
+      btn.dataset.selected = "true";
+      btn.className = "mood-btn flex flex-col items-center justify-center p-2 rounded-2xl bg-secondary-container/60 text-primary transition-all shadow-sm";
+    });
+  });
+
+  // Symptom Tags Multi-select
+  document.querySelectorAll('#symptom-tags .symptom-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const isActive = chip.dataset.active === "true";
+      if (isActive) {
+        chip.dataset.active = "false";
+        chip.className = "symptom-chip flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-surface-container-low text-on-surface-variant font-label-md text-label-md hover:bg-surface-container transition-all";
+        const icon = chip.querySelector('.material-symbols-outlined');
+        if (icon) icon.remove();
+      } else {
+        chip.dataset.active = "true";
+        chip.className = "symptom-chip flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-primary text-on-primary font-label-md text-label-md shadow-sm transition-all";
+        const newIcon = document.createElement('span');
+        newIcon.className = "material-symbols-outlined text-[16px]";
+        newIcon.textContent = "check";
+        chip.prepend(newIcon);
+      }
+    });
+  });
+
+  // Doctor Share Toggle Switch Logic
+  const toggleBtn = document.getElementById('doctor-share-toggle');
+  const toggleHandle = document.getElementById('toggle-handle');
+  if (toggleBtn && toggleHandle) {
+    toggleBtn.addEventListener('click', () => {
+      const isPressed = toggleBtn.getAttribute('aria-pressed') === 'true';
+      if (isPressed) {
+        toggleBtn.setAttribute('aria-pressed', 'false');
+        toggleBtn.classList.remove('bg-primary');
+        toggleBtn.classList.add('bg-outline-variant');
+        toggleHandle.classList.remove('-translate-x-6');
+        toggleHandle.classList.add('translate-x-0');
+        toggleHandle.innerHTML = '<span class="material-symbols-outlined text-[14px] text-outline">close</span>';
+      } else {
+        toggleBtn.setAttribute('aria-pressed', 'true');
+        toggleBtn.classList.remove('bg-outline-variant');
+        toggleBtn.classList.add('bg-primary');
+        toggleHandle.classList.remove('translate-x-0');
+        toggleHandle.classList.add('-translate-x-6');
+        toggleHandle.innerHTML = '<span class="material-symbols-outlined text-[14px] text-primary" style="font-variation-settings: \'FILL\' 1;">check</span>';
+      }
+    });
+  }
+
+  // Save Entry Success Feedback
+  const saveBtn = document.getElementById('save-entry-btn');
+  if (saveBtn) {
+    saveBtn.addEventListener('click', () => {
+      const originalContent = saveBtn.innerHTML;
+      saveBtn.innerHTML = `
+        <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">done_all</span>
+        <span>تم حفظ التدوين بنجاح وخزن بأمان</span>
+      `;
+      saveBtn.classList.remove('bg-primary');
+      saveBtn.classList.add('bg-secondary-container', 'text-on-secondary-container');
+      
+      setTimeout(() => {
+        saveBtn.innerHTML = originalContent;
+        saveBtn.classList.remove('bg-secondary-container', 'text-on-secondary-container');
+        saveBtn.classList.add('bg-primary');
+      }, 2500);
+    });
+  }
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/90 backdrop-blur-xl shadow-[0_-4px_20px_rgba(85,66,67,0.05)]" data-active-classes="bg-secondary-container text-on-secondary-container font-semibold shadow-sm"><div class="flex justify-around items-center h-20 px-space-xs"><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 px-space-xs rounded-full text-on-surface-variant transition-all hover:text-on-surface" data-path="home" href="#"><span class="material-symbols-outlined text-[22px]">health_and_safety</span><span class="font-label-sm text-label-sm">الرئيسية</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 px-space-xs rounded-full text-on-surface-variant transition-all hover:text-on-surface" data-path="intake" href="#"><span class="material-symbols-outlined text-[22px]">assignment</span><span class="font-label-sm text-label-sm">الاستبيان</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 px-space-xs rounded-full text-on-surface-variant transition-all hover:text-on-surface" data-path="journal" href="#"><span class="material-symbols-outlined text-[22px]">favorite</span><span class="font-label-sm text-label-sm">اليوميات</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 px-space-xs rounded-full text-on-surface-variant transition-all hover:text-on-surface" data-path="care" href="#"><span class="material-symbols-outlined text-[22px]">calendar_today</span><span class="font-label-sm text-label-sm">المواعيد</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 px-space-xs rounded-full text-on-surface-variant transition-all hover:text-on-surface" data-path="ai-assistant" href="#"><span class="material-symbols-outlined text-[22px]">auto_awesome</span><span class="font-label-sm text-label-sm">المساعد</span></a></div></nav></body></html>

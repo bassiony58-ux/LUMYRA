@@ -1,0 +1,24 @@
+{
+  "defaultModelId": "breast_ultrasound_efficientnet_b0",
+  "models": {
+    "breast_ultrasound_efficientnet_b0": {
+      "id": "breast_ultrasound_efficientnet_b0",
+      "name": "Breast Ultrasound Classifier (EfficientNet-B0)",
+      "modality": "ULTRASOUND",
+      "runtime": "TFLITE",
+      "weightsPath": "assets/models/ultrasound_model.tflite",
+      "labelsPath": "assets/models/ultrasound_labels.txt",
+      "input": {
+        "colorMode": "RGB",
+        "targetSize": [224, 224],
+        "resampling": "bilinear",
+        "pixelRange": [0.0, 255.0],
+        "dtype": "float32"
+      },
+      "output": {
+        "type": "classification",
+        "isProbabilities": true
+      }
+    }
+  }
+}
