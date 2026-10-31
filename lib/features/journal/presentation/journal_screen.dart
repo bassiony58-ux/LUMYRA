@@ -6,6 +6,7 @@ import '../../../core/widgets/adaptive_scaffold.dart';
 import '../../../core/widgets/app_card.dart';
 import '../../../core/widgets/pill_button.dart';
 import '../../../core/widgets/status_badge.dart';
+import '../../../core/widgets/voice_note_widgets.dart';
 
 class JournalEntryItem {
   final String id;
@@ -15,6 +16,9 @@ class JournalEntryItem {
   final int painLevel;
   final List<String> tags;
   final String content;
+  final bool hasVoiceNote;
+  final int? voiceDurationSeconds;
+  final String? voiceNoteTitle;
 
   JournalEntryItem({
     required this.id,
@@ -24,6 +28,9 @@ class JournalEntryItem {
     required this.painLevel,
     required this.tags,
     required this.content,
+    this.hasVoiceNote = false,
+    this.voiceDurationSeconds,
+    this.voiceNoteTitle,
   });
 }
 
@@ -52,7 +59,10 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
       mood: '😔',
       painLevel: 4,
       tags: ['إرهاق', 'ألم خفيف بالثدي'],
-      content: 'شديدة الإرهاق مساء اليوم، هناك وخز بسيط في الجانب الأيمن. دونت ذلك لسؤال د. نور في زيارة المتابعة القادمة.',
+      content: 'شديدة الإرهاق مساء اليوم، هناك وخز بسيط في الجانب الأيمن. دونت ذلك وسجلت مقطع صوتي لسؤال د. نور في زيارة المتابعة القادمة.',
+      hasVoiceNote: true,
+      voiceDurationSeconds: 24,
+      voiceNoteTitle: 'تسجيل صوتي: وصف نوبات الوخز المسائية 🎙️',
     ),
     JournalEntryItem(
       id: 'entry-3',
@@ -70,6 +80,8 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
   final Set<String> _selectedTags = {'راحة'};
   final TextEditingController _noteController = TextEditingController();
   bool _isWritingNew = false;
+  bool _isRecordingVoice = false;
+  int? _recordedVoiceSeconds;
 
   final List<Map<String, String>> _moods = [
     {'emoji': '😊', 'labelAr': 'هادئة ومستقرة', 'labelEn': 'Calm & Stable'},
@@ -97,7 +109,27 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
   }
 
   void _saveNewEntry() {
-    if (_noteController.text.trim().isEmpty) return;
+    final text = _noteController.text.trim();
+    if (text.isEmpty && _recordedVoiceSeconds == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            context.isArabic
+                ? 'يرجى كتابة نص أو تسجيل فويس صوتي لحفظ التدوينة'
+                : 'Please type a note or record a voice entry',
+          ),
+          backgroundColor: AppColors.error,
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+      return;
+    }
+
+    final entryContent = text.isNotEmpty
+        ? text
+        : (context.isArabic
+            ? 'ملاحظة صوتية مسجلة: توثيق للأعراض والراحة اليومية 🎙️'
+            : 'Voice diary note: Recorded symptom & wellness check 🎙️');
 
     setState(() {
       _entries.insert(
@@ -109,10 +141,19 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
           mood: _selectedMood,
           painLevel: _painLevel.round(),
           tags: _selectedTags.toList(),
-          content: _noteController.text.trim(),
+          content: entryContent,
+          hasVoiceNote: _recordedVoiceSeconds != null,
+          voiceDurationSeconds: _recordedVoiceSeconds,
+          voiceNoteTitle: _recordedVoiceSeconds != null
+              ? (context.isArabic
+                  ? 'تسجيل صوتي لليوميات ($_recordedVoiceSeconds ث) 🎙️'
+                  : 'Voice Diary Entry (${_recordedVoiceSeconds}s) 🎙️')
+              : null,
         ),
       );
       _noteController.clear();
+      _recordedVoiceSeconds = null;
+      _isRecordingVoice = false;
       _isWritingNew = false;
     });
 
@@ -315,6 +356,66 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
                         ),
                       ),
                     ),
+                    const SizedBox(height: 16),
+
+                    // Voice Diary Note (Voice Recording Section)
+                    Text(
+                      context.isArabic ? 'تسجيل الأعراض صوتياً (فويس نوت):' : 'Voice Diary Note:',
+                      style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+                    ),
+                    const SizedBox(height: 8),
+                    if (_isRecordingVoice)
+                      VoiceRecorderBarWidget(
+                        onCancel: () => setState(() => _isRecordingVoice = false),
+                        onSend: (duration) {
+                          setState(() {
+                            _recordedVoiceSeconds = duration;
+                            _isRecordingVoice = false;
+                          });
+                        },
+                      )
+                    else if (_recordedVoiceSeconds != null)
+                      Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: AppColors.powderBackground,
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(color: AppColors.primary, width: 1.2),
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: VoiceNotePlayerWidget(
+                                durationSeconds: _recordedVoiceSeconds!,
+                                isMe: true,
+                                title: context.isArabic ? 'فويس اليوميات جاهز للحفظ 🎙️' : 'Voice Entry Ready 🎙️',
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            IconButton(
+                              icon: const Icon(Icons.delete_outline_rounded, color: AppColors.error),
+                              tooltip: context.isArabic ? 'حذف الفويس' : 'Delete Voice',
+                              onPressed: () => setState(() => _recordedVoiceSeconds = null),
+                            ),
+                          ],
+                        ),
+                      )
+                    else
+                      OutlinedButton.icon(
+                        style: OutlinedButton.styleFrom(
+                          side: const BorderSide(color: AppColors.primary, width: 1.2),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                        ),
+                        icon: const Icon(Icons.mic_rounded, color: AppColors.primary, size: 20),
+                        label: Text(
+                          context.isArabic
+                              ? 'تسجيل الأعراض والملاحظات بصوتكِ 🎙️'
+                              : 'Record Symptoms by Voice 🎙️',
+                          style: const TextStyle(fontWeight: FontWeight.w700, color: AppColors.primary, fontSize: 13),
+                        ),
+                        onPressed: () => setState(() => _isRecordingVoice = true),
+                      ),
                     const SizedBox(height: 18),
                     Row(
                       children: [
@@ -406,6 +507,15 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
                       entry.content,
                       style: const TextStyle(fontSize: 14, color: AppColors.mainText, height: 1.5),
                     ),
+                    if (entry.hasVoiceNote) ...[
+                      const SizedBox(height: 10),
+                      VoiceNotePlayerWidget(
+                        durationSeconds: entry.voiceDurationSeconds ?? 15,
+                        isMe: true,
+                        title: entry.voiceNoteTitle ??
+                            (context.isArabic ? 'تسجيل صوتي لليوميات 🎙️' : 'Encrypted Voice Entry 🎙️'),
+                      ),
+                    ],
                     if (entry.tags.isNotEmpty) ...[
                       const SizedBox(height: 12),
                       Wrap(

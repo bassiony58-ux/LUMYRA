@@ -588,6 +588,7 @@ class _MedicalCentersScreenState extends ConsumerState<MedicalCentersScreen> {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
+      useSafeArea: true,
       backgroundColor: Colors.transparent,
       builder: (ctx) => _SmartTransitModalSheet(
         center: center,
@@ -1059,10 +1060,13 @@ class _SmartTransitModalSheetState extends State<_SmartTransitModalSheet> {
                   style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.mainText),
                 ),
                 const SizedBox(height: 8),
-                Row(
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 6,
+                  crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                       decoration: BoxDecoration(
                         color: AppColors.powderBackground,
                         borderRadius: BorderRadius.circular(8),
@@ -1072,9 +1076,8 @@ class _SmartTransitModalSheetState extends State<_SmartTransitModalSheet> {
                         style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.primary),
                       ),
                     ),
-                    const SizedBox(width: 8),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(8),
@@ -1554,52 +1557,55 @@ class _SmartTransitModalSheetState extends State<_SmartTransitModalSheet> {
             ),
           ),
 
-          // Bottom Action Buttons
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: Row(
-              children: [
-                Expanded(
-                  child: ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.primary,
-                      foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(vertical: 12),
+          // Bottom Action Buttons with Safe Area padding
+          SafeArea(
+            top: false,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 10, 20, 16),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.primary,
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 13),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                      ),
+                      icon: const Icon(Icons.phone_in_talk_rounded, size: 18),
+                      label: Text(
+                        isAr ? 'اتصال بالمركز (${widget.center.phone})' : 'Call Center (${widget.center.phone})',
+                        style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 13),
+                      ),
+                      onPressed: () => widget.onCallPhone(widget.center.phone),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  OutlinedButton.icon(
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: AppColors.primary,
+                      side: const BorderSide(color: AppColors.primary, width: 1.5),
+                      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 13),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                     ),
-                    icon: const Icon(Icons.phone_in_talk_rounded, size: 18),
+                    icon: const Icon(Icons.copy_rounded, size: 18),
                     label: Text(
-                      isAr ? 'اتصال بالمركز (${widget.center.phone})' : 'Call Center (${widget.center.phone})',
-                      style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 13),
+                      isAr ? 'نسخ العنوان' : 'Copy',
+                      style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 12.5),
                     ),
-                    onPressed: () => widget.onCallPhone(widget.center.phone),
+                    onPressed: () {
+                      Clipboard.setData(ClipboardData(text: '${widget.center.name} - ${widget.center.address}'));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(isAr ? 'تم نسخ عنوان المركز بنجاح 📋' : 'Address copied to clipboard 📋'),
+                          backgroundColor: AppColors.primary,
+                          behavior: SnackBarBehavior.floating,
+                        ),
+                      );
+                    },
                   ),
-                ),
-                const SizedBox(width: 10),
-                OutlinedButton.icon(
-                  style: OutlinedButton.styleFrom(
-                    foregroundColor: AppColors.primary,
-                    side: const BorderSide(color: AppColors.primary, width: 1.5),
-                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                  ),
-                  icon: const Icon(Icons.copy_rounded, size: 18),
-                  label: Text(
-                    isAr ? 'نسخ العنوان' : 'Copy',
-                    style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 12.5),
-                  ),
-                  onPressed: () {
-                    Clipboard.setData(ClipboardData(text: '${widget.center.name} - ${widget.center.address}'));
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(isAr ? 'تم نسخ عنوان المركز بنجاح 📋' : 'Address copied to clipboard 📋'),
-                        backgroundColor: AppColors.primary,
-                        behavior: SnackBarBehavior.floating,
-                      ),
-                    );
-                  },
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],

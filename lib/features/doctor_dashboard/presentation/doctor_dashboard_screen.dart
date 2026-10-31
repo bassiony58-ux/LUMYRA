@@ -9,6 +9,7 @@ import '../../../core/widgets/app_card.dart';
 import '../../../core/widgets/pill_button.dart';
 import '../../../core/widgets/status_badge.dart';
 import '../../../core/widgets/scan_upload_dialog.dart';
+import '../../../core/widgets/clinical_chat_sheet.dart';
 import '../../auth/presentation/providers/auth_provider.dart';
 
 class DoctorDashboardScreen extends ConsumerStatefulWidget {
@@ -88,173 +89,10 @@ class _DoctorDashboardScreenState extends ConsumerState<DoctorDashboardScreen> {
   }
 
   Future<void> _openMessagingDialog({String? targetPatient}) async {
-    final isAr = context.isArabic;
-    final messageController = TextEditingController();
-    List<Map<String, dynamic>> chatMessages = [
-      {
-        'senderName': 'سارة أحمد',
-        'isDoctor': false,
-        'content': 'مساء الخير يا دكتور، قمت برفع نتيجة فحص السونار اليوم في التطبيق، هل النتيجة مطمئنة؟',
-        'time': '10:30 ص',
-      },
-      {
-        'senderName': 'د. نور الخالدي',
-        'isDoctor': true,
-        'content': 'أهلاً بكِ سارة، اطلعت على تقرير السونار الأخير، المؤشرات حميدة ومطمئنة تماماً ولا داعي للقلق. سنكتفي بالمتابعة الدورية بعد 6 أشهر.',
-        'time': '11:15 ص',
-      },
-    ];
-
-    await showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (ctx) => StatefulBuilder(
-        builder: (ctx, setModalState) => Container(
-          padding: EdgeInsets.only(
-            bottom: MediaQuery.of(ctx).viewInsets.bottom + 16,
-            left: 18,
-            right: 18,
-            top: 20,
-          ),
-          decoration: const BoxDecoration(
-            color: AppColors.whiteSurface,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-          ),
-          constraints: BoxConstraints(maxHeight: MediaQuery.of(ctx).size.height * 0.85),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: AppColors.powderBackground,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: const Icon(Icons.chat_bubble_outline_rounded, color: AppColors.primary, size: 24),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          isAr ? 'المحادثة السريرية المباشرة مع المريضة' : 'Clinical Chat with Patient',
-                          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: AppColors.primary),
-                        ),
-                        Text(
-                          targetPatient ?? (isAr ? 'سارة أحمد محمد (ملف رقم #4412)' : 'Sarah Ahmed (#4412)'),
-                          style: const TextStyle(fontSize: 12, color: AppColors.secondaryText),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              const Divider(height: 20),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: chatMessages.length,
-                  itemBuilder: (ctx, i) {
-                    final msg = chatMessages[i];
-                    final isDoc = msg['isDoctor'] == true;
-                    return Align(
-                      alignment: isDoc ? Alignment.centerLeft : Alignment.centerRight,
-                      child: Container(
-                        margin: const EdgeInsets.only(bottom: 10),
-                        padding: const EdgeInsets.all(12),
-                        constraints: BoxConstraints(maxWidth: MediaQuery.of(ctx).size.width * 0.75),
-                        decoration: BoxDecoration(
-                          color: isDoc ? AppColors.powderBackground : const Color(0xFFE8EEF5),
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(color: isDoc ? AppColors.softDustyBlush : Colors.transparent),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              msg['senderName'] ?? '',
-                              style: TextStyle(
-                                fontSize: 11,
-                                fontWeight: FontWeight.w700,
-                                color: isDoc ? AppColors.primary : const Color(0xFF1B4965),
-                              ),
-                            ),
-                            const SizedBox(height: 4),
-                            Text(
-                              msg['content'] ?? '',
-                              style: const TextStyle(fontSize: 13, height: 1.4),
-                            ),
-                            const SizedBox(height: 4),
-                            Align(
-                              alignment: Alignment.bottomRight,
-                              child: Text(
-                                msg['time'] ?? '',
-                                style: const TextStyle(fontSize: 10, color: AppColors.secondaryText),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-              const Divider(height: 16),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      controller: messageController,
-                      decoration: InputDecoration(
-                        hintText: isAr ? 'اكتب رسالة أو توجيهاً طبياً...' : 'Type clinical advice...',
-                        filled: true,
-                        fillColor: AppColors.powderBackground,
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(24),
-                          borderSide: BorderSide.none,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  IconButton(
-                    style: IconButton.styleFrom(
-                      backgroundColor: AppColors.primary,
-                      foregroundColor: Colors.white,
-                    ),
-                    icon: const Icon(Icons.send_rounded, size: 20),
-                    onPressed: () async {
-                      final text = messageController.text.trim();
-                      if (text.isEmpty) return;
-                      try {
-                        final client = ApiClient(tokenProvider: () => 'mock-doctor-uid:doctor@lumyra.test:DOCTOR');
-                        await client.post('/messages/send', body: {
-                          'recipientUserId': 'user-pat-01',
-                          'content': text,
-                        });
-                      } catch (_) {}
-
-                      setModalState(() {
-                        chatMessages.add({
-                          'senderName': 'د. نور الخالدي',
-                          'isDoctor': true,
-                          'content': text,
-                          'time': 'الآن',
-                        });
-                      });
-                      messageController.clear();
-                    },
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
+    await ClinicalChatSheet.show(
+      context,
+      isDoctor: true,
+      otherPartyName: targetPatient,
     );
   }
 

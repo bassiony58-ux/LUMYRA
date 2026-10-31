@@ -9,6 +9,7 @@ import '../../../core/widgets/app_card.dart';
 import '../../../core/widgets/pill_button.dart';
 import '../../../core/widgets/status_badge.dart';
 import '../../../core/widgets/scan_upload_dialog.dart';
+import '../../../core/widgets/clinical_chat_sheet.dart';
 import '../../auth/presentation/providers/auth_provider.dart';
 import '../domain/models/patient_dashboard_data.dart';
 import 'providers/patient_dashboard_provider.dart';
@@ -337,6 +338,10 @@ class PatientDashboardScreen extends ConsumerWidget {
                 );
               },
             ),
+            const SizedBox(height: 16),
+
+            // Doctor Direct Chat & Voice Notes Card
+            _buildDoctorChatCard(context),
             const SizedBox(height: 24),
 
             // 3. Upcoming Appointments & Medication Cards (Adaptive Grid / Row)
@@ -404,6 +409,73 @@ class PatientDashboardScreen extends ConsumerWidget {
               ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildDoctorChatCard(BuildContext context) {
+    final isAr = context.isArabic;
+    return AppCard(
+      padding: const EdgeInsets.all(18),
+      color: AppColors.powderBackground,
+      border: Border.all(color: AppColors.primary.withAlpha(80), width: 1.5),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: AppColors.primary,
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: const Icon(Icons.record_voice_over_rounded, color: Colors.white, size: 24),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    StatusBadge.blush(
+                      isAr ? 'مراسلة الطبيب • محادثة وفويسات' : 'Doctor Chat • Voice & Text',
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      isAr
+                          ? 'مراسلة أ.د. نور الخالدي 🩺'
+                          : 'Message Dr. Nour El-Khaledy 🩺',
+                      style: const TextStyle(
+                        fontSize: 15.5,
+                        fontWeight: FontWeight.w800,
+                        color: AppColors.primary,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      isAr
+                          ? 'استشاري جراحة أورام الثدي - تواصل سريري واستشارات صوتية'
+                          : 'Breast Oncology Consultant - Direct voice notes & chat',
+                      style: const TextStyle(fontSize: 11.5, color: AppColors.secondaryText),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          PillButton(
+            label: isAr ? 'فتح المحادثة وإرسال فويس' : 'Open Chat & Send Voice Note',
+            icon: Icons.mic_rounded,
+            onPressed: () {
+              ClinicalChatSheet.show(
+                context,
+                isDoctor: false,
+                otherPartyName: isAr ? 'أ.د. نور الخالدي' : 'Dr. Nour El-Khaledy',
+              );
+            },
+          ),
+        ],
       ),
     );
   }
