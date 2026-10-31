@@ -672,19 +672,27 @@ class _ImagingViewerScreenState extends ConsumerState<ImagingViewerScreen> {
                             ),
                             const SizedBox(width: 4),
                             // Actions: Rename and Delete
-                            IconButton(
-                              constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
-                              padding: EdgeInsets.zero,
-                              icon: const Icon(Icons.edit_outlined, size: 19, color: AppColors.primary),
-                              tooltip: context.isArabic ? 'إعادة تسمية' : 'Rename',
-                              onPressed: () => _handleRenameScan(scan),
-                            ),
-                            IconButton(
-                              constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
-                              padding: EdgeInsets.zero,
-                              icon: const Icon(Icons.delete_outline_rounded, size: 19, color: AppColors.error),
-                              tooltip: context.isArabic ? 'حذف الفحص' : 'Delete',
-                              onPressed: () => _handleDeleteScan(scan),
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                IconButton(
+                                  constraints: const BoxConstraints(minWidth: 26, minHeight: 26),
+                                  padding: EdgeInsets.zero,
+                                  visualDensity: VisualDensity.compact,
+                                  icon: const Icon(Icons.edit_outlined, size: 18, color: AppColors.primary),
+                                  tooltip: context.isArabic ? 'إعادة تسمية' : 'Rename',
+                                  onPressed: () => _handleRenameScan(scan),
+                                ),
+                                const SizedBox(width: 4),
+                                IconButton(
+                                  constraints: const BoxConstraints(minWidth: 26, minHeight: 26),
+                                  padding: EdgeInsets.zero,
+                                  visualDensity: VisualDensity.compact,
+                                  icon: const Icon(Icons.delete_outline_rounded, size: 18, color: AppColors.error),
+                                  tooltip: context.isArabic ? 'حذف الفحص' : 'Delete',
+                                  onPressed: () => _handleDeleteScan(scan),
+                                ),
+                              ],
                             ),
                           ],
                         ),

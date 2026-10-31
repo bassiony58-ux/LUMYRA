@@ -1,0 +1,58 @@
+﻿[
+    {
+        "id":  "currentAge",
+        "type":  "number",
+        "labelAr":  "العمر الحالي (بالسنوات)",
+        "labelEn":  "Current Age (in years)",
+        "descriptionAr":  "يساعد العمر في تحديد إرشادات الفحص السريري الدورية المناسبة.",
+        "descriptionEn":  "Age informs routine clinical examination schedules.",
+        "required":  true,
+        "min":  18,
+        "max":  100,
+        "titleAr":  "العمر الحالي (بالسنوات)",
+        "titleEn":  "Current Age (in years)",
+        "helpTextAr":  "يساعد العمر في تحديد إرشادات الفحص السريري الدورية المناسبة.",
+        "helpTextEn":  "Age informs routine clinical examination schedules.",
+        "isRequired":  true,
+        "options":  [
+
+                    ]
+    },
+    {
+        "id":  "menopausalStatus",
+        "type":  "single_select",
+        "labelAr":  "حالة انقطاع الطمث (الدورة الشهرية)",
+        "labelEn":  "Menopausal Status",
+        "required":  true,
+        "options":  [
+                        {
+                            "value":  "PRE_MENOPAUSAL",
+                            "labelAr":  "دورة شهرية منتظمة (قبل انقطاع الطمث)",
+                            "labelEn":  "Regular menstrual cycles (Premenopausal)"
+                        },
+                        {
+                            "value":  "PERI_MENOPAUSAL",
+                            "labelAr":  "مرحلة انتقالية أو دورة غير منتظمة",
+                            "labelEn":  "Transitional or irregular cycles (Perimenopausal)"
+                        },
+                        {
+                            "value":  "POST_MENOPAUSAL",
+                            "labelAr":  "انقطاع تام للدورة الشهرية (أكثر من سنة)",
+                            "labelEn":  "Natural menopause (no periods for \u003e 1 year)"
+                        },
+                        {
+                            "value":  "SURGICAL_MENOPAUSE",
+                            "labelAr":  "انقطاع ناتج عن جراحة استئصال المبايض",
+                            "labelEn":  "Surgical menopause (oophorectomy)"
+                        },
+                        {
+                            "value":  "UNSURE",
+                            "labelAr":  "غير متأكدة / غير محدد",
+                            "labelEn":  "Unsure / Not determined"
+                        }
+                    ],
+        "titleAr":  "حالة انقطاع الطمث (الدورة الشهرية)",
+        "titleEn":  "Menopausal Status",
+        "isRequired":  true
+    }
+]

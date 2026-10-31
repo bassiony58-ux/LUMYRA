@@ -92,7 +92,7 @@ class _AiAssistantScreenState extends ConsumerState<AiAssistantScreen> {
         'breast', 'lump', 'tumor', 'cyst', 'sonar', 'ultrasound', 'mammogram', 'biopsy',
         'nipple', 'discharge', 'pain', 'mastitis', 'cancer', 'fibroadenoma', 'tamoxifen', 'birads'
       ];
-      final isBreastRelated = breastKeywords.some((k) => q.contains(k));
+      final isBreastRelated = breastKeywords.any((k) => q.contains(k));
 
       if (!isBreastRelated) {
         response = isAr

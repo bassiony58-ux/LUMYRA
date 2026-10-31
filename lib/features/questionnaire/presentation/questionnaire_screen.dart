@@ -330,6 +330,47 @@ class QuestionnaireScreen extends ConsumerWidget {
     );
   }
 
+  String _getQuestionTitle(QuestionItem question, bool isAr) {
+    if (isAr) {
+      if (question.titleAr.trim().isNotEmpty && !question.titleAr.contains('???')) {
+        return question.titleAr;
+      }
+      if (question.titleEn.trim().isNotEmpty) return question.titleEn;
+    } else {
+      if (question.titleEn.trim().isNotEmpty && !question.titleEn.contains('???')) {
+        return question.titleEn;
+      }
+      if (question.titleAr.trim().isNotEmpty) return question.titleAr;
+    }
+    switch (question.id) {
+      case 'currentAge':
+        return isAr ? 'العمر الحالي (بالسنوات)' : 'Current Age (in years)';
+      case 'menopausalStatus':
+        return isAr ? 'حالة الدورة الشهرية وانقطاع الطمث' : 'Menopausal & Menstrual Status';
+      case 'ageAtMenarche':
+      case 'menarcheAge':
+        return isAr ? 'السن عند بداية أول دورة شهرية (البلوغ)' : 'Age at First Menstrual Period';
+      case 'parityAndPregnancy':
+      case 'firstLiveBirthAge':
+        return isAr ? 'تاريخ الحمل والولادة الأولى' : 'Pregnancy and First Full-Term Birth';
+      case 'breastfeedingHistory':
+        return isAr ? 'مدة الرضاعة الطبيعية الإجمالية' : 'Total Breastfeeding Duration';
+      case 'hormoneTherapy':
+        return isAr ? 'استخدام العلاجات الهرمونية أو حبوب منع الحمل' : 'Hormone Replacement Therapy or Contraceptive Use';
+      case 'familyHistoryBreastCancer':
+      case 'firstDegreeFamily':
+        return isAr ? 'التاريخ العائلي للإصابة بأورام الثدي' : 'Family History of Breast Cancer';
+      case 'breastBiopsyHistory':
+        return isAr ? 'هل سبق لكِ إجراء خزعة نسيجية سابقة؟' : 'Previous Breast Biopsy History';
+      case 'breastDensity':
+        return isAr ? 'كثافة أنسجة الثدي في الماموجرام' : 'Breast Density on Mammography';
+      case 'palpableLumpPresence':
+        return isAr ? 'ملاحظة أي كتلة عند الفحص اليدوي' : 'Palpable Lump Presence';
+      default:
+        return isAr ? 'السؤال السريري' : 'Clinical Question';
+    }
+  }
+
   Widget _buildSectionQuestionsCard(
     BuildContext context,
     WidgetRef ref,
@@ -376,7 +417,7 @@ class QuestionnaireScreen extends ConsumerWidget {
                     children: [
                       Expanded(
                         child: Text(
-                          isAr ? question.titleAr : question.titleEn,
+                          _getQuestionTitle(question, isAr),
                           style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: AppColors.mainText),
                         ),
                       ),
