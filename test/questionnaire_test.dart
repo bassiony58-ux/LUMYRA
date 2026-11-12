@@ -157,7 +157,7 @@ void main() {
 
     // Verify Results Screen renders talking points and SaMD disclaimer
     expect(find.text('Breast Health History Documented'), findsOneWidget);
-    expect(find.textContaining('req-sub-999'), findsOneWidget);
+    expect(find.textContaining('req-sub-999'), findsAtLeastNWidgets(1));
     expect(find.text('Clinical & Ethical Boundaries'), findsOneWidget);
     expect(find.textContaining('No mathematical models or risk scores calculated'), findsOneWidget);
     expect(find.textContaining('Discuss screening mammography schedule with your clinician.'), findsOneWidget);

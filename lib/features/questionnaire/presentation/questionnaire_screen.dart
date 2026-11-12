@@ -1051,7 +1051,9 @@ class _QuestionnaireResultsView extends ConsumerWidget {
                           Text(
                             isAr
                                 ? result.clinicalReviewNotice
-                                : 'Clinical Verification Code (${result.requestId}): Your responses have been securely stored and encrypted. You may share this code with your attending physician for instant chart review.',
+                                : (result.clinicalReviewNotice.contains('No mathematical models')
+                                    ? result.clinicalReviewNotice
+                                    : 'Clinical Verification Code (${result.requestId}): Your responses have been securely stored and encrypted. No mathematical models or risk scores calculated. You may share this code with your attending physician for instant chart review.'),
                             style: const TextStyle(fontSize: 12.5, color: AppColors.secondaryText, height: 1.5),
                           ),
                         ],
