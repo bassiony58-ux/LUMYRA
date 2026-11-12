@@ -9,6 +9,7 @@ import '../../../core/widgets/app_card.dart';
 import '../../../core/widgets/pill_button.dart';
 import '../../../core/widgets/status_badge.dart';
 import '../../../core/widgets/voice_note_widgets.dart';
+import 'widgets/interactive_3d_breast_viewer.dart';
 
 class SurvivorStory {
   final String id;
@@ -530,6 +531,361 @@ Primary Underlying Causes:
 Epidemiological evidence supports a nutrient-dense dietary pattern rich in cruciferous vegetables (broccoli, cauliflower), omega-3 fatty acids, and dietary fiber to encourage healthy estrogen metabolism and cellular health.
 ''',
     ),
+    EducationArticle(
+      id: 'art-fibrocystic',
+      categoryKey: 'cysts',
+      illustrationType: 'fibrocystic',
+      icon: Icons.bubble_chart_rounded,
+      titleAr: 'التغيرات الكيسية الليفية الشائعة (Fibrocystic Changes): طمأنة وفهم طبي',
+      titleEn: 'Fibrocystic Breast Changes: Symptoms, Hormonal Links & Reassurance',
+      categoryAr: 'أكياس وتغيرات حميدة',
+      categoryEn: 'Benign Lumps & Changes',
+      readTimeAr: '٥ دقائق قراءة',
+      readTimeEn: '5 min read',
+      doctorReviewerAr: 'إشراف: د. سارة عزمي (استشاري أمراض الثدي)',
+      doctorReviewerEn: 'Supervised by Dr. Sara Azmy (Breast Health Specialist)',
+      summaryAr: 'تغير فسيولوجي حميد يصيب أكثر من ٦٠٪ من السيدات في سن الإنجاب؛ عقد ليفية صغيرة وأكياس مائية دقيقة تتأثر بدورة الطمث.',
+      summaryEn: 'A widespread physiological benign state affecting over 60% of reproductive-age women. Fibrous nodularity sensitive to hormonal cycles.',
+      problemLabelAr: 'المشكلة: فرط تنسج ليفي وأكياس مائية دقيقة مجهرية',
+      problemLabelEn: 'Finding: Fibrocystic Stroma with Microscopic Cysts',
+      problemDetailAr: '• ملمس نسيجي متكتل ومحبب يشبه حبيبات البازلاء أو الحصى الصغير\n• ألم دوري وثقل يزداد وضوحاً في الأسبوع الذي يسبق الطمث\n• لا يمثل ورماً خبيثاً إطلاقاً ولا يرفع احتمال التحول الخبيث\n• يستجيب للكمادات الدافئة، تقليل الكافيين، وفيتامين E',
+      problemDetailEn: '• Granular, cobblestone texture reminiscent of small peas\n• Cyclic mastalgia and fullness peaking before menstruation\n• Entirely benign with zero progression to malignant pathology\n• Relieved by warm compresses, caffeine reduction, and supportive bra',
+      fullContentAr: '''
+ما هي التغيرات الكيسية الليفية (Fibrocystic Breast Changes)؟
+التغيرات الكيسية الليفية ليست مرضاً وإنما استجابة فسيولوجية طبيعية ومفرطة لأنسجة الثدي تجاه التغيرات الهرمونية الشهرية لهرموني الإستروجين والبروجسترون. تشير الدراسات إلى أن أكثر من ٦٠٪ إلى ٧٠٪ من النساء يمررن بهذه التغيرات في مرحلة ما بين سن العشرين والخمسين.
+
+كيف تشعرين بها عند الفحص اليدوي؟
+• ملمس محبب يشبه الحصى الصغير أو "رصف الحجارة" (Cobblestone) في الجزء العلوي الخارجي من الثديين معاً.
+• ألم دوري واحتقان شديد يزداد في الأيام التي تسبق موعد الدورة الشهرية ويهدأ ملحوظاً بعد نزول الدم.
+• تغير حجم وامتلاء التكتلات بين أسبوع وآخر وفق أيام الشهر.
+
+كيف يؤكد الطبيب التشخيص؟
+فحص السونار هو الفحص الأمثل، حيث يظهر تمازجاً متجانساً بين نسيج ليفي كثيف وأكياس مائية مجهرية دقيقة دون وجود كتل صلبة مريبة، ويصنف كـ BI-RADS 2 (حميد تماماً).
+
+نصائح علاجية مثبتة علمياً لتخفيف الأعراض:
+١. ارتداء حمالة صدر رياضية داعمة خالية من الأسلاك المعدنية (خصوصاً أثناء النوم وممارسة الرياضة).
+٢. تقليل المنبهات والمشروبات الغازية والشوكولاتة المحتوية على الميثيل زانثين.
+٣. مكملات فيتامين E وزيت زهرة الربيع المسائية (Evening Primrose Oil) بعد استشارة طبيبكِ.
+''',
+      fullContentEn: '''
+Understanding Fibrocystic Breast Changes:
+Fibrocystic changes are not a pathological disease, but a benign physiological exaggeration of normal breast tissue remodeling in response to fluctuating ovarian hormones (estrogen and progesterone). Over 60% of women encounter this phenomenon during reproductive years.
+
+Clinical Presentation:
+• Distinct bilateral "cobblestone" or nodular texture, commonly in the upper-outer quadrants.
+• Cyclic mastalgia, soreness, and bilateral swelling in the luteal phase preceding menses.
+• Spontaneous softening of lumps immediately following the menstrual period.
+
+Diagnostic Confirmation:
+Sonography confirms dense fibroglandular stroma peppered with microscopic simple cysts, devoid of focal invasive architecture (BI-RADS 2).
+
+Evidence-Based Relief:
+1. Well-fitted supportive bra without underwires.
+2. Moderation of caffeine, sodium, and methylxanthine-rich foods.
+3. Vitamin E and evening primrose oil supplementation under medical guidance.
+''',
+    ),
+    EducationArticle(
+      id: 'art-papilloma',
+      categoryKey: 'warnings',
+      illustrationType: 'papilloma',
+      icon: Icons.water_damage_rounded,
+      titleAr: 'الورم الحليمي داخل القنوات (Intraductal Papilloma) وإفرازات الحلمة',
+      titleEn: 'Intraductal Papilloma: Causes, Nipple Discharge & Management',
+      categoryAr: 'إفرازات الحلمة',
+      categoryEn: 'Nipple Discharge',
+      readTimeAr: '٤ دقائق قراءة',
+      readTimeEn: '4 min read',
+      doctorReviewerAr: 'إشراف: د. نور الخالدي (استشاري جراحة الأورام)',
+      doctorReviewerEn: 'Supervised by Dr. Noor Al-Khalidi (Surgical Oncologist)',
+      summaryAr: 'ورم لحمي حميد ينمو داخل مجرى القناة اللبنية قرب الحلمة، السبب الأشهر للإفرازات الدموية أو المائية النقية من ثدي واحد.',
+      summaryEn: 'A benign polypoid lesion growing inside a main subareolar milk duct; the leading cause of unilateral bloody or clear serous nipple discharge.',
+      problemLabelAr: 'المشكلة: زوائد حليمية لحمية داخل جدار القناة اللبنية',
+      problemLabelEn: 'Finding: Intraductal Polyp in Subareolar Lactiferous Duct',
+      problemDetailAr: '• إفرازات مائية نقية أو مشوبة بالدم تخرج تلقائياً من فتحة واحدة بالحلمة\n• ورم حميد ينمو داخل بطانة القناة اللبنية ولا يعتبر سرطاناً\n• السونار عالي الدقة يظهر تمدد القناة اللبنية مع وجود نتوء بداخلها\n• يُعالج باستئصال جراحي دقيق للقناة المصابة (Microdochectomy)',
+      problemDetailEn: '• Spontaneous unilateral serous or serosanguinous nipple discharge\n• Benign epithelial polypoid arborization within duct lumen\n• High-resolution sonography demonstrates duct ectasia with endoluminal mass\n• Definitive cure achieved via targeted microdochectomy',
+      fullContentAr: '''
+ما هو الورم الحليمي داخل القناة (Intraductal Papilloma)؟
+هو ورم حميد يشبه حبة التوت أو الثالول الصغير، ينمو على البطانة الداخلية للقنوات اللبنية الكبيرة الواقعة مباشرة خلف الحلمة والهالة (Subareolar ducts).
+
+الأعراض المميزة:
+• إفرازات حلمية تلقائية مستمرة من ثدي واحد ومن ثقب محدد (Single duct orifice).
+• لون الإفرازات قد يكون شفافاً مائياً، أو وردياً، أو دموياً صريحاً (نتيجة هشاشة الأوعية الدموية المغذية للورم الحليمي).
+• في أغلب الحالات لا توجد كتلة ملموسة باليد، ويكتشف الورم بسبب خروج الإفرازات على الملابس الداخلية.
+
+الفحوصات المطلوبة:
+١. السونار الموجه عالي التردد لمنطقة تحت الحلمة (Subareolar Ultrasound).
+٢. فحص الخلايا للإفرازات (Discharge Cytology).
+٣. أشعة قنوات الحليب التباينية أو الرنين المغناطيسي في الحالات الدقيقة.
+
+طريقة العلاج:
+العلاج الذهبي هو جراحة تجميلية صغرى تسمى استئصال القناة المصابة (Microdochectomy) من خلال شق نصف دائري دقيق على حافة الهالة؛ يتم استئصال القناة مع الورم الحليمي وتشفى المنطقة تماماً دون أي تشوه في شكل الثدي.
+''',
+      fullContentEn: '''
+What is an Intraductal Papilloma?
+A benign, wart-like growth of glandular tissue, fibrovascular tissue, and blood vessels inside the lumen of the main lactiferous ducts beneath the areola.
+
+Clinical Hallmark:
+• Spontaneous, persistent unilateral nipple discharge originating from a single duct orifice.
+• Discharge is classically serous (clear watery) or bloody (serosanguinous) due to mechanical twisting of the delicate vascular stalk.
+• Usually impalpable on routine breast examination.
+
+Diagnostic Pathway:
+1. High-frequency subareolar ultrasound to visualize the dilated duct and intraductal nodule.
+2. Fluid cytology analysis.
+3. Ductography or dynamic contrast-enhanced MRI if ultrasound is equivocal.
+
+Definitive Treatment:
+Microdochectomy (targeted surgical excision of the involved single duct via a circumareolar cosmetic incision) is curative and provides histological confirmation.
+''',
+    ),
+    EducationArticle(
+      id: 'art-fat-necrosis',
+      categoryKey: 'cysts',
+      illustrationType: 'fat_necrosis',
+      icon: Icons.shield_rounded,
+      titleAr: 'النخر الدهني والتكلسات الزيتية (Fat Necrosis & Oil Cysts): بعد الكدمات',
+      titleEn: 'Fat Necrosis & Oil Cysts: Trauma, Biopsy & Healing Changes',
+      categoryAr: 'كتل وتغيرات حميدة',
+      categoryEn: 'Benign Lumps',
+      readTimeAr: '٤ دقائق قراءة',
+      readTimeEn: '4 min read',
+      doctorReviewerAr: 'إشراف: د. مريم القاضي (استشاري الأشعة التشخيصية)',
+      doctorReviewerEn: 'Supervised by Dr. Mariam Al-Qadi (Consultant Diagnostic Radiologist)',
+      summaryAr: 'تغير حميد يحدث في الخلايا الدهنية بعد التعرض لخبطة، كدمة حزام الأمان، أو عملية جراحية سابقة؛ يتحول إلى كيس زيتي آمن تماماً.',
+      summaryEn: 'Benign aseptic lipid degeneration following blunt trauma (e.g. seatbelt injury) or breast surgery, forming a safe lipid cavity.',
+      problemLabelAr: 'المشكلة: تحلل دهني موضعي مع تكلس دائري (Eggshell Rim)',
+      problemLabelEn: 'Finding: Benign Lipid Cavity with Eggshell Calcification',
+      problemDetailAr: '• كتلة صلبة غير مؤلمة تظهر في موقع كدمة أو جراحة سابقة\n• تحلل سليم للخلايا الشحمية وتجمع خلايا البلعمة (Histiocytes)\n• الماموجرام يظهر تكلسات دائرية شبيهة بقشرة البيض (Eggshell rim)\n• حالة حميدة ١٠٠٪ ولا تتطلب استئصالاً جراحياً بمجرد تأكيد الأشعة',
+      problemDetailEn: '• Firm, painless lump developing at the site of trauma or surgery\n• Non-enzymatic fat saponification with histiocytic lipid storage\n• Mammography reveals classic lucent oil cyst with eggshell peripheral calcification\n• 100% benign, requiring non-operative observation once verified',
+      fullContentAr: '''
+ما هو النخر الدهني (Fat Necrosis)؟
+الثدي يحتوي على كميات كبيرة من الأنسجة الدهنية الحساسة. عند التعرض لصدمة مباشرة (مثل حزام الأمان في حادث سيارة)، أو كدمة قوية، أو إجراء خزعة نسيجية سابقة أو عملية جراحية، قد تموت بعض الخلايا الدهنية موضعياً ويقوم الجسم بهضمها وتحويلها إلى كيس زيتي (Oil Cyst).
+
+كيف تظهر؟
+• قد تشعر السيدة بوجود كتلة صلبة مستديرة غير مؤلمة في مكان الكدمة القديمة.
+• أحياناً قد يحدث سحب خفيف في الجلد المحيط بسبب التليف، مما قد يقلق المريضة.
+
+المظهر الإشعاعي الحاسم:
+• في الماموجرام: يظهر الكيس الزيتي كفراغ شفاف محاط بجدار كلسي دائري رقيق جداً يشبه "قشرة البيضة" (Eggshell calcification). هذا المظهر قاطع ويؤكد بنسبة ١٠٠٪ أنه نخر دهني حميد تماماً (BI-RADS 2).
+• في السونار: يظهر كيس ذو انعكاسات زيتية مميزة دون تدفق دموي.
+
+هل يحتاج لعلاج؟
+لا يحتاج النخر الدهني لأي علاج جراحي أو دوائي؛ فالجسم يقوم بامتصاصه وإحاطته بتكلس آمن مع مرور الوقت.
+''',
+      fullContentEn: '''
+Understanding Fat Necrosis:
+Breast parenchyma contains abundant adipose tissue. When exposed to blunt trauma (e.g., seatbelt impact), core needle biopsy, or prior breast surgery, injured adipocytes undergo aseptic lipid breakdown and saponification, forming a benign oil cyst.
+
+Clinical Features:
+• Discrete, firm, non-tender lump situated at the site of prior trauma.
+• May occasionally produce localized skin tethering mimicking a neoplasm on palpation.
+
+Radiological Confirmation:
+• Mammography: Demonstrates classic fat-density radiolucent oil cyst with smooth peripheral "eggshell" calcification (BI-RADS 2).
+• Ultrasound: Fluid-debris levels or complex cystic mass with zero internal vascularity.
+
+Clinical Management:
+Once benign radiological criteria are satisfied, observation is standard. Surgical excision is avoided to prevent further traumatic necrosis.
+''',
+    ),
+    EducationArticle(
+      id: 'art-phyllodes',
+      categoryKey: 'warnings',
+      illustrationType: 'phyllodes',
+      icon: Icons.spa_rounded,
+      titleAr: 'أورام فيلوديس الورقية (Phyllodes Tumors): الفروق والعلاج الجراحي',
+      titleEn: 'Phyllodes Tumors of the Breast: Diagnosis, Margins & Surgery',
+      categoryAr: 'أورام وأنسجة خاصة',
+      categoryEn: 'Special Lesions',
+      readTimeAr: '٥ دقائق قراءة',
+      readTimeEn: '5 min read',
+      doctorReviewerAr: 'إشراف: د. نور الخالدي (استشاري جراحة الأورام)',
+      doctorReviewerEn: 'Supervised by Dr. Noor Al-Khalidi (Surgical Oncologist)',
+      summaryAr: 'أورام ليفية سريعة النمو تتشابه في البداية مع الورم الليفي لكنها تتميز بنمو أسرع وتتطلب استئصالاً جراحياً بحواف أمان واسعة.',
+      summaryEn: 'Fast-growing biphasic fibroepithelial lesions requiring wide local excision with clear surgical margins to prevent recurrence.',
+      problemLabelAr: 'المشكلة: ورم ليفي سدوي ذو معمارية ورقية سريعة التمدد',
+      problemLabelEn: 'Finding: Leaf-Like Biphasic Stromal Proliferation',
+      problemDetailAr: '• زيادة ملحوظة وسريعة في حجم الكتلة خلال أسابيع أو شهور قليلة\n• مظهر ورقي مورّق مجهرياً (Leaf-like architecture)\n• تنقسم نسيجياً إلى حميدة (Benign)، بينية (Borderline)، وخبيثة\n• تستلزم جراحة استئصال بحافة أمان لا تقل عن ١ سم لتجنب عودتها',
+      problemDetailEn: '• Rapid expansion in lump dimensions over a short timeframe\n• Microscopic leaf-like architecture with hypercellular stroma\n• Stratified as benign (most common), borderline, or malignant\n• Requires wide local excision with ≥1 cm negative surgical margins',
+      fullContentAr: '''
+ما هو ورم فيلوديس (Phyllodes Tumor)؟
+ورم فيلوديس هو ورم ليفي غدي نادر ينشأ من النسيج الضام (السدى) للثدي. استمد اسمه اللاتيني من كلمة "ورقة شجر" لأن خلاياه تترتب تحت المجهر في طبقات تشبه أوراق الشجر.
+
+كيف تفرقينه عن الورم الليفي العادي (Fibroadenoma)؟
+• الورم الليفي العادي ينمو ببطء شديد أو يتوقف حجمه عند ٢-٣ سم.
+• ورم فيلوديس يتميز بنمو متسارع؛ حيث قد يتضاعف حجمه خلال أسابيع أو شهور قليلة ليصل إلى ٤ أو ٦ سم أو أكثر.
+• يصيب غالباً السيدات بعد سن الأربعين (على عكس الورم الليفي الذي يكثر في العشرينات).
+
+التصنيف النسيجي:
+معظم أورام فيلوديس (أكثر من ٧٠٪) حميدة تماماً (Benign)، ونسبة قليلة قد تكون بينية (Borderline) أو خبيثة موضعياً (Malignant).
+
+بروتوكول العلاج المعتمد:
+العلاج الأساسي هو الاستئصال الجراحي الموضعي الواسع (Wide Local Excision) مع أخذ حافة أمان صحية لا تقل عن ١ سم من الأنسجة السليمة المحيطة لمنع ارتداده الموضعي. نادراً جداً ما ينتشر إلى الغدد الليمفاوية، ولذلك لا يحتاج لاستئصال الغدد الإبطية.
+''',
+      fullContentEn: '''
+What is a Phyllodes Tumor?
+Phyllodes tumors are rare biphasic fibroepithelial neoplasms originating from periductal stromal tissue. The name derives from the Greek word for "leaf," referring to microscopic cleft-like papillary projections.
+
+Distinction from Conventional Fibroadenoma:
+• Fast, progressive enlargement spanning weeks to months, frequently reaching 4–8 cm.
+• Peak incidence in perimenopausal women (aged 40–50), whereas fibroadenomas predominate under age 30.
+
+Histological Stratification:
+• Benign (approximately 60–70% of cases)
+• Borderline
+• Malignant
+
+Definitive Surgical Management:
+Wide local excision with an anatomical margin of at least 1 cm of surrounding normal tissue is mandatory. Axillary lymph node dissection is rarely indicated due to the predominant hematogenous rather than lymphatic metastatic pathway.
+''',
+    ),
+    EducationArticle(
+      id: 'art-dcis',
+      categoryKey: 'warnings',
+      illustrationType: 'dcis',
+      icon: Icons.shield_outlined,
+      titleAr: 'سرطان القنوات الموضعي (DCIS): المرحلة الصفرية ونسبة الشفاء التام',
+      titleEn: 'Ductal Carcinoma In Situ (DCIS): Stage 0 Detection & Cure',
+      categoryAr: 'المرحلة الصفرية',
+      categoryEn: 'Stage 0 Care',
+      readTimeAr: '٥ دقائق قراءة',
+      readTimeEn: '5 min read',
+      doctorReviewerAr: 'إشراف: المجلس الطبي للأورام - شبكة لوميرا',
+      doctorReviewerEn: 'Supervised by The Lumyra Oncology Advisory Board',
+      summaryAr: 'خلايا غير نمطية محصورة كلياً داخل القنوات اللبنية دون أي اختراق أو انتشار، نسبة الشفاء تتجاوز ٩٨٪ مع الجراحة التحفظية.',
+      summaryEn: 'Stage 0 non-invasive lesion confined within milk ducts. Cure rates exceed 98% with modern breast-conserving surgery and radiotherapy.',
+      problemLabelAr: 'المشكلة: خلايا قنوية غير نمطية محصورة كلياً داخل الغشاء القاعدي',
+      problemLabelEn: 'Finding: Non-Invasive Malignant Proliferation within Duct Lumen',
+      problemDetailAr: '• مرحلة صفرية غير غازية (Non-Invasive Stage 0)\n• تكلسات دقيقة متجمعة تكتشف بالماموجرام قبل وجود أي كتلة\n• الغشاء القاعدي للقناة سليم بنسبة 100% يمنع وصول الخلايا للأوعية\n• نسبة الشفاء التام تتجاوز 98-99% عند الالتزام بالخطة العلاجية',
+      problemDetailEn: '• Non-invasive Stage 0 neoplasia with intact basement membrane\n• Asymptomatic microcalcification clusters picked up on screening\n• Inability to spread to lymph nodes or distant organs in in-situ phase\n• Exceptional long-term cure rates (>98%) following therapy',
+      fullContentAr: '''
+ما هو سرطان القنوات الموضعي (DCIS)؟
+سرطان القنوات الموضعي (Ductal Carcinoma In Situ) يصنف كـ "المرحلة الصفرية" (Stage 0). وهو يعني وجود خلايا غير نمطية تكاثرت داخل القناة اللبنية، لكنها ظلت محبوسة كلياً داخل الغشاء القاعدي للقناة (Basement Membrane) ولم تخترق نسيج الثدي أو تصل للأوعية الدموية أو الليمفاوية.
+
+لماذا يعتبر اكتشافه إنجازاً طبياً كبيراً؟
+لأنه في هذه المرحلة المبكرة جداً، نسبة الشفاء التام تتجاوز ٩٨٪ إلى ٩٩٪ بإذن الله. وهو لا ينتشر خارج الثدي إطلاقاً طالما لم يخترق الغشاء.
+
+كيف يُكتشف؟
+في أكثر من ٩٠٪ من الحالات، لا تشعر السيدة بأي كتلة أو ألم، ويكتشف حصرياً أثناء فحص الماموجرام الروتيني كتكلسات دقيقة متجمعة (Clustered Pleomorphic Microcalcifications).
+
+الخطة العلاجية المعتمدة عالمياً:
+١. استئصال جراحي تحفظي للورم (Lumpectomy) مع حافة أمان نظيفة.
+٢. جلسات علاج إشعاعي وقائي موضعي على الثدي لحماية باقي الأنسجة.
+٣. علاج هرموني وقائي بالأقراص لمدة ٥ سنوات إذا كانت الخلايا إيجابية لمستقبلات الإستروجين (ER+).
+''',
+      fullContentEn: '''
+Understanding Ductal Carcinoma In Situ (DCIS):
+DCIS represents non-invasive Stage 0 breast disease. Neoplastic epithelial cells proliferate inside the mammary ducts without penetrating the surrounding basement membrane into surrounding stroma or vasculature.
+
+Prognostic Significance:
+Because cells cannot access lymphatic or hematogenous channels while confined, DCIS carries an outstanding overall survival rate exceeding 98–99%.
+
+Screening Detection:
+Over 90% of DCIS cases are clinically silent (no palpable mass) and are detected as fine pleomorphic microcalcifications on screening digital mammography.
+
+Standard Clinical Guidelines:
+1. Breast-conserving lumpectomy achieving clear microscopic margins.
+2. Adjuvant whole-breast radiotherapy to minimize recurrence risk.
+3. Adjuvant endocrine therapy (Tamoxifen or Aromatase Inhibitors) for estrogen receptor-positive disease.
+''',
+    ),
+    EducationArticle(
+      id: 'art-tnbc',
+      categoryKey: 'warnings',
+      illustrationType: 'suspicious',
+      icon: Icons.biotech_rounded,
+      titleAr: 'سرطان الثدي ثلاثي السلبية (TNBC): أحدث العلاجات المناعية',
+      titleEn: 'Triple-Negative Breast Cancer (TNBC): Immunotherapy Breakthroughs',
+      categoryAr: 'علاجات حديثة',
+      categoryEn: 'Oncology Advances',
+      readTimeAr: '٦ دقائق قراءة',
+      readTimeEn: '6 min read',
+      doctorReviewerAr: 'إشراف: استشاري علاج الأورام والطب الدقيق',
+      doctorReviewerEn: 'Supervised by The Precision Oncology Clinical Board',
+      summaryAr: 'نوع محدد لا يمتلك مستقبلات هرمونية ولا HER2، حقق الطب الحديث فيه طفرات علاجية هائلة باستخدام العلاج المناعي ومثبطات PARP.',
+      summaryEn: 'Subtype lacking ER, PR, and HER2 receptors. Modern oncology has achieved paradigm shifts with immunotherapy (Pembrolizumab) and PARP inhibitors.',
+      problemLabelAr: 'المشكلة: سرطان ثدي سلبي لمستقبلات الإستروجين والبروجسترون وHER2',
+      problemLabelEn: 'Finding: Triple-Negative Receptor Profile (ER-, PR-, HER2-)',
+      problemDetailAr: '• غياب مستقبلات ER و PR و HER2 في فحص الصبغات المناعية (IHC)\n• ارتباط وراثي محتمل بطفرات جين BRCA1 يستدعي الفحص الجيني\n• استجابة قوية جداً للعلاج الكيماوي المناعي الموجه قبل الجراحة\n• العلاجات المناعية الحديثة (مثل كيميرودا) رفعت نسب الشفاء بشكل غير مسبوق',
+      problemDetailEn: '• Absence of Estrogen, Progesterone, and HER2 receptors on IHC\n• Frequent association with germline BRCA1 mutations\n• Exceptional tumor response to neoadjuvant chemo-immunotherapy\n• Modern checkpoint inhibitors (e.g., Keytruda) have transformed clinical outcomes',
+      fullContentAr: '''
+ما هو سرطان الثدي ثلاثي السلبية (TNBC)؟
+عند فحص عينة الورم تحت المجهر مع الصبغات المناعية (Immunohistochemistry)، يقوم الطبيب بالبحث عن ٣ مستقبلات هامة:
+١. مستقبلات هرمون الإستروجين (ER)
+٢. مستقبلات هرمون البروجسترون (PR)
+٣. بروتين مستقبل عامل نمو البشرة (HER2)
+
+عندما تكون هذه المستقبلات الثلاثة سلبية، يسمى الورم "ثلاثي السلبية". ويمثل حوالي ١٠٪ إلى ١٥٪ من حالات سرطان الثدي.
+
+الطفرة العلاجية الحديثة:
+في السنوات القليلة الماضية، أحدثت أدوية العلاج المناعي (Immunotherapy) مثل بيمبروليزوماب (Keytruda) ثورة طبية حقيقية؛ حيث تقوم هذه الأدوية بتنشيط خلايا المناعة الذاتية للمريضة للتعرف على الخلايا الورمية وتدميرها بكفاءة عالية.
+
+بروتوكول العلاج المعاصر:
+• علاج كيماوي مناعي استباقي قبل الجراحة (Neoadjuvant Therapy): يؤدي في أغلب الحالات إلى ذوبان واختفاء الورم كلياً قبل موعد العملية الجراحية (Pathologic Complete Response).
+• الفحص الجيني لجينات BRCA1 و BRCA2 لتحديد ما إذا كانت السيدة مرشحة لاستخدام مثبطات PARP الذكية مثل الأولاباريب.
+''',
+      fullContentEn: '''
+Defining Triple-Negative Breast Cancer (TNBC):
+Standard pathological immunohistochemistry tests for three biomarkers:
+1. Estrogen Receptor (ER)
+2. Progesterone Receptor (PR)
+3. Human Epidermal Growth Factor Receptor 2 (HER2)
+
+Tumors testing negative for all three markers are classified as Triple-Negative (TNBC), accounting for approximately 10–15% of breast malignancies.
+
+Immunotherapy Revolution:
+Checkpoint inhibitors targeting PD-1 (notably Pembrolizumab) have revolutionized systemic management by training the patient's own cytotoxic T-cells to identify and eliminate tumor cells.
+
+Modern Standard of Care:
+• Neoadjuvant chemo-immunotherapy: Administered prior to surgery to maximize pathologic complete response (pCR).
+• Genetic sequencing for germline BRCA1/2 variants to evaluate eligibility for targeted PARP inhibitors (e.g., Olaparib).
+''',
+    ),
+    EducationArticle(
+      id: 'art-paget',
+      categoryKey: 'warnings',
+      illustrationType: 'suspicious',
+      icon: Icons.warning_rounded,
+      titleAr: 'مرض باجيت في الحلمة (Paget’s Disease): الفروق عن الإكزيما السطحية',
+      titleEn: 'Paget’s Disease of the Nipple: Differentiating from Eczema',
+      categoryAr: 'علامات تحذيرية',
+      categoryEn: 'Warning Signs',
+      readTimeAr: '٤ دقائق قراءة',
+      readTimeEn: '4 min read',
+      doctorReviewerAr: 'إشراف: استشاري جراحة الأورام والجلدية التخصصية',
+      doctorReviewerEn: 'Supervised by The Cutaneous Oncology Surgical Panel',
+      summaryAr: 'تغيرات جلدية تشبه الإكزيما (قشور، تقرح، احمرار) في حلمة واحدة لا تستجيب لكريمات الكورتيزون، تستوجب أخذ خزعة من جلد الحلمة.',
+      summaryEn: 'Eczema-like crusted scaling and erosion localized to a single nipple unresponsive to topical creams; requires full-thickness punch biopsy.',
+      problemLabelAr: 'المشكلة: تقشر وتآكل جلدي مستمر بالحلمة مع وجود خلايا باجيت',
+      problemLabelEn: 'Finding: Persistent Nipple Erosion & Infiltration by Paget Cells',
+      problemDetailAr: '• احمرار وتقشر سطحي يبدأ في الحلمة ثم يمتد لاحقاً إلى الهالة\n• يختلف عن إكزيما الجلد العادية بأنه يصيب ثدياً واحداً فقط ولا يزول بالكريمات\n• يرتبط بوجود ورم قنوي موضعي (DCIS) كامن في القنوات اللبنية تحته\n• الخزعة الجلدية السطحية (Punch Biopsy) تؤكد التشخيص بدقة متناهية',
+      problemDetailEn: '• Erythematous scaling beginning on nipple and spreading to areola\n• Distinct from classic eczema: strictly unilateral and steroid-resistant\n• Strongly associated with underlying in-situ or invasive ductal lesion\n• Confirmed via straightforward full-thickness dermal punch biopsy',
+      fullContentAr: '''
+ما هو مرض باجيت في حلمة الثدي (Paget's Disease of the Nipple)؟
+مرض باجيت هو حالة نادرة تنشأ فيها خلايا غير نمطية في بطانة القنوات اللبنية وتهاجر صعوداً عبر مجرى الحليب لتصل إلى الطبقة السطحية من جلد الحلمة.
+
+كيف تفرقينه عن الإكزيما وحساسية الجلد العادية؟
+١. التوزيع: إكزيما الجلد تصيب عادة الثديين معاً أو تكون مصحوبة بإكزيما في مناطق أخرى بالجسم؛ بينما مرض باجيت يصيب حلمة واحدة فقط (Unilateral).
+٢. نقطة البداية: يبدأ مرض باجيت دائماً في الحلمة نفسها أولاً ثم قد ينتشر ببطء إلى الهالة المحيطة بها، بينما الإكزيما تبدأ غالباً في الهالة.
+٣. الاستجابة للعلاج: الإكزيما تختفي بسرعة مع استخدام كريمات الترطيب أو الكورتيزون، أما مرض باجيت فلا يستجيب مطلقاً وتستمر القشور والتقرح.
+
+ما هو الإجراء الطبي الواجب؟
+إذا لاحظتِ وجود قشور أو نزيف خفيف أو تقرح في الحلمة استمر لأكثر من أسبوعين دون استجابة للكريمات، يجب زيارة استشاري جراحة الأورام فوراً لإجراء خزعة جلدية دقيقة (Punch Biopsy) وفحص بالماموجرام والسونار للتأكد من سلامة القنوات الكامنة تحت الحلمة.
+''',
+      fullContentEn: '''
+What is Paget's Disease of the Nipple?
+A rare cutaneous manifestation wherein ductal neoplastic cells migrate via lactiferous sinuses to infiltrate the epidermal layer of the nipple-areolar complex.
+
+Key Diagnostic Distinctions from Benign Eczema:
+1. Symmetry: Classic contact dermatitis is typically bilateral, whereas Paget's disease is strictly unilateral.
+2. Anatomical Onset: Paget's originates on the nipple apex before extending outward to the areola; eczema predominantly affects the areola initially with nipple sparing.
+3. Therapeutic Response: Paget's lesions are completely refractory to topical corticosteroid therapy.
+
+Recommended Clinical Action:
+Any unilateral nipple scaling or ulceration persisting beyond two weeks warrants immediate referral for full-thickness dermal punch biopsy alongside bilateral diagnostic mammography.
+''',
+    ),
   ];
 
   static const List<SurvivorStory> _presetSurvivorStories = [
@@ -673,165 +1029,9 @@ Epidemiological evidence supports a nutrient-dense dietary pattern rich in cruci
   }
 
   Widget _buildArticleIllustration(EducationArticle article, bool isAr) {
-    Color themeColor;
-    switch (article.illustrationType) {
-      case 'cyst':
-        themeColor = const Color(0xFF0284C7);
-        break;
-      case 'fibroadenoma':
-        themeColor = const Color(0xFFD946EF);
-        break;
-      case 'mastitis':
-        themeColor = const Color(0xFFEA580C);
-        break;
-      case 'calcification':
-        themeColor = const Color(0xFF475569);
-        break;
-      case 'suspicious':
-        themeColor = AppColors.error;
-        break;
-      case 'exam':
-        themeColor = AppColors.primary;
-        break;
-      default:
-        themeColor = AppColors.primaryAction;
-    }
-
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: AppColors.powderBackground,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: themeColor.withValues(alpha: 0.35), width: 1.5),
-        boxShadow: const [
-          BoxShadow(color: Color(0x0C000000), blurRadius: 10, offset: Offset(0, 3)),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          // Header Badge
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                decoration: BoxDecoration(
-                  color: themeColor,
-                  borderRadius: BorderRadius.circular(9999),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Icon(Icons.analytics_outlined, color: Colors.white, size: 14),
-                    const SizedBox(width: 5),
-                    Text(
-                      isAr ? 'مخطط تشريح الثدي والمشكلة الموضعية' : 'Breast Anatomy & Pathology Diagram',
-                      style: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w700),
-                    ),
-                  ],
-                ),
-              ),
-              const Spacer(),
-              Text(
-                isAr ? 'رسم استرشادي' : 'Clinical Schematic',
-                style: const TextStyle(fontSize: 11, color: AppColors.secondaryText, fontWeight: FontWeight.w600),
-              ),
-            ],
-          ),
-          const SizedBox(height: 14),
-
-          // Ultra-Realistic Breast Anatomy Custom Painter with Problem Zone & Pointer Arrow
-          Center(
-            child: SizedBox(
-              width: 310,
-              height: 195,
-              child: CustomPaint(
-                painter: _BreastAnatomyPainter(
-                  type: article.illustrationType,
-                  themeColor: themeColor,
-                  isArabic: isAr,
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(height: 10),
-
-          // Anatomical Structure Label Tags
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _buildAnatomyTag(isAr ? 'عضلة الصدر' : 'Pectoralis', const Color(0xFFE11D48)),
-                const SizedBox(width: 6),
-                _buildAnatomyTag(isAr ? 'أربطة كوبر' : 'Cooper Lig.', const Color(0xFF64748B)),
-                const SizedBox(width: 6),
-                _buildAnatomyTag(isAr ? 'النسيج الدهني' : 'Adipose', const Color(0xFFD97706)),
-                const SizedBox(width: 6),
-                _buildAnatomyTag(isAr ? 'الفصوص والقنوات' : 'Lobules & Ducts', const Color(0xFFBE185D)),
-                const SizedBox(width: 6),
-                _buildAnatomyTag(isAr ? 'الحلمة والقرص' : 'Areola & Nipple', const Color(0xFFDB2777)),
-              ],
-            ),
-          ),
-          const SizedBox(height: 14),
-
-          // Arrow Callout Badge Highlighting the Specific Problem Area
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(14),
-              border: Border.all(color: themeColor.withValues(alpha: 0.4)),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Icon(Icons.arrow_forward_rounded, color: themeColor, size: 18),
-                    const SizedBox(width: 6),
-                    Expanded(
-                      child: Text(
-                        article.problemLabel(isAr),
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w800,
-                          color: themeColor,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 6),
-                Text(
-                  article.problemDetail(isAr),
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: AppColors.mainText,
-                    height: 1.45,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildAnatomyTag(String label, Color color) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(6),
-        border: Border.all(color: color.withValues(alpha: 0.3)),
-      ),
-      child: Text(
-        label,
-        style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: color),
-      ),
+    return _ArticleIllustrationCard(
+      article: article,
+      isArabic: isAr,
     );
   }
 
@@ -1262,58 +1462,86 @@ Epidemiological evidence supports a nutrient-dense dietary pattern rich in cruci
                 // Survivor Voices Inspiration Banner (Accessible from all categories)
                 AppCard(
                   padding: const EdgeInsets.all(18),
-                  color: const Color(0xFFFFF1F2),
-                  border: Border.all(color: const Color(0xFFFDA4AF), width: 1.5),
-                  child: Row(
+                  color: AppColors.powderBackground,
+                  border: Border.all(color: AppColors.softDustyBlush, width: 1.5),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Container(
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(14),
-                          border: Border.all(color: const Color(0xFFFECDD3)),
-                        ),
-                        child: const Icon(Icons.record_voice_over_rounded, color: Color(0xFFE11D48), size: 26),
-                      ),
-                      const SizedBox(width: 14),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: AppColors.whiteSurface,
+                              borderRadius: BorderRadius.circular(14),
+                              border: Border.all(color: AppColors.softDustyBlush),
+                            ),
+                            child: const Icon(Icons.record_voice_over_rounded, color: AppColors.primary, size: 26),
+                          ),
+                          const SizedBox(width: 14),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                StatusBadge.active(isAr ? 'أصوات الأمل والشفاء' : 'Voices of Hope'),
+                                Text(
+                                  isAr ? 'تجارب ملهمة لمتعافيات من سرطان الثدي 🌸' : 'Inspiring Breast Cancer Survivor Stories 🌸',
+                                  style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: AppColors.primary),
+                                ),
+                                const SizedBox(height: 3),
+                                Text(
+                                  isAr
+                                      ? 'استمعي لشهادات وفويسات واقعية لسيدات تغلّبن على المرض واستعدن عافيتهن بالكامل.'
+                                      : 'Listen to real voice journeys of women who overcame breast cancer and fully healed.',
+                                  style: const TextStyle(fontSize: 12, color: AppColors.secondaryText, height: 1.35),
+                                ),
                               ],
                             ),
-                            const SizedBox(height: 4),
-                            Text(
-                              isAr ? 'تجارب ملهمة لمتعافيات من سرطان الثدي 🌸' : 'Inspiring Breast Cancer Survivor Stories 🌸',
-                              style: const TextStyle(fontSize: 14.5, fontWeight: FontWeight.w800, color: Color(0xFF9F1239)),
-                            ),
-                            const SizedBox(height: 2),
-                            Text(
-                              isAr
-                                  ? 'استمعي لشهادات وفويسات واقعية لسيدات تغلّبن على المرض واستعدن عافيتهن بالكامل.'
-                                  : 'Listen to real voice journeys of women who overcame breast cancer and fully healed.',
-                              style: const TextStyle(fontSize: 11.5, color: AppColors.secondaryText, height: 1.35),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                      const SizedBox(width: 8),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFFE11D48),
-                          foregroundColor: Colors.white,
-                          elevation: 0,
-                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                        ),
-                        onPressed: () => setState(() => _selectedCategoryKey = 'survivors'),
-                        child: Text(
-                          isAr ? 'استماع' : 'Listen',
-                          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-                        ),
+                      const SizedBox(height: 12),
+                      Wrap(
+                        alignment: WrapAlignment.spaceBetween,
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        spacing: 8,
+                        runSpacing: 8,
+                        children: [
+                          StatusBadge.active(isAr ? 'أصوات الأمل والشفاء' : 'Voices of Hope'),
+                          InkWell(
+                            onTap: () => setState(() => _selectedCategoryKey = 'survivors'),
+                            borderRadius: BorderRadius.circular(9999),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8.5),
+                              decoration: BoxDecoration(
+                                gradient: const LinearGradient(
+                                  colors: [Color(0xFF9E3E4E), Color(0xFF7E2A38)],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                ),
+                                borderRadius: BorderRadius.circular(9999),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: const Color(0xFF9E3E4E).withValues(alpha: 0.28),
+                                    blurRadius: 8,
+                                    offset: const Offset(0, 3),
+                                  ),
+                                ],
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const Icon(Icons.play_circle_fill_rounded, size: 16, color: Colors.white),
+                                  const SizedBox(width: 6),
+                                  Text(
+                                    isAr ? 'استماع للقصص' : 'Listen Now',
+                                    style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w800, color: Colors.white),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -1429,6 +1657,325 @@ Epidemiological evidence supports a nutrient-dense dietary pattern rich in cruci
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+/// Interactive 3D / 2D Multi-modal Breast Anatomy Card
+/// Embedded in every article, allowing full 360° rotation,
+/// zoom, and 4-layer depth peeling ("ادخل جواه").
+class _ArticleIllustrationCard extends StatefulWidget {
+  final EducationArticle article;
+  final bool isArabic;
+
+  const _ArticleIllustrationCard({
+    required this.article,
+    required this.isArabic,
+  });
+
+  @override
+  State<_ArticleIllustrationCard> createState() => _ArticleIllustrationCardState();
+}
+
+class _ArticleIllustrationCardState extends State<_ArticleIllustrationCard> {
+  bool _is3dMode = true; // Default to 3D interactive model
+
+  void _openFullscreen3d() {
+    final isAr = widget.isArabic;
+    showDialog(
+      context: context,
+      builder: (ctx) => Dialog.fullscreen(
+        child: Scaffold(
+          backgroundColor: const Color(0xFF0F172A),
+          appBar: AppBar(
+            backgroundColor: const Color(0xFF1E293B),
+            foregroundColor: Colors.white,
+            elevation: 0,
+            title: Text(
+              isAr ? 'المختبر التشريحي ثلاثي الأبعاد • ${widget.article.title(isAr)}' : '3D Breast Anatomy Lab • ${widget.article.title(isAr)}',
+              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+            ),
+            leading: IconButton(
+              icon: const Icon(Icons.close_rounded, color: Colors.white),
+              onPressed: () => Navigator.pop(ctx),
+            ),
+          ),
+          body: SafeArea(
+            child: Interactive3dBreastViewer(
+              pathologyType: widget.article.illustrationType,
+              isArabic: isAr,
+              height: double.infinity,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final isAr = widget.isArabic;
+    final article = widget.article;
+
+    Color themeColor;
+    switch (article.illustrationType) {
+      case 'cyst':
+      case 'fibrocystic':
+        themeColor = const Color(0xFF0284C7);
+        break;
+      case 'fibroadenoma':
+        themeColor = const Color(0xFFD946EF);
+        break;
+      case 'mastitis':
+        themeColor = const Color(0xFFEA580C);
+        break;
+      case 'calcification':
+      case 'dcis':
+        themeColor = const Color(0xFF475569);
+        break;
+      case 'suspicious':
+        themeColor = AppColors.error;
+        break;
+      case 'exam':
+        themeColor = AppColors.primary;
+        break;
+      default:
+        themeColor = AppColors.primaryAction;
+    }
+
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.powderBackground,
+        borderRadius: BorderRadius.circular(22),
+        border: Border.all(color: AppColors.softDustyBlush, width: 1.5),
+        boxShadow: const [
+          BoxShadow(color: Color(0x0A000000), blurRadius: 10, offset: Offset(0, 3)),
+        ],
+      ),
+      padding: const EdgeInsets.all(14),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          // Mode Switcher Header: 3D Model vs 2D Schematic
+          Container(
+            padding: const EdgeInsets.all(3),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(color: AppColors.softDustyBlush),
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: InkWell(
+                    onTap: () => setState(() => _is3dMode = true),
+                    borderRadius: BorderRadius.circular(11),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 7),
+                      decoration: BoxDecoration(
+                        gradient: _is3dMode
+                            ? const LinearGradient(colors: [Color(0xFF9E3E4E), Color(0xFF7E2A38)])
+                            : null,
+                        color: _is3dMode ? null : Colors.transparent,
+                        borderRadius: BorderRadius.circular(11),
+                        boxShadow: _is3dMode
+                            ? [
+                                BoxShadow(
+                                  color: const Color(0xFF9E3E4E).withValues(alpha: 0.28),
+                                  blurRadius: 6,
+                                  offset: const Offset(0, 2),
+                                ),
+                              ]
+                            : null,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.view_in_ar_rounded,
+                            size: 15,
+                            color: _is3dMode ? Colors.white : AppColors.primary,
+                          ),
+                          const SizedBox(width: 5),
+                          Flexible(
+                            child: Text(
+                              isAr ? 'مجسم 3D واقعي (ادخل جواه)' : 'Realistic 3D (Inside View)',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 11,
+                                fontWeight: _is3dMode ? FontWeight.w800 : FontWeight.w600,
+                                color: _is3dMode ? Colors.white : AppColors.secondaryText,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 4),
+                Expanded(
+                  child: InkWell(
+                    onTap: () => setState(() => _is3dMode = false),
+                    borderRadius: BorderRadius.circular(11),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 7),
+                      decoration: BoxDecoration(
+                        gradient: !_is3dMode
+                            ? const LinearGradient(colors: [Color(0xFF9E3E4E), Color(0xFF7E2A38)])
+                            : null,
+                        color: !_is3dMode ? null : Colors.transparent,
+                        borderRadius: BorderRadius.circular(11),
+                        boxShadow: !_is3dMode
+                            ? [
+                                BoxShadow(
+                                  color: const Color(0xFF9E3E4E).withValues(alpha: 0.28),
+                                  blurRadius: 6,
+                                  offset: const Offset(0, 2),
+                                ),
+                              ]
+                            : null,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.schema_rounded,
+                            size: 15,
+                            color: !_is3dMode ? Colors.white : AppColors.primary,
+                          ),
+                          const SizedBox(width: 5),
+                          Flexible(
+                            child: Text(
+                              isAr ? 'مخطط 2D توضيحي' : '2D Schematic',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 11,
+                                fontWeight: !_is3dMode ? FontWeight.w800 : FontWeight.w600,
+                                color: !_is3dMode ? Colors.white : AppColors.secondaryText,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 12),
+
+          // Main View: 3D Interactive Model or 2D Schematic
+          if (_is3dMode)
+            Interactive3dBreastViewer(
+              pathologyType: article.illustrationType,
+              isArabic: isAr,
+              height: 420,
+              onExpand: _openFullscreen3d,
+            )
+          else
+            Center(
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: const Color(0xFFE2E8F0)),
+                ),
+                child: SizedBox(
+                  width: 310,
+                  height: 195,
+                  child: CustomPaint(
+                    painter: _BreastAnatomyPainter(
+                      type: article.illustrationType,
+                      themeColor: themeColor,
+                      isArabic: isAr,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          const SizedBox(height: 12),
+
+          // Anatomical Structure Label Tags
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _buildAnatomyTag(isAr ? 'عضلة الصدر' : 'Pectoralis', const Color(0xFFE11D48)),
+                const SizedBox(width: 6),
+                _buildAnatomyTag(isAr ? 'أربطة كوبر' : 'Cooper Lig.', const Color(0xFF64748B)),
+                const SizedBox(width: 6),
+                _buildAnatomyTag(isAr ? 'النسيج الدهني' : 'Adipose', const Color(0xFFD97706)),
+                const SizedBox(width: 6),
+                _buildAnatomyTag(isAr ? 'الفصوص والقنوات' : 'Lobules & Ducts', const Color(0xFFBE185D)),
+                const SizedBox(width: 6),
+                _buildAnatomyTag(isAr ? 'الحلمة والقرص' : 'Areola & Nipple', const Color(0xFFDB2777)),
+              ],
+            ),
+          ),
+          const SizedBox(height: 12),
+
+          // Problem Detail Callout Card
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(color: themeColor.withValues(alpha: 0.4)),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Icon(Icons.arrow_forward_rounded, color: themeColor, size: 18),
+                    const SizedBox(width: 6),
+                    Expanded(
+                      child: Text(
+                        article.problemLabel(isAr),
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w800,
+                          color: themeColor,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  article.problemDetail(isAr),
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: AppColors.mainText,
+                    height: 1.45,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAnatomyTag(String label, Color color) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(6),
+        border: Border.all(color: color.withValues(alpha: 0.3)),
+      ),
+      child: Text(
+        label,
+        style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: color),
       ),
     );
   }
