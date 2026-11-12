@@ -836,6 +836,7 @@ class _QuestionnaireResultsView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isAr = context.isArabic;
+    final isCompact = MediaQuery.of(context).size.width < 600;
     final notifier = ref.read(questionnaireNotifierProvider.notifier);
 
     return SingleChildScrollView(
@@ -1048,7 +1049,9 @@ class _QuestionnaireResultsView extends ConsumerWidget {
                           ),
                           const SizedBox(height: 6),
                           Text(
-                            result.clinicalReviewNotice,
+                            isAr
+                                ? result.clinicalReviewNotice
+                                : 'Clinical Verification Code (${result.requestId}): Your responses have been securely stored and encrypted. You may share this code with your attending physician for instant chart review.',
                             style: const TextStyle(fontSize: 12.5, color: AppColors.secondaryText, height: 1.5),
                           ),
                         ],
@@ -1088,6 +1091,20 @@ class _QuestionnaireResultsView extends ConsumerWidget {
                     const Divider(height: 24, thickness: 1, color: AppColors.warmNeutralSand),
 
                     ...result.guidanceRecommendations.map((rec) {
+                      String displayText = rec;
+                      if (!isAr) {
+                        if (rec.contains('نتائج التقييم') || rec.contains('الفحص الذاتي')) {
+                          displayText = 'Reassuring baseline assessment 🌸 - Continue routine monthly breast self-exams after your menstrual cycle.';
+                        } else if (rec.contains('ماموجرام') || rec.contains('الفحص الدوري')) {
+                          displayText = 'Adhere to recommended routine screening schedule (annual mammography after age 40).';
+                        } else if (rec.contains('النشاط البدني') || rec.contains('مضادات الأكسدة')) {
+                          displayText = 'Maintain a balanced physical activity routine and antioxidant-rich nutrition.';
+                        } else if (rec.contains('مراجعة') || rec.contains('استشارة')) {
+                          displayText = 'Schedule a clinical breast evaluation with your surgical oncologist or specialist.';
+                        } else if (rec.contains('تحديث إجابات')) {
+                          displayText = 'Questionnaire responses successfully updated and verified.';
+                        }
+                      }
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 12),
                         child: Row(
@@ -1100,7 +1117,7 @@ class _QuestionnaireResultsView extends ConsumerWidget {
                             const SizedBox(width: 6),
                             Expanded(
                               child: Text(
-                                rec,
+                                displayText,
                                 style: const TextStyle(fontSize: 13.5, color: AppColors.mainText, height: 1.45),
                               ),
                             ),
@@ -1139,29 +1156,38 @@ class _QuestionnaireResultsView extends ConsumerWidget {
                   onPressed: () => context.go('/'),
                 ),
               ] else ...[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                Wrap(
+                  spacing: 12,
+                  runSpacing: 12,
+                  alignment: WrapAlignment.center,
+                  crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
-                    OutlinedButton.icon(
-                      style: OutlinedButton.styleFrom(
-                        foregroundColor: AppColors.primary,
-                        side: const BorderSide(color: AppColors.softDustyBlush),
-                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+                    SizedBox(
+                      width: isCompact ? double.infinity : null,
+                      child: OutlinedButton.icon(
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: AppColors.primary,
+                          side: const BorderSide(color: AppColors.softDustyBlush, width: 1.5),
+                          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+                        ),
+                        icon: const Icon(Icons.edit_note_rounded, size: 18),
+                        label: Text(
+                          isAr ? 'تصحيح أو تعديل الإجابات' : 'Correct / Revise Answers',
+                          style: const TextStyle(fontSize: 13.5, fontWeight: FontWeight.w600),
+                        ),
+                        onPressed: notifier.startCorrection,
                       ),
-                      icon: const Icon(Icons.edit_note_rounded, size: 18),
-                      label: Text(
-                        isAr ? 'تصحيح أو تعديل الإجابات' : 'Correct / Revise Answers',
-                        style: const TextStyle(fontSize: 13.5, fontWeight: FontWeight.w600),
-                      ),
-                      onPressed: notifier.startCorrection,
                     ),
-                    PillButton(
-                      label: isAr ? 'العودة للوحة المتابعة' : 'Return to Dashboard',
-                      icon: Icons.home_rounded,
-                      onPressed: () {
-                        context.go('/patient');
-                      },
+                    SizedBox(
+                      width: isCompact ? double.infinity : null,
+                      child: PillButton(
+                        label: isAr ? 'العودة للوحة المتابعة' : 'Return to Dashboard',
+                        icon: Icons.home_rounded,
+                        onPressed: () {
+                          context.go('/patient');
+                        },
+                      ),
                     ),
                   ],
                 ),

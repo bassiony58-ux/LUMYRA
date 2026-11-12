@@ -1044,33 +1044,51 @@ class _ImagingViewerScreenState extends ConsumerState<ImagingViewerScreen> {
                     ],
                   ),
                   const Divider(height: 24),
-                  Row(
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    crossAxisAlignment: WrapCrossAlignment.center,
                     children: [
-                      StatusBadge.pending(_activeBiRads),
-                      const SizedBox(width: 8),
-                      Text(
-                        _activeFinding,
-                        style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: AppColors.primary),
+                      StatusBadge.pending(
+                        isAr
+                            ? _activeBiRads
+                            : (_activeBiRads.contains('مستقل')
+                                ? 'Independent Review Required'
+                                : _activeBiRads),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: AppColors.powderBackground,
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(color: AppColors.softDustyBlush),
+                        ),
+                        child: Text(
+                          isAr
+                              ? _activeFinding
+                              : _activeFinding.replaceAll('تصنيف النموذج:', 'Model Classification:'),
+                          style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700, color: AppColors.primary),
+                        ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 12),
-                  const Text(
-                    'الملاحظات الميدانية:',
-                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700),
+                  Text(
+                    isAr ? 'الملاحظات الميدانية:' : 'Clinical Field Notes:',
+                    style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700),
                   ),
                   const SizedBox(height: 6),
                   Text(
                     isAr
                         ? '• تصنيف الفحص الحالي: $_activeBiRads ($_activeFinding).\n• فحص دقيق للحدود النسيجية، الأوعية المحيطة، وتناسق الارتداد الصوتي مقارنة بالسجلات السابقة.\n• الحدود الجلدية والحلمة طبيعية بالكامل دون أي انكماش أو تجعد.'
-                        : '• Current Scan Staging: $_activeBiRads ($_activeFinding).\n• Precise tissue margin assessment and acoustic transmission evaluation.\n• Skin contours and nipple-areola complex are normal without retraction.',
+                        : '• Current Scan Staging: ${isAr ? _activeBiRads : (_activeBiRads.contains('مستقل') ? 'Independent Review Required' : _activeBiRads)} (${_activeFinding.replaceAll('تصنيف النموذج:', 'Model Classification:')}).\n• Precise tissue margin assessment and acoustic transmission evaluation.\n• Skin contours and nipple-areola complex are normal without retraction.',
                     style: const TextStyle(fontSize: 13, color: AppColors.mainText, height: 1.6),
                   ),
                   const SizedBox(height: 20),
                   PillButton(
                     label: _isReviewed
                         ? (isAr ? 'تم اعتماد المراجعة السريرية بنجاح' : 'Review Confirmed & Stamped')
-                        : (isAr ? 'اعتماد المراجعة السريرية وإضافتها للملف' : 'Confirm Secondary Clinical Review'),
+                        : (isAr ? 'اعتماد المراجعة السريرية' : 'Confirm Clinical Review'),
                     icon: _isReviewed ? Icons.verified_rounded : Icons.check_circle_outline_rounded,
                     onPressed: () {
                       setState(() => _isReviewed = true);

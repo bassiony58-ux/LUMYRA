@@ -19,6 +19,7 @@ class JournalEntryItem {
   final bool hasVoiceNote;
   final int? voiceDurationSeconds;
   final String? voiceNoteTitle;
+  final String? audioPath;
 
   JournalEntryItem({
     required this.id,
@@ -31,6 +32,7 @@ class JournalEntryItem {
     this.hasVoiceNote = false,
     this.voiceDurationSeconds,
     this.voiceNoteTitle,
+    this.audioPath,
   });
 }
 
@@ -82,6 +84,7 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
   bool _isWritingNew = false;
   bool _isRecordingVoice = false;
   int? _recordedVoiceSeconds;
+  String? _recordedAudioPath;
 
   final List<Map<String, String>> _moods = [
     {'emoji': '😊', 'labelAr': 'هادئة ومستقرة', 'labelEn': 'Calm & Stable'},
@@ -149,10 +152,12 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
                   ? 'تسجيل صوتي لليوميات ($_recordedVoiceSeconds ث) 🎙️'
                   : 'Voice Diary Entry (${_recordedVoiceSeconds}s) 🎙️')
               : null,
+          audioPath: _recordedAudioPath,
         ),
       );
       _noteController.clear();
       _recordedVoiceSeconds = null;
+      _recordedAudioPath = null;
       _isRecordingVoice = false;
       _isWritingNew = false;
     });
@@ -367,9 +372,10 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
                     if (_isRecordingVoice)
                       VoiceRecorderBarWidget(
                         onCancel: () => setState(() => _isRecordingVoice = false),
-                        onSend: (duration) {
+                        onSend: (duration, path) {
                           setState(() {
                             _recordedVoiceSeconds = duration;
+                            _recordedAudioPath = path;
                             _isRecordingVoice = false;
                           });
                         },
@@ -389,13 +395,17 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
                                 durationSeconds: _recordedVoiceSeconds!,
                                 isMe: true,
                                 title: context.isArabic ? 'فويس اليوميات جاهز للحفظ 🎙️' : 'Voice Entry Ready 🎙️',
+                                audioPath: _recordedAudioPath,
                               ),
                             ),
                             const SizedBox(width: 8),
                             IconButton(
                               icon: const Icon(Icons.delete_outline_rounded, color: AppColors.error),
                               tooltip: context.isArabic ? 'حذف الفويس' : 'Delete Voice',
-                              onPressed: () => setState(() => _recordedVoiceSeconds = null),
+                              onPressed: () => setState(() {
+                                _recordedVoiceSeconds = null;
+                                _recordedAudioPath = null;
+                              }),
                             ),
                           ],
                         ),
@@ -514,6 +524,7 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
                         isMe: true,
                         title: entry.voiceNoteTitle ??
                             (context.isArabic ? 'تسجيل صوتي لليوميات 🎙️' : 'Encrypted Voice Entry 🎙️'),
+                        audioPath: entry.audioPath,
                       ),
                     ],
                     if (entry.tags.isNotEmpty) ...[

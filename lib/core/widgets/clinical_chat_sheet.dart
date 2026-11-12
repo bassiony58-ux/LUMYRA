@@ -141,7 +141,7 @@ class _ClinicalChatSheetState extends State<ClinicalChatSheet> {
     } catch (_) {}
   }
 
-  void _sendVoiceNote(int durationSeconds) {
+  void _sendVoiceNote(int durationSeconds, [String? audioPath]) {
     final myName = widget.isDoctor ? 'د. نور الخالدي' : 'سارة أحمد محمد';
     final now = TimeOfDay.now();
     final timeStr = '${now.hour}:${now.minute.toString().padLeft(2, '0')}';
@@ -156,6 +156,7 @@ class _ClinicalChatSheetState extends State<ClinicalChatSheet> {
         'time': timeStr,
         'isVoice': true,
         'durationSeconds': durationSeconds,
+        'audioPath': audioPath,
         'voiceTitle': widget.isDoctor
             ? 'فويس توجيهي من د. نور 🎙️'
             : 'فويس استفسار من المريضة 🎙️',
@@ -332,6 +333,7 @@ class _ClinicalChatSheetState extends State<ClinicalChatSheet> {
                             isMe: isMe,
                             title: msg['voiceTitle'] as String?,
                             compact: true,
+                            audioPath: msg['audioPath'] as String?,
                           )
                         else
                           Text(
@@ -363,7 +365,7 @@ class _ClinicalChatSheetState extends State<ClinicalChatSheet> {
                   ? VoiceRecorderBarWidget(
                       isDoctor: widget.isDoctor,
                       onCancel: () => setState(() => _isRecordingVoice = false),
-                      onSend: _sendVoiceNote,
+                      onSend: (sec, path) => _sendVoiceNote(sec, path),
                     )
                   : Row(
                       children: [

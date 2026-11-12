@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../app/theme/app_colors.dart';
+import '../services/native_audio_service.dart';
 
 /// Interactive audio player for voice notes in Chat and Health Diary.
 class VoiceNotePlayerWidget extends StatefulWidget {
@@ -10,6 +11,7 @@ class VoiceNotePlayerWidget extends StatefulWidget {
   final bool isMe;
   final String? title;
   final bool compact;
+  final String? audioPath;
 
   const VoiceNotePlayerWidget({
     super.key,
@@ -18,6 +20,7 @@ class VoiceNotePlayerWidget extends StatefulWidget {
     this.isMe = false,
     this.title,
     this.compact = false,
+    this.audioPath,
   });
 
   @override
@@ -32,6 +35,7 @@ class _VoiceNotePlayerWidgetState extends State<VoiceNotePlayerWidget> {
   @override
   void dispose() {
     _timer?.cancel();
+    NativeAudioService.stopPlaying();
     super.dispose();
   }
 
@@ -44,13 +48,17 @@ class _VoiceNotePlayerWidgetState extends State<VoiceNotePlayerWidget> {
     }
   }
 
-  void _startPlay() {
+  Future<void> _startPlay() async {
     setState(() {
       _isPlaying = true;
       if (_currentSeconds >= widget.durationSeconds) {
         _currentSeconds = 0;
       }
     });
+
+    if (widget.audioPath != null) {
+      await NativeAudioService.startPlaying(widget.audioPath!);
+    }
 
     _timer?.cancel();
     _timer = Timer.periodic(const Duration(seconds: 1), (t) {
@@ -66,8 +74,9 @@ class _VoiceNotePlayerWidgetState extends State<VoiceNotePlayerWidget> {
     });
   }
 
-  void _stopPlay() {
+  Future<void> _stopPlay() async {
     _timer?.cancel();
+    await NativeAudioService.stopPlaying();
     if (mounted) {
       setState(() {
         _isPlaying = false;
@@ -247,7 +256,7 @@ class _VoiceNotePlayerWidgetState extends State<VoiceNotePlayerWidget> {
 
 /// Realistic voice recorder bar with live duration counter and controls.
 class VoiceRecorderBarWidget extends StatefulWidget {
-  final ValueChanged<int> onSend;
+  final void Function(int durationSeconds, String? audioPath) onSend;
   final VoidCallback onCancel;
   final bool isDoctor;
 
@@ -267,6 +276,7 @@ class _VoiceRecorderBarWidgetState extends State<VoiceRecorderBarWidget>
   int _seconds = 0;
   Timer? _recordTimer;
   late AnimationController _pulseController;
+  String? _recordedPath;
 
   @override
   void initState() {
@@ -276,10 +286,27 @@ class _VoiceRecorderBarWidgetState extends State<VoiceRecorderBarWidget>
       duration: const Duration(milliseconds: 800),
     )..repeat(reverse: true);
 
+    _startRecording();
+  }
+
+  Future<void> _startRecording() async {
+    _recordedPath = await NativeAudioService.startRecording();
     _recordTimer = Timer.periodic(const Duration(seconds: 1), (t) {
       if (!mounted) return;
       setState(() => _seconds++);
     });
+  }
+
+  Future<void> _stopAndSend() async {
+    HapticFeedback.heavyImpact();
+    final finalPath = await NativeAudioService.stopRecording() ?? _recordedPath;
+    widget.onSend(_seconds > 0 ? _seconds : 3, finalPath);
+  }
+
+  Future<void> _cancelRecording() async {
+    HapticFeedback.mediumImpact();
+    await NativeAudioService.stopRecording();
+    widget.onCancel();
   }
 
   @override
@@ -310,10 +337,7 @@ class _VoiceRecorderBarWidgetState extends State<VoiceRecorderBarWidget>
           IconButton(
             icon: const Icon(Icons.delete_outline_rounded, color: AppColors.error, size: 22),
             tooltip: 'إلغاء التسجيل',
-            onPressed: () {
-              HapticFeedback.mediumImpact();
-              widget.onCancel();
-            },
+            onPressed: _cancelRecording,
           ),
           const SizedBox(width: 4),
 
@@ -344,7 +368,7 @@ class _VoiceRecorderBarWidgetState extends State<VoiceRecorderBarWidget>
 
           const Expanded(
             child: Text(
-              'جاري تسجيل فويس طبي...',
+              'تسجيل صوتي حي من المايكروفون...',
               style: TextStyle(fontSize: 11.5, color: AppColors.secondaryText),
               overflow: TextOverflow.ellipsis,
             ),
@@ -352,10 +376,7 @@ class _VoiceRecorderBarWidgetState extends State<VoiceRecorderBarWidget>
 
           // Stop & Send Button
           InkWell(
-            onTap: () {
-              HapticFeedback.heavyImpact();
-              widget.onSend(_seconds > 0 ? _seconds : 3);
-            },
+            onTap: _stopAndSend,
             borderRadius: BorderRadius.circular(999),
             child: Container(
               padding: const EdgeInsets.all(10),
