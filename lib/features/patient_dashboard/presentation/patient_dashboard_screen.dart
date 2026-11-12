@@ -11,6 +11,7 @@ import '../../../core/widgets/status_badge.dart';
 import '../../../core/widgets/scan_upload_dialog.dart';
 import '../../../core/widgets/clinical_chat_sheet.dart';
 import '../../auth/presentation/providers/auth_provider.dart';
+import '../../caregiver/presentation/caregiver_companion_sheet.dart';
 import '../domain/models/patient_dashboard_data.dart';
 import 'providers/patient_dashboard_provider.dart';
 
@@ -295,6 +296,14 @@ class PatientDashboardScreen extends ConsumerWidget {
                 ],
               ),
             ),
+            const SizedBox(height: 16),
+
+            // Family Caregiver Companion Banner
+            _buildCaregiverBanner(context),
+            const SizedBox(height: 16),
+
+            // Survivor Voices of Hope Banner
+            _buildSurvivorVoicesBanner(context),
             const SizedBox(height: 20),
 
             // 2. Quick Actions
@@ -409,6 +418,130 @@ class PatientDashboardScreen extends ConsumerWidget {
               ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildCaregiverBanner(BuildContext context) {
+    final isAr = context.isArabic;
+    return AppCard(
+      padding: const EdgeInsets.all(18),
+      color: AppColors.powderBackground,
+      border: Border.all(color: AppColors.softDustyBlush, width: 1.5),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: AppColors.whiteSurface,
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(color: AppColors.softDustyBlush),
+            ),
+            child: const Icon(Icons.family_restroom_rounded, color: AppColors.primary, size: 28),
+          ),
+          const SizedBox(width: 14),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    StatusBadge.blush(isAr ? 'دائرة الأمان • العائلة' : 'Care Circle • Family'),
+                  ],
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  isAr ? 'متابعة الأهل ورفيق الرحلة 👨‍👩‍👧' : 'Family Companion & Care Circle',
+                  style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 14.5, color: AppColors.primary),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  isAr
+                      ? 'شاركي مواعيد أدويتكِ وجلساتكِ مع أسرتكِ وتلقي فويسات تشجيع يومية.'
+                      : 'Share medication & visit updates with your family & get daily voice encouragement.',
+                  style: const TextStyle(fontSize: 11.5, color: AppColors.secondaryText, height: 1.35),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 8),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.primary,
+              foregroundColor: Colors.white,
+              elevation: 0,
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            ),
+            onPressed: () => CaregiverCompanionSheet.show(context),
+            child: Text(
+              isAr ? 'فتح اللوحة' : 'Open Circle',
+              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSurvivorVoicesBanner(BuildContext context) {
+    final isAr = context.isArabic;
+    return AppCard(
+      padding: const EdgeInsets.all(18),
+      border: Border.all(color: const Color(0xFFF43F5E).withAlpha(80), width: 1.5),
+      color: const Color(0xFFFFF1F2),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(color: const Color(0xFFFDA4AF)),
+            ),
+            child: const Icon(Icons.record_voice_over_rounded, color: Color(0xFFE11D48), size: 28),
+          ),
+          const SizedBox(width: 14),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    StatusBadge.active(isAr ? 'أصوات الشفاء • تعافٍ تام' : 'Voices of Hope • Remission'),
+                  ],
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  isAr ? 'صوت الأمل: تجارب ملهمة لمتعافيات 🌸' : 'Voices of Hope: Survivor Stories 🌸',
+                  style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 14.5, color: Color(0xFFBE123C)),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  isAr
+                      ? 'استمعي لشهادات وفويسات حقيقية لسيدات تغلّبن على سرطان الثدي واستعدن عافيتهن.'
+                      : 'Listen to real voice journeys of women who conquered breast cancer.',
+                  style: const TextStyle(fontSize: 11.5, color: AppColors.secondaryText, height: 1.35),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 8),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFFE11D48),
+              foregroundColor: Colors.white,
+              elevation: 0,
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            ),
+            onPressed: () => context.go('/patient/education'),
+            child: Text(
+              isAr ? 'استماع' : 'Listen',
+              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
       ),
     );
   }

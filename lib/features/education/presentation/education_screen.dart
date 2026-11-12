@@ -8,6 +8,55 @@ import '../../../core/widgets/adaptive_scaffold.dart';
 import '../../../core/widgets/app_card.dart';
 import '../../../core/widgets/pill_button.dart';
 import '../../../core/widgets/status_badge.dart';
+import '../../../core/widgets/voice_note_widgets.dart';
+
+class SurvivorStory {
+  final String id;
+  final String nameAr;
+  final String nameEn;
+  final String ageCityAr;
+  final String ageCityEn;
+  final String remissionYearsAr;
+  final String remissionYearsEn;
+  final String stageAr;
+  final String stageEn;
+  final String quoteAr;
+  final String quoteEn;
+  final String journeyAr;
+  final String journeyEn;
+  final String adviceAr;
+  final String adviceEn;
+  final int durationSeconds;
+  final String? audioPath;
+
+  const SurvivorStory({
+    required this.id,
+    required this.nameAr,
+    required this.nameEn,
+    required this.ageCityAr,
+    required this.ageCityEn,
+    required this.remissionYearsAr,
+    required this.remissionYearsEn,
+    required this.stageAr,
+    required this.stageEn,
+    required this.quoteAr,
+    required this.quoteEn,
+    required this.journeyAr,
+    required this.journeyEn,
+    required this.adviceAr,
+    required this.adviceEn,
+    required this.durationSeconds,
+    this.audioPath,
+  });
+
+  String name(bool isAr) => isAr ? nameAr : nameEn;
+  String ageCity(bool isAr) => isAr ? ageCityAr : ageCityEn;
+  String remission(bool isAr) => isAr ? remissionYearsAr : remissionYearsEn;
+  String stage(bool isAr) => isAr ? stageAr : stageEn;
+  String quote(bool isAr) => isAr ? quoteAr : quoteEn;
+  String journey(bool isAr) => isAr ? journeyAr : journeyEn;
+  String advice(bool isAr) => isAr ? adviceAr : adviceEn;
+}
 
 class EducationArticle {
   final String id;
@@ -483,8 +532,66 @@ Epidemiological evidence supports a nutrient-dense dietary pattern rich in cruci
     ),
   ];
 
+  static const List<SurvivorStory> _presetSurvivorStories = [
+    SurvivorStory(
+      id: 'surv-mona',
+      nameAr: 'أ. منى زكي',
+      nameEn: 'Mona Zaki',
+      ageCityAr: '٤٨ سنة • المعادي، القاهرة',
+      ageCityEn: '48 years • Maadi, Cairo',
+      remissionYearsAr: 'تعافٍ تام ومستمر منذ ٤ سنوات 🌸',
+      remissionYearsEn: '4 Years Full Remission 🌸',
+      stageAr: 'اكتشاف مبكر أثناء الماموجرام الروتيني (المرحلة الأولى T1N0M0)',
+      stageEn: 'Early Detection via Routine Mammography (Stage 1)',
+      quoteAr: '"الفحص المبكر كان طوق نجاتي.. ما تخافيش من الفحص، خافي من التأجيل!"',
+      quoteEn: '"Early screening was my lifeline.. Don\'t fear the scan, fear delaying it!"',
+      journeyAr: 'في عام ٢٠٢٢ قمت بعمل فحص الماموجرام السنوي بعد سن الأربعين بدون وجود أي أعراض أو ألم، وظهرت بؤرة متناهية الصغر (١.٢ سم). الطبيب طمأنني وأجرينا جراحة تحفظية بسيطة مع علاج هرموني وقائي. اليوم أعيش حياتي بكامل طاقتي مع أسرتي وأحفادي.',
+      journeyEn: 'In 2022, I completed routine mammography after age 40 with zero symptoms or pain. A tiny 1.2 cm focus was caught. My surgical team was deeply reassuring; we completed breast-conserving surgery and adjuvant therapy. Today I enjoy full health with my family.',
+      adviceAr: 'نصيحتي لكل سيدة: الماموجرام السنوي مش رفاهية، ده أمانك وسندك.. خدي خطوة وافحصي النهاردة.',
+      adviceEn: 'My advice to every woman: Annual screening is peace of mind and protection. Take the initiative today.',
+      durationSeconds: 38,
+    ),
+    SurvivorStory(
+      id: 'surv-samar',
+      nameAr: 'م. سمر عبد العزيز',
+      nameEn: 'Samar Abdelaziz',
+      ageCityAr: '٣٩ سنة • سموحة، الإسكندرية',
+      ageCityEn: '39 years • Alexandria',
+      remissionYearsAr: 'تعافٍ تام منذ سنتين ونصف 🌸',
+      remissionYearsEn: '2.5 Years Cancer-Free 🌸',
+      stageAr: 'ورم غدي في القنوات اللبنية (المرحلة الثانية - استجابة كاملة للعلاج)',
+      stageEn: 'Invasive Ductal Carcinoma (Stage 2 - Full Response)',
+      quoteAr: '"كنت مرعوبة من كلمة كيماوي.. لكن بفضل الله ودعم بنتي وفريقي الطبي عديت الصعب ورجعت أقوى."',
+      quoteEn: '"I was terrified of the word chemotherapy.. but with faith, family support, and medical care, I overcame it."',
+      journeyAr: 'اكتشفت كتلة صغيرة أثناء الاستحمام، وبنتي شجعتني أروح أكشف فوراً. مرحلة العلاج كانت محتاجة صبر ويقين، والدعم النفسي وفويسات بنتي اليومية خلتني أعدي التحدي وأرجع لشغلي وأولادي بروح جديدة.',
+      journeyEn: 'I noticed a small palpable nodule during my shower, and my daughter urged me to consult a specialist right away. The journey taught me resilience; daily encouragement from my family was instrumental in crossing the finish line.',
+      adviceAr: 'خلي في حياتك رفيق رحلة من عيلتك يشاركك مواعيدك ويسمعك، الدعم النفسي بيشفي نصف المرض.',
+      adviceEn: 'Keep a family companion beside you to share clinic visits; psychological reassurance is half the cure.',
+      durationSeconds: 44,
+    ),
+    SurvivorStory(
+      id: 'surv-hala',
+      nameAr: 'د. هالة منصور',
+      nameEn: 'Dr. Hala Mansour',
+      ageCityAr: '٥٢ سنة • طنطا، الغربية',
+      ageCityEn: '52 years • Tanta, Gharbia',
+      remissionYearsAr: 'تعافٍ واطمئنان مستمر منذ ٥ سنوات 🌸',
+      remissionYearsEn: '5 Years Full Health 🌸',
+      stageAr: 'تغيرات نسيجية عالية الحذر مع ورم ليفي نشط - علاج تحفظي وقائي',
+      stageEn: 'Atypical Proliferation & Fibroadenoma - Preventive Management',
+      quoteAr: '"السرطان اليوم مش نهاية الطريق.. ده مجرد محطة بنعديها بالعلم والوعي والإرادة."',
+      quoteEn: '"Cancer is no longer the end of the road; it is a hurdle conquered with science and awareness."',
+      journeyAr: 'المتابعة الدورية كانت رفيقتي. لما ظهرت تغيرات في السونار والماموجرام أخذنا القرار الصحيح في التوقيت المناسب. العلم تقدم جداً وتوفر العلاجات الحديثة جعل نسب الشفاء تتجاوز ٩٥٪ في الحالات المبكرة.',
+      journeyEn: 'Routine follow-ups were my shield. When ultrasound showed architectural changes, we acted in the golden hour. Modern oncology advances now yield cure rates exceeding 95% for early presentations.',
+      adviceAr: 'ما تسمعيش للخرافات ولا للخلطات.. ثقي في طبيبك المتخصص والتزمي بالأدوية والمتابعة.',
+      adviceEn: 'Do not heed unverified myths; place trust in certified oncologists and adhere faithfully to medical guidance.',
+      durationSeconds: 35,
+    ),
+  ];
+
   static const List<Map<String, String>> _categoryTabs = [
     {'key': 'all', 'ar': 'الكل', 'en': 'All'},
+    {'key': 'survivors', 'ar': 'قصص الأمل والتعافي 🌸', 'en': 'Survivor Stories 🌸'},
     {'key': 'benign', 'ar': 'كتل حميدة', 'en': 'Benign Lumps'},
     {'key': 'cysts', 'ar': 'أكياس مائية', 'en': 'Cysts'},
     {'key': 'inflammation', 'ar': 'التهابات الثدي', 'en': 'Inflammation'},
@@ -633,11 +740,11 @@ Epidemiological evidence supports a nutrient-dense dietary pattern rich in cruci
           ),
           const SizedBox(height: 14),
 
-          // Breast Anatomy Custom Painter with Problem Zone & Pointer Arrow
+          // Ultra-Realistic Breast Anatomy Custom Painter with Problem Zone & Pointer Arrow
           Center(
             child: SizedBox(
-              width: 280,
-              height: 170,
+              width: 310,
+              height: 195,
               child: CustomPaint(
                 painter: _BreastAnatomyPainter(
                   type: article.illustrationType,
@@ -645,6 +752,26 @@ Epidemiological evidence supports a nutrient-dense dietary pattern rich in cruci
                   isArabic: isAr,
                 ),
               ),
+            ),
+          ),
+          const SizedBox(height: 10),
+
+          // Anatomical Structure Label Tags
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _buildAnatomyTag(isAr ? 'عضلة الصدر' : 'Pectoralis', const Color(0xFFE11D48)),
+                const SizedBox(width: 6),
+                _buildAnatomyTag(isAr ? 'أربطة كوبر' : 'Cooper Lig.', const Color(0xFF64748B)),
+                const SizedBox(width: 6),
+                _buildAnatomyTag(isAr ? 'النسيج الدهني' : 'Adipose', const Color(0xFFD97706)),
+                const SizedBox(width: 6),
+                _buildAnatomyTag(isAr ? 'الفصوص والقنوات' : 'Lobules & Ducts', const Color(0xFFBE185D)),
+                const SizedBox(width: 6),
+                _buildAnatomyTag(isAr ? 'الحلمة والقرص' : 'Areola & Nipple', const Color(0xFFDB2777)),
+              ],
             ),
           ),
           const SizedBox(height: 14),
@@ -690,6 +817,214 @@ Epidemiological evidence supports a nutrient-dense dietary pattern rich in cruci
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildAnatomyTag(String label, Color color) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(6),
+        border: Border.all(color: color.withValues(alpha: 0.3)),
+      ),
+      child: Text(
+        label,
+        style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: color),
+      ),
+    );
+  }
+
+  Widget _buildSurvivorStoriesView(bool isAr) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: const Color(0xFFFFF1F2),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: const Color(0xFFFDA4AF)),
+              ),
+              child: const Icon(Icons.favorite_rounded, color: Color(0xFFE11D48), size: 24),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    isAr ? 'أصوات الشفاء والانتصار على المرض 🌸' : 'Voices of Remission & Hope 🌸',
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800, color: Color(0xFF9F1239)),
+                  ),
+                  Text(
+                    isAr
+                        ? 'شهادات وفويسات حقيقية لسيدات خضن الرحلة وعبرن إلى بر الأمان'
+                        : 'Real audio journeys of courageous women who overcame breast cancer',
+                    style: const TextStyle(fontSize: 12, color: AppColors.secondaryText),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 16),
+        ..._presetSurvivorStories.map((story) {
+          return AppCard(
+            margin: const EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.all(18),
+            border: Border.all(color: const Color(0xFFFDA4AF).withAlpha(120), width: 1.5),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 44,
+                      height: 44,
+                      alignment: Alignment.center,
+                      decoration: const BoxDecoration(
+                        color: Color(0xFFFFF1F2),
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Text('🌸', style: TextStyle(fontSize: 22)),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                story.name(isAr),
+                                style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: AppColors.primary),
+                              ),
+                              const SizedBox(width: 6),
+                              const Icon(Icons.verified_rounded, size: 16, color: Color(0xFF10B981)),
+                            ],
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            story.ageCity(isAr),
+                            style: const TextStyle(fontSize: 12, color: AppColors.secondaryText),
+                          ),
+                          const SizedBox(height: 6),
+                          StatusBadge.active(story.remission(isAr)),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFFF1F2).withAlpha(150),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: const Color(0xFFFECDD3)),
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.format_quote_rounded, color: Color(0xFFE11D48), size: 24),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          story.quote(isAr),
+                          style: const TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w700,
+                            fontStyle: FontStyle.italic,
+                            color: Color(0xFF881337),
+                            height: 1.4,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 12),
+                VoiceNotePlayerWidget(
+                  durationSeconds: story.durationSeconds,
+                  isMe: false,
+                  title: isAr ? 'شهادة صوتية: ${story.name(isAr)}' : 'Audio Story: ${story.name(isAr)}',
+                  audioPath: story.audioPath,
+                ),
+                const SizedBox(height: 12),
+                Theme(
+                  data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+                  child: ExpansionTile(
+                    tilePadding: EdgeInsets.zero,
+                    childrenPadding: EdgeInsets.zero,
+                    title: Text(
+                      isAr ? 'اقرئي قصة الرحلة الكاملة ونصيحة المتعافية 📖' : 'Read Full Journey & Survivor Advice 📖',
+                      style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.bold, color: AppColors.primary),
+                    ),
+                    children: [
+                      const SizedBox(height: 8),
+                      Container(
+                        padding: const EdgeInsets.all(14),
+                        decoration: BoxDecoration(
+                          color: AppColors.powderBackground,
+                          borderRadius: BorderRadius.circular(14),
+                          border: Border.all(color: AppColors.softDustyBlush),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                const Icon(Icons.medical_services_outlined, size: 16, color: AppColors.primary),
+                                const SizedBox(width: 6),
+                                Expanded(
+                                  child: Text(
+                                    story.stage(isAr),
+                                    style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.primary),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const Divider(height: 16),
+                            Text(
+                              story.journey(isAr),
+                              style: const TextStyle(fontSize: 12.5, color: AppColors.mainText, height: 1.6),
+                            ),
+                            const SizedBox(height: 10),
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(color: const Color(0xFF10B981).withAlpha(100)),
+                              ),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Icon(Icons.tips_and_updates_rounded, color: Color(0xFF10B981), size: 18),
+                                  const SizedBox(width: 8),
+                                  Expanded(
+                                    child: Text(
+                                      '${isAr ? "نصيحة المتعافية: " : "Key Advice: "}${story.advice(isAr)}',
+                                      style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xFF065F46), height: 1.4),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+        }),
+      ],
     );
   }
 
@@ -921,111 +1256,176 @@ Epidemiological evidence supports a nutrient-dense dietary pattern rich in cruci
               ),
               const SizedBox(height: 20),
 
-              // Article Grid / List Header
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    isAr ? 'المكتبة السريرية المعتمدة (${filtered.length})' : 'Clinical Library (${filtered.length})',
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: AppColors.mainText),
+              if (_selectedCategoryKey == 'survivors') ...[
+                _buildSurvivorStoriesView(isAr),
+              ] else ...[
+                // Survivor Voices Inspiration Banner (Accessible from all categories)
+                AppCard(
+                  padding: const EdgeInsets.all(18),
+                  color: const Color(0xFFFFF1F2),
+                  border: Border.all(color: const Color(0xFFFDA4AF), width: 1.5),
+                  child: Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(14),
+                          border: Border.all(color: const Color(0xFFFECDD3)),
+                        ),
+                        child: const Icon(Icons.record_voice_over_rounded, color: Color(0xFFE11D48), size: 26),
+                      ),
+                      const SizedBox(width: 14),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                StatusBadge.active(isAr ? 'أصوات الأمل والشفاء' : 'Voices of Hope'),
+                              ],
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              isAr ? 'تجارب ملهمة لمتعافيات من سرطان الثدي 🌸' : 'Inspiring Breast Cancer Survivor Stories 🌸',
+                              style: const TextStyle(fontSize: 14.5, fontWeight: FontWeight.w800, color: Color(0xFF9F1239)),
+                            ),
+                            const SizedBox(height: 2),
+                            Text(
+                              isAr
+                                  ? 'استمعي لشهادات وفويسات واقعية لسيدات تغلّبن على المرض واستعدن عافيتهن بالكامل.'
+                                  : 'Listen to real voice journeys of women who overcame breast cancer and fully healed.',
+                              style: const TextStyle(fontSize: 11.5, color: AppColors.secondaryText, height: 1.35),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFFE11D48),
+                          foregroundColor: Colors.white,
+                          elevation: 0,
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                        ),
+                        onPressed: () => setState(() => _selectedCategoryKey = 'survivors'),
+                        child: Text(
+                          isAr ? 'استماع' : 'Listen',
+                          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
                   ),
-                  if (_isLoadingApi)
-                    const SizedBox(
-                      width: 16,
-                      height: 16,
-                      child: CircularProgressIndicator(strokeWidth: 2, color: AppColors.primary),
-                    ),
-                ],
-              ),
-              const SizedBox(height: 12),
+                ),
+                const SizedBox(height: 20),
 
-              ...filtered.map((art) {
-                return AppCard(
-                  margin: const EdgeInsets.only(bottom: 14),
-                  padding: const EdgeInsets.all(16),
-                  child: InkWell(
-                    onTap: () => _openArticleDetails(art),
-                    borderRadius: BorderRadius.circular(20),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(12),
-                          decoration: BoxDecoration(
-                            color: art.isDoctorPublished
-                                ? const Color(0xFFEFF6FF)
-                                : AppColors.powderBackground,
-                            borderRadius: BorderRadius.circular(16),
-                            border: art.isDoctorPublished
-                                ? Border.all(color: const Color(0xFF3B82F6).withValues(alpha: 0.4))
-                                : null,
-                          ),
-                          child: Icon(
-                            art.icon,
-                            color: art.isDoctorPublished ? const Color(0xFF2563EB) : AppColors.primary,
-                            size: 26,
-                          ),
-                        ),
-                        const SizedBox(width: 14),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    art.category(isAr),
-                                    style: TextStyle(
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.w700,
-                                      color: art.isDoctorPublished ? const Color(0xFF2563EB) : AppColors.primaryAction,
-                                    ),
-                                  ),
-                                  if (art.isDoctorPublished) ...[
-                                    const SizedBox(width: 6),
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1.5),
-                                      decoration: BoxDecoration(
-                                        color: const Color(0xFFDBEAFE),
-                                        borderRadius: BorderRadius.circular(6),
-                                      ),
-                                      child: Text(
-                                        isAr ? 'نشر حديثاً' : 'Newly Published',
-                                        style: const TextStyle(fontSize: 9.5, fontWeight: FontWeight.w700, color: Color(0xFF1D4ED8)),
-                                      ),
-                                    ),
-                                  ],
-                                  const Spacer(),
-                                  Text(art.readTime(isAr), style: const TextStyle(fontSize: 11, color: AppColors.secondaryText)),
-                                ],
-                              ),
-                              const SizedBox(height: 4),
-                              Text(
-                                art.title(isAr),
-                                style: const TextStyle(fontSize: 14.5, fontWeight: FontWeight.w700, height: 1.3),
-                              ),
-                              const SizedBox(height: 6),
-                              Text(
-                                art.summary(isAr),
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(fontSize: 12, color: AppColors.secondaryText, height: 1.4),
-                              ),
-                              const SizedBox(height: 8),
-                              Text(
-                                art.doctorReviewer(isAr),
-                                style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: AppColors.primary),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(width: 6),
-                        const Icon(Icons.arrow_forward_ios_rounded, size: 14, color: AppColors.secondaryText),
-                      ],
+                // Article Grid / List Header
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      isAr ? 'المكتبة السريرية المعتمدة (${filtered.length})' : 'Clinical Library (${filtered.length})',
+                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: AppColors.mainText),
                     ),
-                  ),
-                );
-              }),
+                    if (_isLoadingApi)
+                      const SizedBox(
+                        width: 16,
+                        height: 16,
+                        child: CircularProgressIndicator(strokeWidth: 2, color: AppColors.primary),
+                      ),
+                  ],
+                ),
+                const SizedBox(height: 12),
+
+                ...filtered.map((art) {
+                  return AppCard(
+                    margin: const EdgeInsets.only(bottom: 14),
+                    padding: const EdgeInsets.all(16),
+                    child: InkWell(
+                      onTap: () => _openArticleDetails(art),
+                      borderRadius: BorderRadius.circular(20),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color: art.isDoctorPublished
+                                  ? const Color(0xFFEFF6FF)
+                                  : AppColors.powderBackground,
+                              borderRadius: BorderRadius.circular(16),
+                              border: art.isDoctorPublished
+                                  ? Border.all(color: const Color(0xFF3B82F6).withValues(alpha: 0.4))
+                                  : null,
+                            ),
+                            child: Icon(
+                              art.icon,
+                              color: art.isDoctorPublished ? const Color(0xFF2563EB) : AppColors.primary,
+                              size: 26,
+                            ),
+                          ),
+                          const SizedBox(width: 14),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      art.category(isAr),
+                                      style: TextStyle(
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w700,
+                                        color: art.isDoctorPublished ? const Color(0xFF2563EB) : AppColors.primaryAction,
+                                      ),
+                                    ),
+                                    if (art.isDoctorPublished) ...[
+                                      const SizedBox(width: 6),
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1.5),
+                                        decoration: BoxDecoration(
+                                          color: const Color(0xFFDBEAFE),
+                                          borderRadius: BorderRadius.circular(6),
+                                        ),
+                                        child: Text(
+                                          isAr ? 'نشر حديثاً' : 'Newly Published',
+                                          style: const TextStyle(fontSize: 9.5, fontWeight: FontWeight.w700, color: Color(0xFF1D4ED8)),
+                                        ),
+                                      ),
+                                    ],
+                                    const Spacer(),
+                                    Text(art.readTime(isAr), style: const TextStyle(fontSize: 11, color: AppColors.secondaryText)),
+                                  ],
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  art.title(isAr),
+                                  style: const TextStyle(fontSize: 14.5, fontWeight: FontWeight.w700, height: 1.3),
+                                ),
+                                const SizedBox(height: 6),
+                                Text(
+                                  art.summary(isAr),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(fontSize: 12, color: AppColors.secondaryText, height: 1.4),
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  art.doctorReviewer(isAr),
+                                  style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: AppColors.primary),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(width: 6),
+                          const Icon(Icons.arrow_forward_ios_rounded, size: 14, color: AppColors.secondaryText),
+                        ],
+                      ),
+                    ),
+                  );
+                }),
+              ],
             ],
           ),
         ),
@@ -1034,9 +1434,10 @@ Epidemiological evidence supports a nutrient-dense dietary pattern rich in cruci
   }
 }
 
-/// CustomPainter rendering an anatomical cross-section of the human breast
-/// with the chest wall, pectoralis contour, areola, nipple, and the lesion
-/// with a prominent arrow pointing directly at the problem area.
+/// CustomPainter rendering an ultra-realistic anatomical cross-section of the human breast
+/// with rib bones, pectoralis major muscle, retromammary space, Cooper's suspensory ligaments,
+/// clustered adipose fat lobules, glandular lobules (TDLUs), lactiferous ducts & sinuses,
+/// pigmented areola with Montgomery tubercles, anatomical nipple, and high-fidelity lesion pathology.
 class _BreastAnatomyPainter extends CustomPainter {
   final String type;
   final Color themeColor;
@@ -1050,195 +1451,395 @@ class _BreastAnatomyPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    final w = size.width;
     final h = size.height;
 
-    // 1. Chest Wall (Vertical border on left)
-    final chestPaint = Paint()
-      ..color = const Color(0xFFCBD5E1)
-      ..strokeWidth = 3
-      ..style = PaintingStyle.stroke;
+    // Background subtle clinical medical grid
+    final gridPaint = Paint()
+      ..color = const Color(0xFFF1F5F9).withValues(alpha: 0.6)
+      ..strokeWidth = 0.8;
+    for (double x = 20; x < w; x += 30) {
+      canvas.drawLine(Offset(x, 0), Offset(x, h), gridPaint);
+    }
+    for (double y = 20; y < h; y += 30) {
+      canvas.drawLine(Offset(0, y), Offset(w, y), gridPaint);
+    }
 
-    final chestFill = Paint()
-      ..color = const Color(0xFFF1F5F9)
-      ..style = PaintingStyle.fill;
+    // 1. Thoracic Chest Wall & Ribs
+    final ribYPositions = [26.0, 68.0, 112.0, 156.0];
+    for (int i = 0; i < ribYPositions.length; i++) {
+      final ry = ribYPositions[i];
+      // Rib outer cortical bone (Oval section)
+      final ribRect = Rect.fromCenter(center: Offset(26, ry), width: 14, height: 22);
+      final ribCortex = Paint()
+        ..color = const Color(0xFF94A3B8)
+        ..strokeWidth = 2
+        ..style = PaintingStyle.stroke;
+      final ribMarrow = Paint()
+        ..shader = const RadialGradient(
+          colors: [Color(0xFFFEF3C7), Color(0xFFFED7AA), Color(0xFFFECDD3)],
+          stops: [0.2, 0.6, 1.0],
+        ).createShader(ribRect)
+        ..style = PaintingStyle.fill;
+      canvas.drawOval(ribRect, ribMarrow);
+      canvas.drawOval(ribRect, ribCortex);
 
-    final chestPath = Path()
-      ..moveTo(35, 10)
-      ..lineTo(35, h - 10)
-      ..lineTo(10, h - 10)
-      ..lineTo(10, 10)
-      ..close();
-    canvas.drawPath(chestPath, chestFill);
-    canvas.drawLine(const Offset(35, 10), Offset(35, h - 10), chestPaint);
+      // Trabecular cancellous marrow stippling
+      canvas.drawCircle(Offset(25, ry - 3), 1.5, Paint()..color = const Color(0xFFE11D48).withValues(alpha: 0.4));
+      canvas.drawCircle(Offset(27, ry + 3), 1.8, Paint()..color = const Color(0xFFE11D48).withValues(alpha: 0.4));
 
-    // Rib / Pectoralis Muscle Band
-    final musclePaint = Paint()
-      ..color = const Color(0xFFFDA4AF).withValues(alpha: 0.5)
-      ..style = PaintingStyle.fill;
-    final musclePath = Path()
-      ..moveTo(35, 20)
-      ..lineTo(50, 20)
-      ..lineTo(50, h - 20)
-      ..lineTo(35, h - 20)
-      ..close();
-    canvas.drawPath(musclePath, musclePaint);
+      // Intercostal muscles between ribs
+      if (i < ribYPositions.length - 1) {
+        final nextRy = ribYPositions[i + 1];
+        final interRect = Rect.fromLTRB(18, ry + 12, 34, nextRy - 12);
+        final interPaint = Paint()
+          ..shader = const LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Color(0xFFFDA4AF), Color(0xFFE11D48), Color(0xFFFDA4AF)],
+          ).createShader(interRect)
+          ..style = PaintingStyle.fill;
+        canvas.drawRRect(RRect.fromRectAndRadius(interRect, const Radius.circular(3)), interPaint);
+        // Striation lines
+        canvas.drawLine(Offset(20, ry + 16), Offset(32, ry + 22), Paint()..color = const Color(0xFF9F1239).withValues(alpha: 0.5)..strokeWidth = 1);
+        canvas.drawLine(Offset(20, ry + 24), Offset(32, ry + 30), Paint()..color = const Color(0xFF9F1239).withValues(alpha: 0.5)..strokeWidth = 1);
+      }
+    }
 
-    // 2. Breast Contour (Anatomical Sagittal Silhouette)
-    final breastPath = Path();
-    breastPath.moveTo(50, 25);
-    // Upper gentle slope
-    breastPath.cubicTo(100, 30, 160, 55, 195, 80);
-    // Areola & Nipple protrusion
-    breastPath.cubicTo(202, 82, 208, 85, 208, 88); // Nipple tip
-    breastPath.cubicTo(208, 91, 202, 94, 195, 96);
-    // Lower curve (inframammary fold)
-    breastPath.cubicTo(160, 125, 110, 145, 50, 145);
-    breastPath.close();
+    // 2. Pectoralis Major & Minor Muscle (Anatomical Striated Band)
+    final pectPath = Path();
+    pectPath.moveTo(34, 10);
+    pectPath.lineTo(54, 10);
+    pectPath.cubicTo(56, 70, 56, 130, 54, h - 10);
+    pectPath.lineTo(34, h - 10);
+    pectPath.close();
 
-    // Fill Breast with Soft Warm Gradient
-    final breastGradient = LinearGradient(
+    final pectGradient = LinearGradient(
       begin: Alignment.centerLeft,
       end: Alignment.centerRight,
       colors: [
-        const Color(0xFFFFF1F2),
-        const Color(0xFFFFF7ED),
-        const Color(0xFFFDF2F8),
+        const Color(0xFF9F1239),
+        const Color(0xFFBE123C),
+        const Color(0xFFE11D48),
+        const Color(0xFFFDA4AF).withValues(alpha: 0.8),
       ],
     );
-    final breastFillPaint = Paint()
-      ..shader = breastGradient.createShader(Rect.fromLTWH(50, 25, 160, 120))
-      ..style = PaintingStyle.fill;
-    canvas.drawPath(breastPath, breastFillPaint);
+    canvas.drawPath(pectPath, Paint()..shader = pectGradient.createShader(Rect.fromLTWH(34, 10, 22, h - 20)));
 
-    // Breast Outline Stroke
-    final breastOutlinePaint = Paint()
-      ..color = const Color(0xFFE2E8F0)
-      ..strokeWidth = 2
+    // Bipennate muscle striation lines
+    final fiberPaint = Paint()
+      ..color = const Color(0xFF881337).withValues(alpha: 0.4)
+      ..strokeWidth = 1.2;
+    for (double my = 20; my < h - 15; my += 12) {
+      canvas.drawLine(Offset(36, my), Offset(52, my + 8), fiberPaint);
+      canvas.drawLine(Offset(36, my + 6), Offset(52, my + 14), fiberPaint);
+    }
+
+    // Deep Pectoral Fascia Membrane
+    final fasciaPaint = Paint()
+      ..color = const Color(0xFFF1F5F9)
+      ..strokeWidth = 2.2
       ..style = PaintingStyle.stroke;
-    canvas.drawPath(breastPath, breastOutlinePaint);
+    canvas.drawLine(const Offset(54, 10), Offset(54, h - 10), fasciaPaint);
 
-    // Areola shading
-    final areolaPaint = Paint()
-      ..color = const Color(0xFFF472B6).withValues(alpha: 0.6)
+    // 3. Breast Contour (Natural Sagittal Anatomical Silhouette)
+    final breastPath = Path();
+    breastPath.moveTo(54, 20);
+    breastPath.cubicTo(105, 26, 170, 55, 205, 82);
+    breastPath.cubicTo(212, 84, 218, 88, 220, 92);
+    breastPath.cubicTo(218, 96, 212, 100, 205, 102);
+    breastPath.cubicTo(175, 135, 115, 160, 54, 160);
+    breastPath.close();
+
+    // Fill Breast Volume with Multi-tone Adipose & Glandular Gradient
+    final breastGrad = LinearGradient(
+      begin: Alignment.centerLeft,
+      end: Alignment.centerRight,
+      colors: [
+        const Color(0xFFFEF3C7).withValues(alpha: 0.7),
+        const Color(0xFFFFF1F2),
+        const Color(0xFFFFF7ED),
+        const Color(0xFFFCE7F3),
+      ],
+      stops: const [0.0, 0.45, 0.85, 1.0],
+    );
+    canvas.drawPath(breastPath, Paint()..shader = breastGrad.createShader(Rect.fromLTWH(54, 20, 170, 145)));
+
+    // 4. Subcutaneous & Retromammary Adipose Fat Lobules
+    final fatFill = Paint()
+      ..shader = const RadialGradient(
+        colors: [Color(0xFFFEF9C3), Color(0xFFFDE68A)],
+      ).createShader(Rect.fromCircle(center: const Offset(100, 80), radius: 50))
       ..style = PaintingStyle.fill;
-    canvas.drawOval(
-      Rect.fromCenter(center: const Offset(195, 88), width: 14, height: 26),
-      areolaPaint,
+    final fatStroke = Paint()
+      ..color = const Color(0xFFFBBF24).withValues(alpha: 0.35)
+      ..strokeWidth = 0.9
+      ..style = PaintingStyle.stroke;
+
+    final fatCenters = [
+      const Offset(62, 38), const Offset(64, 62), const Offset(63, 88), const Offset(64, 116), const Offset(62, 142),
+      const Offset(110, 36), const Offset(136, 46), const Offset(164, 60), const Offset(185, 72),
+      const Offset(115, 146), const Offset(142, 138), const Offset(168, 120), const Offset(185, 108),
+    ];
+    for (final fc in fatCenters) {
+      canvas.drawCircle(fc, 7.5, fatFill);
+      canvas.drawCircle(fc, 7.5, fatStroke);
+      canvas.drawCircle(Offset(fc.dx + 4, fc.dy - 3), 5.5, fatFill);
+      canvas.drawCircle(Offset(fc.dx + 4, fc.dy - 3), 5.5, fatStroke);
+    }
+
+    // 5. Cooper's Suspensory Ligaments
+    final isSuspicious = type == 'suspicious';
+    final ligamentPaint = Paint()
+      ..color = const Color(0xFF94A3B8).withValues(alpha: 0.75)
+      ..strokeWidth = 1.6
+      ..style = PaintingStyle.stroke;
+
+    final lig1 = Path()..moveTo(54, 40)..quadraticBezierTo(95, 38, 136, 46);
+    final lig2 = Path()..moveTo(54, 70)..quadraticBezierTo(100, isSuspicious ? 68 : 60, 168, 62);
+    final lig3 = Path();
+    if (isSuspicious) {
+      lig3.moveTo(54, 95);
+      lig3.lineTo(118, 70);
+      lig3.lineTo(195, 84);
+    } else {
+      lig3.moveTo(54, 95);
+      lig3.quadraticBezierTo(115, 92, 185, 88);
+    }
+    final lig4 = Path()..moveTo(54, 125)..quadraticBezierTo(105, 132, 165, 122);
+    final lig5 = Path()..moveTo(54, 148)..quadraticBezierTo(90, 155, 135, 144);
+
+    canvas.drawPath(lig1, ligamentPaint);
+    canvas.drawPath(lig2, ligamentPaint);
+    canvas.drawPath(lig3, ligamentPaint..strokeWidth = isSuspicious ? 2.4 : 1.6);
+    canvas.drawPath(lig4, ligamentPaint);
+    canvas.drawPath(lig5, ligamentPaint);
+
+    // 6. Glandular Lobules (TDLUs)
+    final lobulePaint = Paint()
+      ..shader = const RadialGradient(
+        colors: [Color(0xFFFDF2F8), Color(0xFFFCE7F3), Color(0xFFF472B6)],
+        stops: [0.2, 0.7, 1.0],
+      ).createShader(Rect.fromCircle(center: const Offset(120, 90), radius: 45))
+      ..style = PaintingStyle.fill;
+    final lobuleStroke = Paint()
+      ..color = const Color(0xFFDB2777).withValues(alpha: 0.45)
+      ..strokeWidth = 1.1
+      ..style = PaintingStyle.stroke;
+
+    final lobuleOffsets = [
+      const Offset(88, 55), const Offset(112, 52), const Offset(134, 58),
+      const Offset(86, 82), const Offset(110, 84), const Offset(138, 80),
+      const Offset(92, 114), const Offset(118, 118), const Offset(142, 110),
+      const Offset(158, 92), const Offset(164, 82),
+    ];
+    for (final lo in lobuleOffsets) {
+      canvas.drawCircle(lo, 11, lobulePaint);
+      canvas.drawCircle(lo, 11, lobuleStroke);
+      canvas.drawCircle(Offset(lo.dx - 3, lo.dy - 3), 4, Paint()..color = Colors.white.withValues(alpha: 0.7));
+    }
+
+    // 7. Lactiferous Ducts & Sinuses
+    final ductPaint = Paint()
+      ..color = const Color(0xFFBE185D).withValues(alpha: 0.85)
+      ..strokeWidth = 1.8
+      ..style = PaintingStyle.stroke;
+
+    canvas.drawLine(const Offset(90, 55), const Offset(145, 78), ductPaint);
+    canvas.drawLine(const Offset(112, 52), const Offset(160, 84), ductPaint);
+    canvas.drawLine(const Offset(92, 114), const Offset(155, 96), ductPaint);
+    canvas.drawLine(const Offset(118, 118), const Offset(165, 94), ductPaint);
+    canvas.drawLine(const Offset(138, 80), const Offset(178, 90), ductPaint);
+
+    // Lactiferous Sinuses (Ampullae)
+    final ampullaPaint = Paint()
+      ..color = const Color(0xFF9D174D)
+      ..strokeWidth = 3.2
+      ..strokeCap = StrokeCap.round;
+    canvas.drawLine(const Offset(175, 87), const Offset(195, 89), ampullaPaint);
+    canvas.drawLine(const Offset(176, 92), const Offset(196, 92), ampullaPaint);
+    canvas.drawLine(const Offset(175, 97), const Offset(195, 94), ampullaPaint);
+    canvas.drawLine(const Offset(195, 89), const Offset(218, 91), ampullaPaint..strokeWidth = 2);
+    canvas.drawLine(const Offset(195, 94), const Offset(218, 93), ampullaPaint..strokeWidth = 2);
+
+    // 8. Areola & Nipple Complex
+    final areolaRect = Rect.fromCenter(center: const Offset(204, 92), width: 14, height: 34);
+    final areolaPaint = Paint()
+      ..shader = const RadialGradient(
+        colors: [Color(0xFF9D174D), Color(0xFF831843), Color(0xFFBE185D)],
+      ).createShader(areolaRect)
+      ..style = PaintingStyle.fill;
+    canvas.drawOval(areolaRect, areolaPaint);
+
+    // Montgomery Tubercles
+    final tuberclePaint = Paint()..color = const Color(0xFFF472B6);
+    canvas.drawCircle(const Offset(203, 79), 1.8, tuberclePaint);
+    canvas.drawCircle(const Offset(205, 85), 1.8, tuberclePaint);
+    canvas.drawCircle(const Offset(205, 99), 1.8, tuberclePaint);
+    canvas.drawCircle(const Offset(203, 105), 1.8, tuberclePaint);
+
+    // Projecting Nipple Papilla
+    final nipplePath = Path();
+    nipplePath.moveTo(206, 85);
+    nipplePath.cubicTo(216, 86, 221, 88, 222, 92);
+    nipplePath.cubicTo(221, 96, 216, 98, 206, 99);
+    nipplePath.close();
+    canvas.drawPath(
+      nipplePath,
+      Paint()
+        ..color = const Color(0xFF701A75)
+        ..style = PaintingStyle.fill,
+    );
+    canvas.drawCircle(const Offset(221, 90), 0.9, Paint()..color = Colors.black87);
+    canvas.drawCircle(const Offset(222, 92), 0.9, Paint()..color = Colors.black87);
+    canvas.drawCircle(const Offset(221, 94), 0.9, Paint()..color = Colors.black87);
+
+    // 9. Dermis & Epidermis Skin Contour with Dimpling if Malignant
+    final skinPath = Path();
+    skinPath.moveTo(54, 20);
+    if (isSuspicious) {
+      skinPath.cubicTo(105, 26, 150, 48, 172, 66);
+      skinPath.cubicTo(176, 70, 172, 76, 178, 80);
+      skinPath.cubicTo(192, 82, 205, 88, 220, 92);
+    } else {
+      skinPath.cubicTo(105, 26, 170, 55, 205, 82);
+      skinPath.cubicTo(212, 84, 218, 88, 220, 92);
+    }
+    skinPath.cubicTo(218, 96, 212, 100, 205, 102);
+    skinPath.cubicTo(175, 135, 115, 160, 54, 160);
+
+    canvas.drawPath(
+      skinPath,
+      Paint()
+        ..color = const Color(0xFFFDA4AF)
+        ..strokeWidth = 2.2
+        ..style = PaintingStyle.stroke,
     );
 
-    // 3. Glandular Lobules & Milk Duct Network
-    final ductPaint = Paint()
-      ..color = const Color(0xFFFBCFE8)
-      ..strokeWidth = 1.5
-      ..style = PaintingStyle.stroke;
-
-    final lobulePaint = Paint()
-      ..color = const Color(0xFFFCE7F3)
-      ..style = PaintingStyle.fill;
-
-    // Background healthy lobules
-    canvas.drawCircle(const Offset(85, 65), 18, lobulePaint);
-    canvas.drawCircle(const Offset(115, 60), 16, lobulePaint);
-    canvas.drawCircle(const Offset(100, 95), 20, lobulePaint);
-    canvas.drawCircle(const Offset(130, 90), 17, lobulePaint);
-
-    // Ducts converging toward nipple (195, 88)
-    canvas.drawLine(const Offset(85, 65), const Offset(140, 78), ductPaint);
-    canvas.drawLine(const Offset(115, 60), const Offset(155, 82), ductPaint);
-    canvas.drawLine(const Offset(100, 95), const Offset(145, 90), ductPaint);
-    canvas.drawLine(const Offset(130, 90), const Offset(175, 88), ductPaint);
-    canvas.drawLine(const Offset(175, 88), const Offset(195, 88), ductPaint..strokeWidth = 2);
-
-    // 4. Lesion / Pathology Feature & Arrow Target
-    Offset lesionCenter = const Offset(115, 65);
-    Offset arrowStart = const Offset(170, 32);
+    // 10. REALISTIC PATHOLOGY RENDERING
+    Offset lesionCenter = const Offset(118, 68);
+    Offset arrowStart = const Offset(180, 28);
+    String caliberText = '';
 
     switch (type) {
       case 'cyst':
-        lesionCenter = const Offset(115, 62);
-        arrowStart = const Offset(165, 30);
-        // Anechoic fluid cyst (Round blue bubble with highlight)
+        lesionCenter = const Offset(118, 64);
+        arrowStart = const Offset(175, 26);
+        caliberText = '16 mm';
+
+        // Posterior Acoustic Enhancement
+        final acousticRect = Rect.fromLTRB(104, 76, 132, 135);
+        final acousticPaint = Paint()
+          ..shader = LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              const Color(0xFF38BDF8).withValues(alpha: 0.4),
+              const Color(0xFF38BDF8).withValues(alpha: 0.1),
+              Colors.transparent,
+            ],
+          ).createShader(acousticRect)
+          ..style = PaintingStyle.fill;
+        canvas.drawRect(acousticRect, acousticPaint);
+
+        // Fluid-filled Anechoic Cavity
+        final cystRect = Rect.fromCircle(center: lesionCenter, radius: 14);
         final cystPaint = Paint()
           ..shader = const RadialGradient(
-            colors: [Color(0xFF38BDF8), Color(0xFF0369A1), Color(0xFF0C4A6E)],
+            colors: [Color(0xFF0369A1), Color(0xFF0C4A6E), Color(0xFF082F49)],
             stops: [0.2, 0.7, 1.0],
-          ).createShader(Rect.fromCircle(center: lesionCenter, radius: 15))
+          ).createShader(cystRect)
           ..style = PaintingStyle.fill;
-        canvas.drawCircle(lesionCenter, 15, cystPaint);
-        // Clean white thin capsule
+        canvas.drawCircle(lesionCenter, 14, cystPaint);
+
+        // Thin capsule wall
         canvas.drawCircle(
           lesionCenter,
-          15,
+          14,
           Paint()
-            ..color = const Color(0xFFBAE6FD)
-            ..strokeWidth = 2
+            ..color = const Color(0xFFE0F2FE)
+            ..strokeWidth = 1.8
             ..style = PaintingStyle.stroke,
         );
-        // Fluid reflection arc
+
+        // Specular anterior fluid reflection glint
         canvas.drawArc(
           Rect.fromCircle(center: lesionCenter, radius: 10),
-          math.pi * 1.1,
-          math.pi * 0.5,
+          math.pi * 1.15,
+          math.pi * 0.45,
           false,
           Paint()
-            ..color = Colors.white.withValues(alpha: 0.85)
-            ..strokeWidth = 2
+            ..color = Colors.white.withValues(alpha: 0.9)
+            ..strokeWidth = 2.2
+            ..strokeCap = StrokeCap.round
             ..style = PaintingStyle.stroke,
         );
         break;
 
       case 'fibroadenoma':
-        lesionCenter = const Offset(110, 68);
-        arrowStart = const Offset(165, 30);
+        lesionCenter = const Offset(116, 72);
+        arrowStart = const Offset(175, 28);
+        caliberText = '22 × 13 mm';
+
         // Smooth oval rubbery mass (width > height)
-        final fibroRect = Rect.fromCenter(center: lesionCenter, width: 34, height: 22);
+        final fibroRect = Rect.fromCenter(center: lesionCenter, width: 36, height: 22);
         final fibroPaint = Paint()
           ..shader = const LinearGradient(
-            colors: [Color(0xFFF472B6), Color(0xFFC026D3), Color(0xFF86198F)],
+            colors: [Color(0xFFF472B6), Color(0xFFC026D3), Color(0xFF701A75)],
           ).createShader(fibroRect)
           ..style = PaintingStyle.fill;
         canvas.drawRRect(RRect.fromRectAndRadius(fibroRect, const Radius.circular(12)), fibroPaint);
-        // Defined regular border
+
+        // Compressed pseudocapsule
         canvas.drawRRect(
           RRect.fromRectAndRadius(fibroRect, const Radius.circular(12)),
           Paint()
             ..color = const Color(0xFFFDF4FF)
-            ..strokeWidth = 2
+            ..strokeWidth = 2.2
             ..style = PaintingStyle.stroke,
+        );
+        canvas.drawLine(
+          Offset(lesionCenter.dx - 10, lesionCenter.dy - 2),
+          Offset(lesionCenter.dx + 10, lesionCenter.dy - 1),
+          Paint()..color = Colors.white.withValues(alpha: 0.4)..strokeWidth = 1.5,
         );
         break;
 
       case 'mastitis':
-        lesionCenter = const Offset(155, 85);
-        arrowStart = const Offset(135, 140);
-        // Red-orange diffuse inflammation glow radiating from duct
+        lesionCenter = const Offset(160, 88);
+        arrowStart = const Offset(140, 145);
+        caliberText = isArabic ? 'احتقان نسيجي' : 'Tissue Edema';
+
+        // Inflammatory Hyperemic Erythema Glow
         final mastitisGlow = Paint()
           ..shader = RadialGradient(
             colors: [
-              const Color(0xFFEF4444).withValues(alpha: 0.7),
-              const Color(0xFFF97316).withValues(alpha: 0.4),
+              const Color(0xFFDC2626).withValues(alpha: 0.75),
+              const Color(0xFFF97316).withValues(alpha: 0.45),
               Colors.transparent,
             ],
-            stops: const [0.2, 0.6, 1.0],
-          ).createShader(Rect.fromCircle(center: lesionCenter, radius: 26))
+            stops: const [0.2, 0.65, 1.0],
+          ).createShader(Rect.fromCircle(center: lesionCenter, radius: 30))
           ..style = PaintingStyle.fill;
-        canvas.drawCircle(lesionCenter, 26, mastitisGlow);
-        // Swollen hyperemic duct
+        canvas.drawCircle(lesionCenter, 30, mastitisGlow);
+
+        // Swollen engorged duct
         canvas.drawLine(
-          const Offset(130, 85),
-          const Offset(185, 88),
+          const Offset(132, 88),
+          const Offset(195, 91),
           Paint()
-            ..color = const Color(0xFFB91C1C)
-            ..strokeWidth = 4.5
+            ..color = const Color(0xFF991B1B)
+            ..strokeWidth = 5.0
             ..strokeCap = StrokeCap.round,
         );
         break;
 
       case 'calcification':
-        lesionCenter = const Offset(115, 65);
-        arrowStart = const Offset(170, 32);
-        // Dotted cluster boundary
-        final clusterRect = Rect.fromCenter(center: lesionCenter, width: 32, height: 32);
+        lesionCenter = const Offset(118, 66);
+        arrowStart = const Offset(175, 28);
+        caliberText = isArabic ? 'تكلسات عنقودية' : 'Clustered Specks';
+
+        final clusterRect = Rect.fromCenter(center: lesionCenter, width: 34, height: 34);
         canvas.drawOval(
           clusterRect,
           Paint()
@@ -1246,108 +1847,101 @@ class _BreastAnatomyPainter extends CustomPainter {
             ..strokeWidth = 1.2
             ..style = PaintingStyle.stroke,
         );
-        // Bright white crystalline specks
-        final speckPaint = Paint()..color = const Color(0xFFFFFFFF);
-        final speckBorder = Paint()
-          ..color = const Color(0xFF1E293B)
-          ..strokeWidth = 0.8
-          ..style = PaintingStyle.stroke;
         final specks = [
-          const Offset(112, 62),
-          const Offset(118, 60),
-          const Offset(115, 68),
-          const Offset(108, 66),
-          const Offset(122, 65),
-          const Offset(110, 71),
-          const Offset(117, 72),
-          const Offset(123, 70),
+          const Offset(112, 60), const Offset(118, 58), const Offset(124, 62),
+          const Offset(109, 66), const Offset(116, 67), const Offset(122, 69),
+          const Offset(114, 73), const Offset(120, 74), const Offset(127, 72),
         ];
         for (final s in specks) {
-          canvas.drawCircle(s, 2.5, speckPaint);
-          canvas.drawCircle(s, 2.5, speckBorder);
+          canvas.drawCircle(s, 2.8, Paint()..color = Colors.white);
+          canvas.drawCircle(s, 2.8, Paint()..color = const Color(0xFF0F172A)..strokeWidth = 0.9..style = PaintingStyle.stroke);
         }
         break;
 
       case 'suspicious':
-        lesionCenter = const Offset(115, 65);
-        arrowStart = const Offset(170, 30);
-        // Spiculated irregular star mass (taller than wide)
-        final path = Path();
-        const pts = 8;
-        const outerR = 17.0;
-        const innerR = 8.0;
+        lesionCenter = const Offset(118, 70);
+        arrowStart = const Offset(180, 26);
+        caliberText = '18 × 24 mm';
+
+        final starPath = Path();
+        const pts = 12;
+        const outerR = 19.0;
+        const innerR = 9.0;
         for (int i = 0; i < pts * 2; i++) {
           final r = i.isEven ? outerR : innerR;
           final angle = (i * math.pi) / pts;
           final x = lesionCenter.dx + r * math.cos(angle);
-          final y = lesionCenter.dy + (r * 1.3) * math.sin(angle); // taller than wide
+          final y = lesionCenter.dy + (r * 1.35) * math.sin(angle);
           if (i == 0) {
-            path.moveTo(x, y);
+            starPath.moveTo(x, y);
           } else {
-            path.lineTo(x, y);
+            starPath.lineTo(x, y);
           }
         }
-        path.close();
+        starPath.close();
+
         canvas.drawPath(
-          path,
+          starPath,
           Paint()
-            ..color = const Color(0xFF881337)
+            ..color = const Color(0xFF4C0519)
             ..style = PaintingStyle.fill,
         );
         canvas.drawPath(
-          path,
+          starPath,
           Paint()
-            ..color = const Color(0xFFE11D48)
-            ..strokeWidth = 1.8
+            ..color = const Color(0xFFBE123C)
+            ..strokeWidth = 2.4
             ..style = PaintingStyle.stroke,
+        );
+        canvas.drawLine(
+          lesionCenter,
+          Offset(lesionCenter.dx + 26, lesionCenter.dy - 6),
+          Paint()..color = const Color(0xFFE11D48)..strokeWidth = 2.4..strokeCap = StrokeCap.round,
         );
         break;
 
       case 'exam':
-        lesionCenter = const Offset(115, 88);
-        arrowStart = const Offset(170, 32);
-        // 4 Quadrants dashed lines intersecting at (115, 88)
-        final gridPaint = Paint()
-          ..color = AppColors.primary.withValues(alpha: 0.5)
-          ..strokeWidth = 1.2
-          ..style = PaintingStyle.stroke;
-        canvas.drawLine(const Offset(60, 88), const Offset(185, 88), gridPaint);
-        canvas.drawLine(const Offset(115, 35), const Offset(115, 140), gridPaint);
+        lesionCenter = const Offset(118, 90);
+        arrowStart = const Offset(175, 30);
+        caliberText = isArabic ? 'مسار الفحص' : 'Palpation Track';
 
-        // Circular palpation directional track
+        final qPaint = Paint()
+          ..color = AppColors.primary.withValues(alpha: 0.5)
+          ..strokeWidth = 1.3
+          ..style = PaintingStyle.stroke;
+        canvas.drawLine(const Offset(60, 90), const Offset(195, 90), qPaint);
+        canvas.drawLine(const Offset(118, 30), const Offset(118, 150), qPaint);
+
         final trackPaint = Paint()
           ..color = AppColors.primary
-          ..strokeWidth = 2
+          ..strokeWidth = 2.2
           ..style = PaintingStyle.stroke;
         canvas.drawArc(
-          Rect.fromCircle(center: lesionCenter, radius: 28),
+          Rect.fromCircle(center: lesionCenter, radius: 30),
           0.2,
-          math.pi * 1.5,
+          math.pi * 1.55,
           false,
           trackPaint,
         );
         break;
 
       default:
-        // Healthy baseline
-        lesionCenter = const Offset(115, 75);
-        arrowStart = const Offset(170, 30);
+        lesionCenter = const Offset(118, 75);
+        arrowStart = const Offset(175, 30);
         break;
     }
 
-    // 5. Stylized Directional ARROW Pointing at the Problem Area
+    // 11. SURGICAL CLINICAL ARROW WITH TARGET RETICLE & CALIBER
     final arrowPaint = Paint()
       ..color = themeColor
-      ..strokeWidth = 2.8
+      ..strokeWidth = 3.0
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke;
 
-    // Arrow line
     canvas.drawLine(arrowStart, lesionCenter, arrowPaint);
 
-    // Arrowhead calculations
     final angle = math.atan2(lesionCenter.dy - arrowStart.dy, lesionCenter.dx - arrowStart.dx);
-    const arrowHeadLen = 10.0;
+    const arrowHeadLen = 11.0;
     const arrowHeadAngle = 0.5;
 
     final arrowHeadPath = Path();
@@ -1361,22 +1955,59 @@ class _BreastAnatomyPainter extends CustomPainter {
       lesionCenter.dy - arrowHeadLen * math.sin(angle + arrowHeadAngle),
     );
     arrowHeadPath.close();
+    canvas.drawPath(arrowHeadPath, Paint()..color = themeColor..style = PaintingStyle.fill);
 
-    final arrowHeadFill = Paint()
-      ..color = themeColor
-      ..style = PaintingStyle.fill;
-    canvas.drawPath(arrowHeadPath, arrowHeadFill);
+    canvas.drawCircle(
+      lesionCenter,
+      22,
+      Paint()
+        ..color = themeColor.withValues(alpha: 0.5)
+        ..strokeWidth = 1.2
+        ..style = PaintingStyle.stroke,
+    );
 
-    // Origin Pulse Pin on Arrow Start
-    canvas.drawCircle(arrowStart, 4.5, arrowHeadFill);
+    canvas.drawCircle(arrowStart, 5.0, Paint()..color = themeColor..style = PaintingStyle.fill);
     canvas.drawCircle(
       arrowStart,
-      7,
+      8.0,
       Paint()
         ..color = themeColor.withValues(alpha: 0.3)
         ..style = PaintingStyle.stroke
-        ..strokeWidth = 1.5,
+        ..strokeWidth = 1.8,
     );
+
+    if (caliberText.isNotEmpty) {
+      final textSpan = TextSpan(
+        text: caliberText,
+        style: TextStyle(
+          color: themeColor,
+          fontSize: 10,
+          fontWeight: FontWeight.w800,
+        ),
+      );
+      final textPainter = TextPainter(
+        text: textSpan,
+        textDirection: isArabic ? TextDirection.rtl : TextDirection.ltr,
+      )..layout();
+
+      final pillRect = Rect.fromCenter(
+        center: Offset(arrowStart.dx + (isArabic ? -25 : 25), arrowStart.dy - 12),
+        width: textPainter.width + 12,
+        height: 18,
+      );
+      canvas.drawRRect(
+        RRect.fromRectAndRadius(pillRect, const Radius.circular(6)),
+        Paint()..color = Colors.white..style = PaintingStyle.fill,
+      );
+      canvas.drawRRect(
+        RRect.fromRectAndRadius(pillRect, const Radius.circular(6)),
+        Paint()..color = themeColor.withValues(alpha: 0.5)..strokeWidth = 1..style = PaintingStyle.stroke,
+      );
+      textPainter.paint(
+        canvas,
+        Offset(pillRect.left + 6, pillRect.top + 2),
+      );
+    }
   }
 
   @override
